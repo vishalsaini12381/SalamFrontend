@@ -1,0 +1,4 @@
+.ck-editor__editable p {
+    position: relative;
+    min-height: 300px!important;
+}

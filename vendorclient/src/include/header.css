@@ -1,0 +1,9 @@
+.header-salam .userimage img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+}
+.header-salam .header {
+
+    background: #2480fe;
+}
