@@ -5,8 +5,6 @@ class Footer extends React.Component{
 	render()
 	{
 		return(
-
-
 		   <footer className="footer salamfooter">
 				<div className="container">
 					<div className="row align-items-center flex-row-reverse">

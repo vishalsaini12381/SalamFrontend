@@ -1,35 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './header.css';
 import axios from 'axios';
 import swal from 'sweetalert';
 const URL = process.env.REACT_APP_LOCAL;
 
-class Header extends React.Component{
+class Header extends React.Component {
 
-	logout(event){
+	constructor(props) {
+		super(props)
+		console.log(this.props)
+	}
+
+	logout(event) {
 		event.preventDefault();
-		axios.get(URL+'/api/admin/adminLogout').then((response)=>{
-			console.log('response',response);
+		axios.get(URL + '/api/admin/adminLogout').then((response) => {
+			console.log('response', response);
 			localStorage.clear();
-			if(response.data.status){
+			if (response.data.status) {
 				swal("Success",
-				`${response.data.message}`)
-				.then((d)=>{
-					if(d) return window.location = "/"
-				})
+					`${response.data.message}`)
+					.then((d) => {
+						if (d) return window.location = "/"
+					})
 			}
 		});
 	}
 
-	render(){
-		return(
-		<div className="header-salam" >
+	render() {
+		return (
+			<div className="header-salam" >
 				<div className="header py-1">
 					<div className="container">
 						<div className="d-flex">
 							<a className="header-brand" href="#">
-								<img src="./images/logo/logo.png" className="header-brand-img" alt="FundMaster logo"/>
+								<img src="./images/logo/logo.png" className="header-brand-img" alt="FundMaster logo" />
 							</a>
 							<div className="d-flex order-lg-2 ml-auto">
 								<div className="dropdown mt-1">
@@ -46,25 +52,25 @@ class Header extends React.Component{
 											<i className="dropdown-icon mdi mdi-home"></i> Dashboard
 										</a>
 										<div className="dropdown-divider"></div>
-										<a className="dropdown-item" href="#" onClick = {this.logout.bind(this)}>
+										<a className="dropdown-item" href="#" onClick={this.logout.bind(this)}>
 											<i className="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
 										</a>
 									</div>
 								</div>
 							</div>
 							<a href="#" className="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
-							<span className="header-toggler-icon"></span>
+								<span className="header-toggler-icon"></span>
 							</a>
 						</div>
 					</div>
 				</div>
-			<div className="admin-navbar">
+				<div className="admin-navbar">
 					<div className="container">
 						<ul className="nav">
 							<li className="nav-item with-sub">
-								<a className="nav-link active" href="/dashboard">
+								<Link to="/dashboard" className="nav-link active">
 									<span> Dashboard</span>
-								</a>
+								</Link>
 							</li>
 							<li className="nav-item with-sub">
 								<a className="nav-link" href="#">
@@ -73,7 +79,7 @@ class Header extends React.Component{
 								<div className="sub-item">
 									<ul>
 										<li>
-											<a href="/userlist"> User List </a>
+											<Link to="/userlist"> User List </Link>
 										</li>
 									</ul>
 								</div>
@@ -85,7 +91,7 @@ class Header extends React.Component{
 								<div className="sub-item">
 									<ul>
 										<li>
-											<a href="/vendorlist">Vendor List </a>
+											<Link to="/vendorlist">Vendor List </Link>
 										</li>
 										<li>
 											{/* <a href="/addnewvendor">Add New Vendor </a> */}
@@ -100,7 +106,7 @@ class Header extends React.Component{
 								<div className="sub-item">
 									<ul>
 										<li>
-											<a href="/Orderlist">Order List </a>
+											<Link to="/Orderlist">Order List </Link>
 										</li>
 									</ul>
 								</div>
@@ -112,7 +118,7 @@ class Header extends React.Component{
 								<div className="sub-item">
 									<ul>
 										<li>
-											<a href="/Productlist">Product List</a>
+											<Link to="/Productlist">Product List</Link>
 										</li>
 										{/* <li>
 											<a href="/Addnewproduct">Add New Product</a>
@@ -127,19 +133,19 @@ class Header extends React.Component{
 								<div className="sub-item">
 									<ul>
 										<li>
-											<a href="/businesscategory">Create Business Category</a>
+											<Link to="/businesscategory">Create Business Category</Link>
 										</li>
 										<li>
-											<a href="/category">Create Category</a>
+											<Link to="/category">Create Category</Link>
 										</li>
 										<li>
-											<a href="/subcategory">Create Sub Category</a>
+											<Link to="/subcategory">Create Sub Category</Link>
 										</li>
 										<li>
-											<a href="/createBrand">Add Brands</a>
+											<Link to="/createBrand">Add Brands</Link>
 										</li>
 										<li>
-											<a href="/CreateSpecificationpage">Specification</a>
+											<Link to="/CreateSpecificationpage">Specification</Link>
 										</li>
 									</ul>
 								</div>
@@ -147,12 +153,12 @@ class Header extends React.Component{
 						</ul>
 					</div>
 				</div>
-		</div>
+			</div>
 
 
-			)
+		)
 
 	}
 }
 
-export default Header;
+export default withRouter(Header);

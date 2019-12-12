@@ -19,7 +19,7 @@ class Vendordetailpage extends React.Component{
        status : {value : this.props.adminStatus , isValidate : true , message : ''},
         visible  : false,
         featured: false,
-
+        adminStatus: 'Verify'
      }
      this.handleChangeStatus = this.handleChangeStatus.bind(this);
      this.submit = this.submit.bind(this);
@@ -32,6 +32,9 @@ class Vendordetailpage extends React.Component{
     let state = this.state;
     state[name].message = '';
     state[name].value = value;
+    
+    if(name == 'status')
+      state['adminStatus'] = value;
     this.setState(state);
   }
 
@@ -106,7 +109,7 @@ class Vendordetailpage extends React.Component{
         swal("Successful",
         `${response.data.message}`,
         ).then((d)=>{
-          return window.location = "/Vendordetail"
+          // return window.location = "/Vendordetail"
         })
       }else{
         swal("Error",
@@ -117,6 +120,18 @@ class Vendordetailpage extends React.Component{
       }
     })
     // window.location = '/Vendordetail';
+  }
+
+  componentDidMount(){
+    if(this.props.adminStatus != undefined){
+      this.setState({adminStatus: this.props.adminStatus})
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.adminStatus != undefined){
+      this.setState({adminStatus: nextProps.adminStatus})
+    }
   }
 
 	render(){
@@ -207,7 +222,7 @@ class Vendordetailpage extends React.Component{
                               </tr>
                               <tr>
                                 <td>
-                               <select className="form-control custom-select" name = "status" value = {this.props.adminStatus} onChange = {this.handleChangeStatus}>
+                               <select className="form-control custom-select" name = "status" value = {this.state.adminStatus} onChange = {this.handleChangeStatus}>
                                {/* <option value = '' ></option> */}
                                   <option>Unverify</option>
                                   <option>Verify</option>
