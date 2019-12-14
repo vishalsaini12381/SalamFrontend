@@ -64,10 +64,11 @@ class Detail extends React.Component {
             </div>
             <div class="row">
               <div class="product-view productdetail-fluid">
-                <div class="product-essential">
-                  <Productslider productData={this.state.productData} />
-                  <Description productData={this.state.productData} />
-                </div>
+                {this.state.productData.length > 0 ?
+                  <div class="product-essential">
+                    <Productslider productData={this.state.productData} />
+                    <Description productData={this.state.productData} />
+                  </div> : null}
               </div>
             </div>
           </div>

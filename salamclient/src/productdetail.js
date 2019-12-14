@@ -7,12 +7,6 @@ import Similarproduct from './productdetail/similarproduct.js';
 import Customerreview from './productdetail/customerreview.js';
 
 class Productdetail extends React.Component {
-
-	componentDidMount(){
-		this.fetchProductDetail();
-	}
-	
-
 	render() {
 		return (
 			<div>
