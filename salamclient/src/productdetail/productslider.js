@@ -14,32 +14,49 @@ class Productslider extends React.Component {
       productDetailFile: ''
     }
 
-    this.fetchProductDetail = this.fetchProductDetail.bind(this);
+    // this.fetchProductDetail = this.fetchProductDetail.bind(this);
   }
 
-  componentWillMount() {
-    this.fetchProductDetail();
-  }
+  // componentWillMount() {
+  //   this.fetchProductDetail();
+  // }
 
-  fetchProductDetail() {
-
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let foo = params.get('product');
-    this.setState({
-      productId: foo,
-    })
-
-    axios.post(URL + '/api/user/productDetail', {
-      productId: foo,
-    }).then((response) => {
-      console.log('this.12112122122122122', response.data.productData[0].product);
+  componentDidMount() {
+    if (this.props.productData[0] !== undefined) {
       this.setState({
-        productDetail: response.data.productData[0].product,
-        productDetailFile: response.data.productData[0].product['file1']
+        productDetail: this.props.productData[0].product,
+        productDetailFile: this.props.productData[0].product['file1']
       })
-    })
+    }
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.productData[0] !== undefined) {
+      this.setState({
+        productDetail: nextProps.productData[0].product,
+        productDetailFile: nextProps.productData[0].product['file1']
+      })
+    }
+  }
+  // fetchProductDetail() {
+
+  //   let search = window.location.search;
+  //   let params = new URLSearchParams(search);
+  //   let foo = params.get('product');
+  //   this.setState({
+  //     productId: foo,
+  //   })
+
+  //   axios.post(URL + '/api/user/productDetail', {
+  //     productId: foo,
+  //   }).then((response) => {
+  //     console.log('this.12112122122122122', response.data.productData[0].product);
+  //     this.setState({
+  //       productDetail: response.data.productData[0].product,
+  //       productDetailFile: response.data.productData[0].product['file1']
+  //     })
+  //   })
+  // }
 
   shoeImgs(e) {
     console.log(e.target.value)

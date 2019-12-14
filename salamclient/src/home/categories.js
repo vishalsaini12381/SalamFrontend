@@ -64,124 +64,120 @@ class Categories extends React.Component {
       },
     };
 
+    const { visible } = this.state
 
-    return (
-      <div className="container-fluid newproduct-fluid" >
-        {/* <Loader visible = {this.state.visible} type="Puff" className="signuploader" /> */}
-        {
-          (this.state.productList[0]) ?
-            <div className="container">
+    if (this.state.productList.length > 0 && !visible)
+      return (
+        <div className="container-fluid newproduct-fluid" >
+          <div className="container">
 
-              <div className="headingpart">
-                <h2>New  Products</h2>
-              </div>
-              <Carousel responsive={responsive}>
-
-                {
-                  this.state.productList.map((e, i) => {
-                    return (
-                      <div className="mutlislider">
-                        <div className="productimage">
-                          <a href={"Productdetail?product=" + e._id}><img src={e.file1} alt="product 1" /></a>
-                          <a href={'Productdetail?product=' + e._id}><div className="viewproduct"><i className="fa fa-shopping-cart"></i> Add to Cart </div></a>
-                        </div>
-                        <div style={{display: 'flex',alignItems: 'center', justifyContent:'space-between'}}>
-                          <h3>{e.productName}</h3>
-                          <h4><span>${e.productPrice}</span> ${((e.productPrice) - (e.productPrice) * (e.discount) / 100)}</h4>
-                        </div>
-
-                      </div>
-                    )
-                  })
-                }
-
-
-
-
-              </Carousel>
+            <div className="headingpart">
+              <h2>New  Products</h2>
             </div>
-            : <div class="container">
-              <div class="headingpart">
-                <h2>New  Products</h2>
-              </div>
-              <div class="react-multi-carousel-list  undefined">
-                <ul class="react-multi-carousel-track " style={{ transition: "none 0s ease 0s", overflow: "unset", transform: "translate3d(0px, 0px, 0px)" }}>
-                  <li data-index="0" aria-hidden="false" class="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
-                    <div class="mutlislider">
-                      <div class="productimage">
-                        <a>
-                          <img style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
-                          <div class="viewproduct">
-                            <i class="fa fa-shopping-cart"></i> Add to Cart
-                                          </div>
-                        </a>
-                      </div>
-                      <h3>----</h3>
-                    </div>
-                  </li>
-                  <li data-index="0" aria-hidden="false" class="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
-                    <div class="mutlislider">
-                      <div class="productimage">
-                        <a>
-                          <img style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
-                          <div class="viewproduct">
-                            <i class="fa fa-shopping-cart"></i> Add to Cart
-                                          </div>
-                        </a>
-                      </div>
-                      <h3>----</h3>
-                    </div>
-                  </li>
-                  <li data-index="0" aria-hidden="false" class="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
-                    <div class="mutlislider">
-                      <div class="productimage">
-                        <a>
-                          <img style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
-                          <div class="viewproduct">
-                            <i class="fa fa-shopping-cart"></i> Add to Cart
-                                          </div>
-                        </a>
-                      </div>
-                      <h3>----</h3>
-                    </div>
-                  </li>
-                  <li data-index="0" aria-hidden="false" class="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
-                    <div class="mutlislider">
-                      <div class="productimage">
-                        <a>
-                          <img style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
-                          <div class="viewproduct">
-                            <i class="fa fa-shopping-cart"></i> Add to Cart
-                                          </div>
-                        </a>
-                      </div>
-                      <h3>----</h3>
-                    </div>
-                  </li>
-                  <li data-index="0" aria-hidden="false" class="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
-                    <div class="mutlislider">
-                      <div class="productimage">
-                        <a>
-                          <img style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
-                          <div class="viewproduct">
-                            <i class="fa fa-shopping-cart"></i> Add to Cart
-                                          </div>
-                        </a>
-                      </div>
-                      <h3>----</h3>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <Carousel responsive={responsive}>
 
+              {
+                this.state.productList.map((e, i) => {
+                  return (
+                    <div className="mutlislider">
+                      <div className="productimage">
+                        <a href={"Productdetail?product=" + e._id}><img src={e.file1} alt="product 1" /></a>
+                        <a href={'Productdetail?product=' + e._id}><div className="viewproduct"><i className="fa fa-shopping-cart"></i> Add to Cart </div></a>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <h3>{e.productName}</h3>
+                        <h4>
+                          <span>${e.productPrice}</span>
+                          ${((e.productPrice) - (e.productPrice) * (e.discount) / 100)}
+                        </h4>
+                      </div>
 
-
-
-        }
-      </div>
-
-    )
+                    </div>
+                  )
+                })
+              }
+            </Carousel>
+          </div>
+        </div>)
+    else if (this.state.productList.length === 0 && visible)
+      return (
+        <div className="container-fluid newproduct-fluid" ><div class="container">
+          <div class="headingpart">
+            <h2>New  Products</h2>
+          </div>
+          <div class="react-multi-carousel-list  undefined">
+            <ul class="react-multi-carousel-track " style={{ transition: "none 0s ease 0s", overflow: "unset", transform: "translate3d(0px, 0px, 0px)" }}>
+              <li data-index="0" aria-hidden="false" class="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
+                <div class="mutlislider">
+                  <div class="productimage">
+                    <a>
+                      <img style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
+                      <div class="viewproduct">
+                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                          </div>
+                    </a>
+                  </div>
+                  <h3>----</h3>
+                </div>
+              </li>
+              <li data-index="0" aria-hidden="false" class="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
+                <div class="mutlislider">
+                  <div class="productimage">
+                    <a>
+                      <img style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
+                      <div class="viewproduct">
+                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                          </div>
+                    </a>
+                  </div>
+                  <h3>----</h3>
+                </div>
+              </li>
+              <li data-index="0" aria-hidden="false" class="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
+                <div class="mutlislider">
+                  <div class="productimage">
+                    <a>
+                      <img style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
+                      <div class="viewproduct">
+                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                          </div>
+                    </a>
+                  </div>
+                  <h3>----</h3>
+                </div>
+              </li>
+              <li data-index="0" aria-hidden="false" class="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
+                <div class="mutlislider">
+                  <div class="productimage">
+                    <a>
+                      <img style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
+                      <div class="viewproduct">
+                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                          </div>
+                    </a>
+                  </div>
+                  <h3>----</h3>
+                </div>
+              </li>
+              <li data-index="0" aria-hidden="false" class="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
+                <div class="mutlislider">
+                  <div class="productimage">
+                    <a>
+                      <img style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
+                      <div class="viewproduct">
+                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                          </div>
+                    </a>
+                  </div>
+                  <h3>----</h3>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+      )
+    return null;
   }
 }
 
