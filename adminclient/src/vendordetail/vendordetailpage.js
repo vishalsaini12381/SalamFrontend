@@ -21,7 +21,7 @@ class Vendordetailpage extends React.Component {
       featured: false,
       adminStatus: 'Verify',
       vendorDetail: {},
-      vendorId:undefined
+      vendorId: undefined
     }
     this.handleChangeStatus = this.handleChangeStatus.bind(this);
     this.submit = this.submit.bind(this);
@@ -41,10 +41,10 @@ class Vendordetailpage extends React.Component {
   }
   componentDidMount() {
     const vendorId = this.getUrlParameter('vendorId');
-    if(vendorId){
+    if (vendorId) {
       this.setState({
         vendorId
-      },()=>this.fetchFeatured())
+      }, () => this.fetchFeatured())
     }
   }
 
@@ -64,7 +64,7 @@ class Vendordetailpage extends React.Component {
     this.setState({ visible: true });
     obj.vendorId = this.state.vendorId;
     axios.post(URL + '/api/admin/fetchVendorList', obj).then((doc) => {
-      this.setState({ visible: false, vendorDetail: doc.data,adminStatus: doc.data.adminStatus, featured: doc.data.featured })
+      this.setState({ visible: false, vendorDetail: doc.data, adminStatus: doc.data.adminStatus, featured: doc.data.featured })
     })
   }
 

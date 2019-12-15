@@ -26,7 +26,6 @@ class Favseller extends React.Component {
       featured: this.state.featured,
     })
       .then((response) => {
-        console.log('response', response.data.vendor);
         this.setState({
           vendorList: response.data.vendor
         })
@@ -79,8 +78,7 @@ class Favseller extends React.Component {
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     deviceType={this.props.deviceType}
                     dotListClass="custom-dot-list-style"
-                    itemClass="carousel-item-padding-40-px"
-                  >
+                    itemClass="carousel-item-padding-40-px">
                     {
                       this.state.vendorList.map((e, i) => {
                         return (
