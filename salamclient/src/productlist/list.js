@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './list.css';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import './sidebar.css';
+import swal from 'sweetalert';
+
 const URL = process.env.REACT_APP_LOCAL;
 
 class List extends React.Component {
@@ -20,8 +23,6 @@ class List extends React.Component {
     }
     this.fetchProduct = this.fetchProduct.bind(this);
     this.fetchSpecification = this.fetchSpecification.bind(this)
-    // this.hadleChangeSpecification = this.hadleChangeSpecification.bind(this);   
-    // console.log('nononononoonononono',this.props.location.productList)
   }
 
   componentWillMount() {
@@ -39,8 +40,6 @@ class List extends React.Component {
       subcategoryids: foo
     })
 
-
-    console.log('specifyeeeeeeeeeeee', this.state.subcategoryids);
     axios.post(URL + '/api/user/fetchProduct', {
       subcategoryid: foo,
     }).then((response) => {
@@ -87,7 +86,6 @@ class List extends React.Component {
     this.setState({ specification: options }, () => {
       //this.fetchProduct();
     })
-    console.log('specificationspecification', this.state.specification)
 
     let search = window.location.search;
     let params = new URLSearchParams(search);
@@ -138,27 +136,93 @@ class List extends React.Component {
       this.setState({
         productList: this.state.filterResult
       })
-
     })
-
-
-    // let obj = {};
-    // obj.specification = this.state.specification;
-    // obj.productName = 'kuch v'
-    // console.log('@@@@@@@@@@@@@@@@@',obj);
-    // axios.post(URL+ '/api/user/fetchProductSpecification',obj).then((res)=>{
-    //   this.setState({
-    //     productList : res.data.doc
-    //   },()=>{
-    //     this.fetchProduct();
-    //   })
-    // })
-
   }
 
+  addItemToCart = (event, product) => {
+    event.preventDefault();
+    if (this.isUserLoggedIn()) {
+      const data = {
+        userId: this.props.userId,
+        productId: product._id,
+        price: product.productPrice,
+        discount: product.discount,
+        quantity: 1,
+        action: 2
+      }
+      axios.post(URL + '/api/user/addToCart', data)
+        .then((response) => {
+          console.log('this.responsefdfddfdddddddddd', response.data.product);
+          if (response.data.code == 100) {
+            // return window.location.reload()
+          } else {
+            swal({
+              title: "OOPS",
+              text: response.data.message,
+              icon: "warning",
+              dangerMode: true,
+              closeOnClickOutside: false,
+            }).then((d) => {
+              //console.log('ddddddddddddddddddd',d)
+              if (d) {
+                //return window.location = "/Login"
+              }
+            })
+          }
+        })
+    } else {
+      this.messageToLogin()
+    }
+  }
+
+  addItemToWishList = (event, product) => {
+    event.preventDefault();
+    if (this.isUserLoggedIn()) {
+      axios.post(URL + '/api/user/addToWishlist', {
+        userId: this.props.userId,
+        productId: product._id,
+      }).then((response) => {
+        //console.log('this.responsefdfddfdddddddddd',response.data.product);
+        if (response.data.code == 100) {
+          // return window.location.reload()
+        } else {
+          swal({
+            title: "OOPS",
+            text: "Some error found.",
+            icon: "warning",
+            dangerMode: true,
+            closeOnClickOutside: false,
+          }).then((d) => {
+            //console.log('ddddddddddddddddddd',d)
+            if (d) {
+              // return window.location.reload();
+            }
+          })
+        }
+      })
+    } else {
+      this.messageToLogin()
+    }
+  }
+
+  isUserLoggedIn = () => {
+    if (this.props.userId !== undefined)
+      return true
+    return false
+  }
+
+  messageToLogin = () => {
+    swal({
+      title: "OOPS",
+      text: "You need login to add item.",
+      icon: "warning",
+      dangerMode: true,
+      closeOnClickOutside: false,
+    }).then((d) => {
+    })
+}
+
   render() {
-    console.log('specification', this.state.specification);
-    console.log('productList', this.state.productList);
     return (
       <div className="row">
         <section className="col-main col-sm-9 col-sm-push-3 wow bounceInUp animated productlist-fluid">
@@ -185,9 +249,15 @@ class List extends React.Component {
                           <div className="col-item">
                             <div className="product-image-area"> <a className="product-image" title="Sample Product" href={'Productdetail?product=' + e._id}> <img src={e.file1}
                               className="img-responsive" style={{ height: '200px', width: '100%' }} alt="a" /> </a>
-                              <div className="hover_fly"> <a className="exclusive ajax_add_to_cart_button" href={'Productdetail?product=' + e._id} title="Add Cart">
-                                <div><i className="icon-shopping-cart"></i><span><i className="fa fa-shopping-bag"></i> Add Cart</span></div>
-                              </a> <a className="quick-view" href={'Productdetail?product=' + e._id}>
+                              <div className="hover_fly">
+                                <a className="exclusive ajax_add_to_cart_button" href="#" onClick={(event) => this.addItemToCart(event, e)} title="Add Cart">
+                                  <div>
+                                    <i className="icon-shopping-cart"></i>
+                                    <span><i className="fa fa-shopping-bag"></i> Add Cart</span>
+                                  </div>
+                                  {/* href={'Productdetail?product=' + e._id} */}
+                                </a>
+                                <a className="quick-view" href="#" onClick={(event) => this.addItemToWishList(event, e)}>
                                   <div><i className="icon-eye-open"></i><span><i className="fa fa-heart"></i></span></div>
                                 </a> </div>
                             </div>
@@ -224,30 +294,11 @@ class List extends React.Component {
                       </React.Fragment>
                     )
                   })
-                  //  :
-                  //  <div>
-                  //    <p>No Data Found</p>
-                  //  </div>
                 }
               </ul>
                 : <img src="./no-product.png"></img>
             }
           </div>
-          {/* <div className="pages">
-                  <ul className="pagination">
-                    <li><a href="#">Prev</a></li>
-                    <li className="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#">7</a></li>
-                    <li><a href="#">8</a></li>
-                    <li><a href="#">9</a></li>
-                    <li><a href="#">Next</a></li>
-                  </ul>
-                </div> */}
         </section>{
           this.state.specificationList.length > 0 ?
             <aside className="col-left sidebar col-sm-3 col-xs-12 col-sm-pull-9 wow bounceInUp animated">
@@ -279,4 +330,12 @@ class List extends React.Component {
   }
 }
 
-export default List;
+
+function mapStateToProps(state) {
+  console.log('mapStateToProps List page', state.inititateState.userId);
+  return {
+    userId: state.inititateState.userId
+  }
+}
+
+export default connect(mapStateToProps)(List);

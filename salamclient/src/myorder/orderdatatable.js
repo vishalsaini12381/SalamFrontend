@@ -78,7 +78,7 @@ class Orderdatatable extends Component {
           "amount": '$' + e.price,
           "shippingamount": '$' + e.shippingCharges,
           "total": '$' + e.amount,
-          "view": <a href={'/orderdetail?orderId=' + e._id}>View</a>
+          "view": <a href={'/orderdetail?orderId=' + e._id}><i class="fa fa-eye"></i></a>
         }
         body.push(obj);
       })

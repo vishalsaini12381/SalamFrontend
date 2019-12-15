@@ -248,7 +248,7 @@ class Dashboardpage extends React.Component {
                         <td>MBV 1014 Dubai</td> */}
                                 <td>
                                   <div className="actiontrans">
-                                    <a onClick={()=>this.props.history.push("vendordetail")}>View Detail</a>
+                                    <a onClick={()=>this.props.history.push(`vendordetail?vendorId=${e._id}`)}>View Detail</a>
                                   </div>
                                 </td>
                               </tr>

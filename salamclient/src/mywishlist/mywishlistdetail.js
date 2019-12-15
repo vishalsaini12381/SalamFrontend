@@ -33,6 +33,8 @@ class Mywishlistdetail extends React.Component {
           this.setState({
             myWishlist: response.data.product,
           })
+        }else{
+          this.setState({myWishlist:[]})
         }
       })
     } else {
@@ -59,7 +61,8 @@ class Mywishlistdetail extends React.Component {
     }).then((response) => {
       //console.log('this.responsefdfddfdddddddddd',response.data.product);
       if (response.data.code == 100) {
-        return window.location.reload()
+        this.fetchMyWishlist();
+        // return window.location.reload()
       } else {
         swal({
           title: "OOPS",

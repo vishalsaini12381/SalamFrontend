@@ -81,7 +81,8 @@ class Addressdetail extends React.Component{
         addressId:addressId
       }).then((response)=>{
         if(response.data.code==100){
-          return window.location.reload()
+          // return window.location.reload()
+          this.fetchMyAddress();
         }else{
           swal({
             title: "OOPS",
