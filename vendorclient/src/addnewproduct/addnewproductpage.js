@@ -2,10 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-//import CKEditor from '@ckeditor/ckeditor5-react';
-//import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { bindActionCreators } from 'redux';
-// import action from '../action/action';
 import validator from 'validator';
 import axios from 'axios';
 import swal from 'sweetalert';
@@ -360,52 +357,13 @@ class Addnewproductpage extends React.Component {
     })
   }
 
-
-  // handleImage(event) {
-  //   this.setState({
-  //     file2: URL.createObjectURL(event.target.files[0])
-  //   })
-  // }
-
-  // handleImage1(event) {
-  //   this.setState({
-  //     file1: URL.createObjectURL(event.target.files[0])
-  //   })
-  // }
-
-
-
-
   hadleChangeSize(e, i) {
-    // console.log('e.target.value',e.target.value)
-    // // this.setState({fValue : event.target.value})
-
-    // // current array of options
-    // const options = this.state.specification
-    // let index
-
-    // // check if the check box is checked or unchecked
-    // if (e.target.checked) {
-    //   // add the numerical value of the checkbox to options array
-    //   options.push(e.target.value)
-    // } else {
-    //   // or remove the value from the unchecked checkbox from the array
-    //   index = options.indexOf(e.target.value)
-    //   options.splice(index, 1)
-    // }
-
-    // // update the state with the new array of options
-    // this.setState({ specification: options })
-
-    console.log('eeeeeeeeeeeeeeeeeeeeee11111111111', e)
     if (e.target.checked) {
       this.setState({
         specification: [...this.state.specification, {
           'key': e.target.name,
           'value': e.target.value,
         }]
-
-
       });
       console.log('fruits', this.state.specification);
     } else {
@@ -418,10 +376,7 @@ class Addnewproductpage extends React.Component {
         }
       );
     }
-
-
   }
-
 
   newSize() {
     if (this.state.fValue !== "" && this.state.fValue !== null && this.state.fValue !== undefined) {
@@ -552,8 +507,6 @@ class Addnewproductpage extends React.Component {
                       )
                     })
                   }
-
-
                   <div className="row">
                     <div className="col-md-6 col-lg-6">
                       <div className="form-group">
@@ -605,6 +558,15 @@ class Addnewproductpage extends React.Component {
                       </div>
                     </div>
 
+                    {/* Return Refund */}
+                    <div>
+                      <div>
+                        <label>Refundable Item</label>
+                        <input type="checkbox"/>
+                      </div>
+                    </div>
+                    {/*  */}
+                    
                     <div className="col-md-3 col-lg-3">
                       <div className="form-group">
                         <label className="form-label">Upload Product Image </label>
