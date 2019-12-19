@@ -115,7 +115,7 @@ class Paymentdetail extends React.Component{
                   shippingCharges:this.state.shippingAmount,
                   amount  : this.state.total
                 }).then((orderResponse)=>{
-                    if(orderResponse.data.code==100){
+                    if(orderResponse.data.code==200){
                       swal({
                         title: "Success",
                         text: "Order placed successfully.",

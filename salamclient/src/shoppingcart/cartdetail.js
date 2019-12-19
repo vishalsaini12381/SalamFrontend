@@ -154,18 +154,6 @@ class Cartdetail extends React.Component {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
-                                    <div className="form-group">
-                                      <label for="size">Size</label>
-                                      <select className="form-control" id="exampleFormControlSelect1">
-                                        <option>M</option>
-                                        <option>S</option>
-                                        <option>L</option>
-                                        <option>XL</option>
-                                      </select>
-                                    </div>
-                              </td> */}
-
                           <td>
                             <div className="price">
                               <label for="price">Total</label>
@@ -178,12 +166,9 @@ class Cartdetail extends React.Component {
                             </div>
                           </td>
                         </tr>
-
                       )
                     })
-
                   }
-
                 </tbody>
               </table>
             </div>
@@ -218,7 +203,7 @@ class Cartdetail extends React.Component {
                   }
                 </span></li>
               </ul>
-              <div className="checkouts"><a href="/Deliveryaddress">Checkout</a></div>
+              <div className="checkouts"><a onClick={() => this.props.history.push('Deliveryaddress')} href="#">Checkout</a></div>
             </div>
           </div>
         </aside>

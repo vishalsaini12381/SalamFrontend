@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './sidebar.css';
 import axios from 'axios';
 import swal from 'sweetalert';
-
+import { withRouter } from 'react-router-dom'
 const URL = process.env.REACT_APP_LOCAL;
 
 class Sidebar extends React.Component {
@@ -29,8 +29,8 @@ class Sidebar extends React.Component {
           <div className="block-title">My Account</div>
           <div className="block-content">
             <ul>
-              <li><a href="/Myprofile">My Profile </a></li>
-              <li><a href="/myOrders">My Order</a></li>
+              <li><a href='#' onClick={() => this.props.history.push("Myprofile")}>My Profile </a></li>
+              <li><a href='#' onClick={() => this.props.history.push("myOrders")}>My Order</a></li>
               <li className="current"><a href="#">My Wishlist</a></li>
               <li><a href="#">Setting</a></li>
               <li><a>Sell With Us</a></li>
@@ -49,4 +49,4 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+export default withRouter(Sidebar);

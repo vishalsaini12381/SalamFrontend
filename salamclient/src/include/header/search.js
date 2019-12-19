@@ -83,7 +83,7 @@ class Search extends React.Component {
                   <div className="links">
                     {
                       this.props.email ?
-                        <div className="wishlist"><a title="My Wishlist" href="/Mywishlist"><span className="hidden-xs">Wishlist</span></a><a href="/Myprofile" data-toggle="modal"><span className="hidden-xs">My Account</span></a> </div>
+                        <div className="wishlist"><a title="My Wishlist" href='#' onClick={() => this.props.history.push("Mywishlist")}><span className="hidden-xs">Wishlist</span></a><a href="/Myprofile" data-toggle="modal"><span className="hidden-xs">My Account</span></a> </div>
                         :
                         <div className="myaccount"><a href="/Login" data-toggle="modal"><span className="hidden-xs">Login</span></a> <a href="/Signup" data-toggle="modal"><span className="hidden-xs">Signup</span></a> </div>
                     }
@@ -126,7 +126,7 @@ class Search extends React.Component {
               <div className="col-lg-2 col-sm-3 col-md-2">
                 <div className="top-cart-contain">
                   <div className="mini-cart">
-                    <div className="basket "> <a href="/Shoppingcart"> <i class="fa fa-shopping-bag"></i>
+                    <div className="basket "> <a href="#" onClick={() => this.props.history.push('Shoppingcart')}> <i class="fa fa-shopping-bag"></i>
                       <div className="cart-box"><span className="title">My Cart</span></div>
                     </a></div>
                     <div>

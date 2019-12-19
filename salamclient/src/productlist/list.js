@@ -148,7 +148,7 @@ class List extends React.Component {
         price: product.productPrice,
         discount: product.discount,
         quantity: 1,
-        action: 2
+        action: 1
       }
       axios.post(URL + '/api/user/addToCart', data)
         .then((response) => {

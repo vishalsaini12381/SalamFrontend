@@ -29,13 +29,10 @@ class Orderdatatable extends Component {
       axios.post(URL + '/api/user/myOrders', {
         userId: this.props.userId
       }).then((response) => {
-
         console.log('this.responsefdfddfdddddddddd', response.data.product);
         this.setState({
           myOrders: response.data.product,
         })
-
-
       })
     } else {
       swal({
@@ -51,10 +48,7 @@ class Orderdatatable extends Component {
         }
       })
     }
-
   }
-
-
   render() {
     const header = [
       { title: 'Order-id', prop: 'orderid', sortable: true, filterable: true },
@@ -74,17 +68,15 @@ class Orderdatatable extends Component {
       this.state.myOrders.map((e, i) => {
         var obj = {
           "orderid": e._id,
-          "email": e.userId.email,
-          "amount": '$' + e.price,
+          "email": e.customerId.email,
+          "amount": '$' + e.totalOrderCost,
           "shippingamount": '$' + e.shippingCharges,
-          "total": '$' + e.amount,
-          "view": <a href={'/orderdetail?orderId=' + e._id}><i class="fa fa-eye"></i></a>
+          "total": '$' + (parseFloat(e.totalOrderCost) + parseFloat(e.shippingCharges)),
+          "view": <a href="#" onClick={() => this.props.history.push(`orderdetail?orderId=${e._id}`)}><i class="fa fa-eye"></i></a>
         }
         body.push(obj);
       })
     }
-
-
 
     const onSortFunction = {
       date(columnValue) {
@@ -104,7 +96,6 @@ class Orderdatatable extends Component {
       noResults: 'There is no data to be displayed',
     };
     return (
-
       <Datatable
         tableHeader={header}
         tableBody={body}
@@ -116,14 +107,12 @@ class Orderdatatable extends Component {
         onSort={onSortFunction}
         labels={customLabels}
       />
-
     )
   }
 }
 
 
 function mapStateToProps(state) {
-  console.log('555555555555555555', state.inititateState.email);
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,

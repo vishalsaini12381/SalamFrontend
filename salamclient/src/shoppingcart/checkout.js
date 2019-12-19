@@ -14,12 +14,10 @@ class Checkout extends React.Component{
                 <li><a href="#">Delivery Charge</a><span>$15</span></li>
                 <li><a href="#">Subtotal</a><span>$565</span></li>
               </ul>
-            <div className="checkouts"><a href="/Deliveryaddress">Checkout</a></div>
+            <div className="checkouts"><a onClick={()=>this.props.history.push('Deliveryaddress')}>Checkout</a></div>
             </div>
           </div>
         </aside>
-
-
 			)
 	}
 }

@@ -30,7 +30,7 @@ class Description extends React.Component {
 
   componentDidMount() {
     // this.fetchProductDetail();
-    if (this.props.productData[0] !== undefined){
+    if (this.props.productData[0] !== undefined) {
       this.setState({
         productDetail: this.props.productData[0].product,
         isCart: this.props.productData[0].isCart,
@@ -39,8 +39,8 @@ class Description extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if (nextProps.productData[0] !== undefined){
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.productData[0] !== undefined) {
       this.setState({
         productDetail: nextProps.productData[0].product,
         isCart: nextProps.productData[0].isCart,
@@ -82,7 +82,7 @@ class Description extends React.Component {
     }).then((response) => {
       //console.log('this.responsefdfddfdddddddddd',response.data.product);
       if (response.data.code == 100) {
-        return window.location.reload()
+        // return window.location.reload()
       } else {
         swal({
           title: "OOPS",
