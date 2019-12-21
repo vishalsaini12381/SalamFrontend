@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import Header from './include/header.js';
-import Editproductpage from './editProduct.js/editproductpage';
+import Editproductpage from './editProduct/editproductpage';
 import Footer from './include/footer.js';
 class Editproduct extends Component
           {

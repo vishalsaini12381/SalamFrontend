@@ -39,7 +39,9 @@ class Addnewproductpage extends React.Component {
       specificationList: [],
       fValue: '',
       specification: [],
-
+      isRefundable: false,
+      daysToReturn: 0,
+      conditions: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
@@ -57,10 +59,7 @@ class Addnewproductpage extends React.Component {
     this.fetchBrand();
     this.fetchBusinessCategory();
 
-
-
     var that = this;
-    console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
 
     var a = await this.Auth.loggedIn()
     if (a) {
@@ -74,9 +73,23 @@ class Addnewproductpage extends React.Component {
     const { name, value } = event.target;
     let state = this.state;
     state[name].message = '';
-    state[name].value = value;
+    if (name === 'isRefundable')
+      state[name].value = !value;
+    else
+      state[name].value = value
     this.setState(state);
   }
+
+  handleRefundChange = (event) => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
 
   handleChageImage1(e) {
     e.preventDefault();
@@ -135,7 +148,7 @@ class Addnewproductpage extends React.Component {
       return false;
     }
 
-    if (state.file1 == null || validator.isEmpty(state.file1.value)) {
+    if (state.file1 == null || state.file1.value) {
       swal("Error",
         `Image field is mandatory`,
         "error").then((d) => {
@@ -236,6 +249,7 @@ class Addnewproductpage extends React.Component {
       this.setState(state);
       return false;
     }
+    
     return true;
   }
 
@@ -277,9 +291,12 @@ class Addnewproductpage extends React.Component {
       obj.file3 = this.state.file3;
       obj.file4 = this.state.file4;
       obj.specification = this.state.specification
+      obj.isRefundable = this.state.isRefundable;
+      obj.returnPolicy = {
+        daysToReturn: this.state.daysToReturn,
+        conditions: this.state.conditions
+      }
 
-
-      console.log('objjjjjjjjjjjjjjjjj', obj);
       axios.post(URL + '/api/vendor/addProduct', obj).then((response) => {
         if (response.data.status === true) {
           swal({
@@ -388,8 +405,6 @@ class Addnewproductpage extends React.Component {
 
   render(e, i) {
     const state = this.state;
-    console.log('7777777777777777777', this.state.specification);
-
     return (
       <div className="my-3 my-md-5">
         <div className="container">
@@ -457,7 +472,6 @@ class Addnewproductpage extends React.Component {
                           <option value="" hidden selected>Select</option>
                           {
                             this.state.subCategoryList.map((e, i) => {
-                              console.log('ppppppppppp', e);
                               return (
                                 <React.Fragment key={i}>
                                   <option value={e._id} >{e.subcategory}</option>
@@ -558,15 +572,6 @@ class Addnewproductpage extends React.Component {
                       </div>
                     </div>
 
-                    {/* Return Refund */}
-                    <div>
-                      <div>
-                        <label>Refundable Item</label>
-                        <input type="checkbox"/>
-                      </div>
-                    </div>
-                    {/*  */}
-                    
                     <div className="col-md-3 col-lg-3">
                       <div className="form-group">
                         <label className="form-label">Upload Product Image </label>
@@ -621,7 +626,32 @@ class Addnewproductpage extends React.Component {
                           {state.aboutProduct.message}
                         </div>
                       </div>
-                    </div><div className="col-md-12 col-lg-12">
+                    </div>
+                    {/* Return Refund */}
+                    <div className="col-md-6 col-lg-6">
+                      <div className="form-group">
+                        <label className="form-label">Refundable Item </label>
+                        <input type="checkbox" className="form-control" name="isRefundable" checked={state.isRefundable} onChange={this.handleRefundChange}></input>
+                      </div>
+                    </div>
+                    {state.isRefundable ?
+                      <div className="col-md-6 col-lg-6">
+                        <div className="form-group">
+                          <label className="form-label">Days to refund</label>
+                          <input type="number" className="form-control no-spin" name="daysToReturn" value={state.daysToReturn} onChange={this.handleRefundChange}></input>
+                        </div>
+                      </div>
+                      : null}
+                    {state.isRefundable ?
+                      <div className="col-md-12 col-lg-12">
+                        <div className="form-group">
+                          <label className="form-label">Refund Description </label>
+                          <textarea className="form-control" name="conditions" value={state.conditions} onChange={this.handleRefundChange} rows="3" placeholder="text here.."></textarea>
+                        </div>
+                      </div> : null}
+                    {/*  */}
+
+                    <div className="col-md-12 col-lg-12">
                       <button type="submit" class="btn btn-primary pull-right">Submit</button>
                     </div>
                   </div>
@@ -630,7 +660,7 @@ class Addnewproductpage extends React.Component {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     )
   }
 }

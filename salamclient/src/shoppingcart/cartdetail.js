@@ -17,6 +17,9 @@ class Cartdetail extends React.Component {
       subTotal: 0,
       total: 0,
       totalProduct: 0,
+      subTotalCartAmount: 0,
+      totalCartAmount: 0,
+      totalCartItem: 0
     }
   }
 
@@ -32,8 +35,19 @@ class Cartdetail extends React.Component {
       }).then((response) => {
         if (response.data.code == 100) {
           console.log('this.responsefdfddfdddddddddd', response.data.product);
+          let subTotalCartAmount = 0;
+          let totalCartItem = 0;
+          if (Array.isArray(response.data.product)) {
+            response.data.product.map(item => {
+              subTotalCartAmount += parseFloat(item.total)
+              totalCartItem += parseInt(item.quantity)
+            })
+          }
           this.setState({
             myCart: response.data.product,
+            subTotalCartAmount,
+            totalCartAmount: subTotalCartAmount + 15,
+            totalCartItem
           })
         } else {
           swal({
@@ -49,7 +63,6 @@ class Cartdetail extends React.Component {
             }
           })
         }
-
       })
     } else {
       swal({
@@ -79,7 +92,7 @@ class Cartdetail extends React.Component {
       action: action
     }).then((response) => {
       //console.log('this.responsefdfddfdddddddddd',response.data.product);
-      if (response.data.code == 100) {
+      if (response.data.code == 200) {
         this.fetchMyCart();
         // return window.location.reload()
       } else {
@@ -146,7 +159,6 @@ class Cartdetail extends React.Component {
                                         :
                                         <button onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 2)} className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
                                     }
-
                                     <input type="text" className="input-text qty" title="Qty" value={e.quantity} maxlength="12" id="qty" name="qty" />
                                     <button onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 1)} className="increase items-count" type="button"><i className="fa fa-plus">&nbsp;</i></button>
                                   </div>
@@ -181,7 +193,7 @@ class Cartdetail extends React.Component {
                 </div>
                 <div className="col-sm-6">
                   <div className="rightpart">
-                    <h4><span>Subtotal: </span>${this.state.subTotal}</h4>
+                    <h4><span>Subtotal: </span>${this.state.subTotalCartAmount}</h4>
                   </div>
                 </div>
               </div>
@@ -194,12 +206,12 @@ class Cartdetail extends React.Component {
             <div className="block-title">Price Detail</div>
             <div className="block-content">
               <ul>
-                <li><a >Price({this.state.totalProduct} Item)</a><span>${this.state.subTotal}</span></li>
+                <li><a >Price({this.state.totalCartItem} Item)</a><span>${this.state.subTotalCartAmount}</span></li>
                 <li><a >Delivery Charge</a><span>$15</span></li>
-
                 <li><a >Subtotal</a><span>$
               {
-                    this.state.total = parseFloat(15) + parseFloat(this.state.subTotal)
+                    this.state.totalCartAmount
+                    // this.state.total = parseFloat(15) + parseFloat(this.state.subTotal)
                   }
                 </span></li>
               </ul>
@@ -214,7 +226,6 @@ class Cartdetail extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('555555555555555555', state.inititateState.email);
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,

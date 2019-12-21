@@ -5,6 +5,8 @@ import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
+import NeedHelpModal from './NeedHelpModal'
+
 const URL = process.env.REACT_APP_LOCAL;
 
 class Orderdetail extends React.Component {
@@ -12,12 +14,17 @@ class Orderdetail extends React.Component {
     super(props);
     this.state = {
       orderId: '',
-      orderDetail: [],
+      orderDetail: {},
       productDetail: [],
       userDetail: [],
       addressDetail: [],
       ordrAmount: 0,
       orderItems: [],
+      totalOrderCost: 0,
+      shippingCharges: 0,
+      totalOrderItems: 0,
+      isModalVisible: false,
+      selectedOrder: {}
     }
   }
   async componentDidMount() {
@@ -33,18 +40,33 @@ class Orderdetail extends React.Component {
     axios.get(`${URL}/api/user/myOrders/${orderId}`).then((response) => {
       console.log('this.responsefdfddfdddddddddd', response);
 
-      if (Object.keys(response.data.product).length > 0) {
+      if (response.data.product !== undefined && Object.keys(response.data.product).length > 0) {
+        // const orderArray = response.data.product.orderItems
+        // if (Array.isArray(orderArray)) {
+        //   orderArray.map(item => {
+
+        //   })
+        // }
 
         this.setState({
           orderItems: response.data.product.orderItems,
+          totalOrderCost: response.data.product.totalOrderCost,
+          shippingCharges: response.data.product.shippingCharges,
+          orderDetail: response.data.product
           //     userDetail: response.data.resultData[0].orderDetail.userId,
-          //     productDetail: response.data.resultData[0].productDetail,
-              // addressDetail: response.data.product.addressId,
+          // productDetail: response.data.resultData[0].productDetail,
+          // addressDetail: response.data.product.addressId,
         })
       }
     })
   }
 
+  showModal = (order={}) =>{
+    this.setState({
+      isModalVisible : !this.state.isModalVisible,
+      selectedOrder : order 
+    })
+  }
 
   render() {
     return (
@@ -77,6 +99,12 @@ class Orderdetail extends React.Component {
                             </div>
                           </td>
                           <td>
+                            <div className="price">
+                              <label for="price">Discount</label>
+                              <h4>${item.discount}</h4>
+                            </div>
+                          </td>
+                          <td>
                             <div className="add-to-box pro-quantity">
                               <div className="add-to-cart">
                                 <label for="qty">Qty:</label>
@@ -88,16 +116,25 @@ class Orderdetail extends React.Component {
                               </div>
                             </div>
                           </td>
-                          <td>
-                            <div className="price">
-                              <label for="price">Discount</label>
-                              <h4>${item.discount}</h4>
-                            </div>
-                          </td>
+
                           <td>
                             <div className="price">
                               <label for="price">Total Price</label>
                               <h4>${item.totalOrderItemAmount}</h4>
+                            </div>
+                          </td>
+
+                          <td>
+                            <div className="price">
+                              <label for="price">Status</label>
+                              <h4>{item.OrderItemStatus}</h4>
+                            </div>
+                          </td>
+
+                          <td>
+                            <div className="price">
+                              <a onClick={() => this.showModal(item)}><i class="fa fa-question-circle need--help-icon" aria-hidden="true"></i>
+                              </a>
                             </div>
                           </td>
                         </tr>
@@ -116,7 +153,7 @@ class Orderdetail extends React.Component {
                 </div>
                 <div className="col-sm-6">
                   <div className="rightpart">
-                    <h4><span>Order Status: </span>{(this.state.orderDetail.status == 1) ? 'Pending' : (this.state.orderDetail.status == 2) ? 'Completed' : 'Cancel'}</h4>
+                    <h4><span>Order Status: </span>{this.state.orderDetail.orderStatus}</h4>
                   </div>
                 </div>
               </div>
@@ -128,9 +165,9 @@ class Orderdetail extends React.Component {
             <div className="block-title">Price Detail</div>
             <div className="block-content">
               <ul>
-                <li><a href="#">Price({this.state.productDetail.length} Item)</a><span>${this.state.orderDetail.price}</span></li>
-                <li><a href="#">Delivery Charge</a><span>${this.state.orderDetail.shippingCharges}</span></li>
-                <li><a href="#">Subtotal</a><span>${this.state.orderDetail.amount}</span></li>
+                <li><a href="#">Price({this.state.productDetail.length} Item)</a><span>${this.state.totalOrderCost}</span></li>
+                <li><a href="#">Delivery Charge</a><span>${this.state.shippingCharges}</span></li>
+                <li><a href="#">Subtotal</a><span>${this.state.totalOrderCost + this.state.shippingCharges}</span></li>
               </ul>
             </div>
           </div>
@@ -146,6 +183,11 @@ class Orderdetail extends React.Component {
             </div>
           </div>
         </aside>
+        {this.state.isModalVisible ?
+          <NeedHelpModal
+          orderDetail={this.state.selectedOrder}
+          showModal={this.showModal}
+        /> : null}
       </div>
     )
   }

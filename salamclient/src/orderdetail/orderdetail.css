@@ -236,3 +236,9 @@ margin-right: 10px;
     font-weight: 500;
     color: #a7a4a4;
 }
+
+.need--help-icon{
+    font-size: 22px;
+    margin-top: 22px;
+    margin-left: -19px;
+}

@@ -81,7 +81,7 @@ class Description extends React.Component {
       action: action
     }).then((response) => {
       //console.log('this.responsefdfddfdddddddddd',response.data.product);
-      if (response.data.code == 100) {
+      if (response.data.code == 200) {
         // return window.location.reload()
       } else {
         swal({
@@ -97,6 +97,8 @@ class Description extends React.Component {
           }
         })
       }
+    }).catch(error =>{
+      
     })
   }
 
@@ -106,8 +108,8 @@ class Description extends React.Component {
       productId: productId,
     }).then((response) => {
       //console.log('this.responsefdfddfdddddddddd',response.data.product);
-      if (response.data.code == 100) {
-        return window.location.reload()
+      if (response.data.code == 200) {
+        // return window.location.reload()
       } else {
         swal({
           title: "OOPS",
@@ -177,21 +179,18 @@ class Description extends React.Component {
 
           </div>
         </div>
-        {/* <div className="productsize">
-                     <div className="titles">
-                        <h3>Size :</h3>
-                     </div>
-                     <div className="sizes">
-                     <ul>
-                       <li><a href="#"> S </a></li>
-                       <li className="active"><a href="#"> M </a></li>
-                       <li><a href="#"> L </a></li>
-                       <li><a href="#"> XL </a></li>
-                     </ul>
-                     </div>
-                  </div> */}
         <div className="short-description overview-product">
           <h2>Quick Overview</h2>
+          <p>{this.state.productDetail['aboutProduct']}</p>
+        </div>
+        <div className="short-description overview-product">
+          <h7>Refund Policy</h7>
+          {this.state.productDetail.isRefundable ?
+            <p>Days to refund : {this.state.productDetail.returnPolicy.daysToReturn}<br />
+              {this.state.productDetail.returnPolicy.conditions}
+            </p> :
+            <p>Not refundable</p>
+          }
           <p>{this.state.productDetail['aboutProduct']}</p>
         </div>
         <div className="add-to-box pro-quantity">
@@ -237,21 +236,7 @@ class Description extends React.Component {
             </div>
           </div>
         </div>
-        {/* <div className="product-detail-fluid">
-                      <h3>Product Detail</h3>
-                      <div className="product-list">
-                        <ul>
-                        <li><span>color:</span>White</li>
-                        <li><span>Type:</span>Round Neck</li>
-                        <li><span>Combos:</span>Single</li>
-                        <li><span>Fabric:</span>Ployester</li>
-                        <li><span>SUPC:</span>SDLS25454556555</li>
-                        </ul>
-                      </div>
-                    </div> */}
       </div>
-
-
     )
   }
 
