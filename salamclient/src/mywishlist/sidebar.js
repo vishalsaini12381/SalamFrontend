@@ -31,6 +31,7 @@ class Sidebar extends React.Component {
             <ul>
               <li><a href='#' onClick={() => this.props.history.push("Myprofile")}>My Profile </a></li>
               <li><a href='#' onClick={() => this.props.history.push("myOrders")}>My Order</a></li>
+              <li><a href='#' onClick={() => this.props.history.push("mywallet")}>My Wallet</a></li>
               <li className="current"><a href="#">My Wishlist</a></li>
               <li><a href="#">Setting</a></li>
               <li><a>Sell With Us</a></li>

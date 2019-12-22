@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './sidebar.css';
 import axios from 'axios';
 import swal from 'sweetalert';
-import { withRouter }  from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 const URL = process.env.REACT_APP_LOCAL;
-class Sidebar extends React.Component {
 
+class Sidebar extends React.Component {
   logout(event) {
     event.preventDefault();
     axios.get(URL + '/api/user/Logout').then((response) => {
@@ -18,9 +18,10 @@ class Sidebar extends React.Component {
           window.location = "/";
         })
       }
+
+
     });
   }
-
   render() {
     return (
       <aside className="col-right sidebar col-sm-3 wow bounceInUp animated">
@@ -28,9 +29,9 @@ class Sidebar extends React.Component {
           <div className="block-title">My Account</div>
           <div className="block-content">
             <ul>
-              <li><a href = '#' onClick={()=> this.props.history.push("Myprofile")}>My Profile </a></li>
-              <li className="current"><a href="#">My Order</a></li>
-              <li><a href='#' onClick={() => this.props.history.push("mywallet")}>My Wallet</a></li>
+              <li><a href='#' onClick={() => this.props.history.push("Myprofile")}>My Profile </a></li>
+              <li><a href='#' onClick={() => this.props.history.push("myOrders")}>My Order</a></li>
+              <li className="current"><a href="#">My Wallet</a></li>
               <li><a href = '#' onClick={()=> this.props.history.push("Mywishlist")}>My Wishlist</a></li>
               <li><a href="#">Setting</a></li>
               <li><a>Sell With Us</a></li>

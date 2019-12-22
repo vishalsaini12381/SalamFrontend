@@ -5,7 +5,10 @@ import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
-import NeedHelpModal from './NeedHelpModal'
+import NeedHelpDropdown from './NeedHelpDropdown';
+import Modal from './Modal';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const URL = process.env.REACT_APP_LOCAL;
 
@@ -23,8 +26,8 @@ class Orderdetail extends React.Component {
       totalOrderCost: 0,
       shippingCharges: 0,
       totalOrderItems: 0,
-      isModalVisible: false,
-      selectedOrder: {}
+      show: false,
+      singleOrderItem: {}
     }
   }
   async componentDidMount() {
@@ -61,16 +64,43 @@ class Orderdetail extends React.Component {
     })
   }
 
-  showModal = (order={}) =>{
-    this.setState({
-      isModalVisible : !this.state.isModalVisible,
-      selectedOrder : order 
-    })
+  showModal = (item) => {
+    this.setState({ show: true, singleOrderItem: item });
+  };
+
+  getReturnOrderRequest(item) {
+    const data = {
+      orderId: this.state.orderDetail._id,
+      subOrderId: item._id
+    }
+
+    axios.post(`${URL}/api/user/get-return-request`)
+      .then((response) => {
+        console.log('this.responsefdfddfdddddddddd', response);
+        if (!response.data.success) {
+          toast.error("Return request already sent", {
+            position: toast.POSITION.BOTTOM_RIGHT
+          }, { autoClose: 500 });
+        } else {
+          this.setState({ show: true, singleOrderItem: item });
+        }
+      })
+      .catch(error => {
+
+      })
   }
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
 
   render() {
     return (
       <div className="row">
+        <ToastContainer />
+        {this.state.show ?
+          <Modal handleClose={this.hideModal} orderDetail={this.state.singleOrderItem} orderId={this.state.orderDetail._id} orderDate={this.state.orderDetail.orderDate}>
+          </Modal> : null}
         <section className="col-main col-sm-9  wow bounceInUp animated cartdetail-fluid">
           <div className="category-title">
             <h1>Order Detail</h1>
@@ -133,7 +163,7 @@ class Orderdetail extends React.Component {
 
                           <td>
                             <div className="price">
-                              <a onClick={() => this.showModal(item)}><i class="fa fa-question-circle need--help-icon" aria-hidden="true"></i>
+                              <a onClick={() => this.getReturnOrderRequest(item)}><i class="fa fa-question-circle need--help-icon" aria-hidden="true"></i>
                               </a>
                             </div>
                           </td>
@@ -183,11 +213,6 @@ class Orderdetail extends React.Component {
             </div>
           </div>
         </aside>
-        {this.state.isModalVisible ?
-          <NeedHelpModal
-          orderDetail={this.state.selectedOrder}
-          showModal={this.showModal}
-        /> : null}
       </div>
     )
   }

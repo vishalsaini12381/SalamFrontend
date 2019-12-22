@@ -3,6 +3,8 @@ import { Link, withRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './description.css';
 
 // import {Link} from 'react-router-dom';
@@ -71,7 +73,7 @@ class Description extends React.Component {
   // }
 
   addToCart = (productId, userId, price, discount, action) => {
-    //console.log(productId+'/'+userId+'/'+price+'/'+discount);
+
     axios.post(URL + '/api/user/addToCart', {
       userId: userId,
       productId: productId,
@@ -80,25 +82,13 @@ class Description extends React.Component {
       quantity: 1,
       action: action
     }).then((response) => {
-      //console.log('this.responsefdfddfdddddddddd',response.data.product);
-      if (response.data.code == 200) {
-        // return window.location.reload()
-      } else {
-        swal({
-          title: "OOPS",
-          text: response.data.message,
-          icon: "warning",
-          dangerMode: true,
-          closeOnClickOutside: false,
-        }).then((d) => {
-          //console.log('ddddddddddddddddddd',d)
-          if (d) {
-            //return window.location = "/Login"
-          }
-        })
-      }
-    }).catch(error =>{
-      
+      toast.success("Product added to cart !", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      }, { autoClose: 500 });
+    }).catch(error => {
+      toast.error("Some error occured !", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      }, { autoClose: 500 });
     })
   }
 
@@ -107,23 +97,15 @@ class Description extends React.Component {
       userId: userId,
       productId: productId,
     }).then((response) => {
-      //console.log('this.responsefdfddfdddddddddd',response.data.product);
-      if (response.data.code == 200) {
-        // return window.location.reload()
-      } else {
-        swal({
-          title: "OOPS",
-          text: "Some error found.",
-          icon: "warning",
-          dangerMode: true,
-          closeOnClickOutside: false,
-        }).then((d) => {
-          //console.log('ddddddddddddddddddd',d)
-          if (d) {
-            return window.location.reload();
-          }
-        })
-      }
+      
+      toast.success("Product added to wishlist !", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      },{ autoClose: 500 });
+
+    }).catch(error => {
+      toast.error("Some error occured !", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      }, { autoClose: 500 });
     })
   }
 
@@ -146,6 +128,7 @@ class Description extends React.Component {
     console.log('productList', this.state.productDetail['aboutProduct']);
     return (
       <div className="product-shop col-lg-7 col-sm-7 col-xs-12">
+        <ToastContainer />
         <div className="product-heading">
           <div className="row">
             <div className="col-lg-6 col-sm-6 col-xs-12">

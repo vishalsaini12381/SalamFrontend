@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Link, withRouter } from 'react-router-dom'
 import './addressdetail.css';
 import validator from 'validator';
-
 import {connect} from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';

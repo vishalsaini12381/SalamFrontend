@@ -21,6 +21,7 @@ import Signup from './signup';
 import Login from './login';
 import Sidebar from './productlist/sidebar';
 import Mywishlist from './mywishlist';
+import MyWallet from './MyWallet'
 import { create } from 'domain';
 
 const persistedState = loadState();
@@ -58,6 +59,7 @@ class Apps extends React.Component
 							   <Route  path = "/Slid" component = {Slid} />
 							   <Route  path = "/Signup" component = {Signup} />
 							   <Route  path = "/Login" component = {Login} />
+							   <Route path = "/mywallet" component = {MyWallet}/>
 							   <Route  path = "/Sidebar" component = {Sidebar} />							   
 					       </Router>
 						   </Provider>
