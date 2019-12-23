@@ -182,11 +182,17 @@ class Paymentdetail extends React.Component {
   }
 
   saveOrderData = (data) => {
+
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let addressId = params.get('data');
+
+
     this.setState({
       isLoading: true
     })
     axios
-      .post(URL + "/api/user/payment", data)
+      .post(URL + "/api/user/payment", { ...data, addressId })
       .then(response => {
         // let search = window.location.search;
         // let params = new URLSearchParams(search);

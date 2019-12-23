@@ -28,6 +28,7 @@ class WalletTransaction extends Component {
                 if (Array.isArray(response.data.data)) {
                     this.setState({
                         transactionArray: response.data.data,
+                        walletBalance: response.data.wallet
                     })
                 }
             })
@@ -65,7 +66,7 @@ class WalletTransaction extends Component {
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="leftpart">
-                                    <h3><span>Wallet Balance</span> : &nbsp; $0</h3>
+                                    <h3><span>Wallet Balance</span> : &nbsp; ${this.state.walletBalance}</h3>
                                 </div>
                             </div>
                         </div>
@@ -84,8 +85,8 @@ class WalletTransaction extends Component {
                                     <tbody>
                                         {
                                             this.state.transactionArray.map((item, key) => {
-                                                return (<tr index={key} class="first odd">
-                                                    <td>{item.transactionId}</td>
+                                                return (<tr index={key} class="first odd" style={item.receiverId !== undefined ? { background: '#80e466' } : {}}>
+                                                    <td>{item.transactionId !== undefined ? item.transactionId : item._id}</td>
                                                     <td>{item.createdAt}</td>
                                                     <td>{item.amount}</td>
                                                     <td>{item.orderId}</td>
