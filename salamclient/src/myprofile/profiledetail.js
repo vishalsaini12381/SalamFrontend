@@ -135,8 +135,6 @@ class Profiledetail extends React.Component {
     obj.city = this.state['city'].value;
     obj.state = this.state['state'].value;
     obj.country = this.state['country'].value;
-    console.log('88888888888888888888888', obj);
-
     axios.post(URL + '/api/user/userProfile', obj).then((response) => {
       console.log('33333333333333333', response);
       if (response.data.status === true) {
@@ -205,9 +203,6 @@ class Profiledetail extends React.Component {
                   <div className="form-group">
                     <label for="from">First Name</label>
                     <input type="text" className="form-control" name="firstName" value={state.firstName.value} onChange={this.handleChange} placeholder="Akram" />
-                    {/* <div style={{ fontSize: 13, color: "red" }}>
-                                                 {state.firstName.message}
-                                              </div> */}
                   </div>
                 </div>
                 <div className="col-sm-6">
@@ -237,7 +232,7 @@ class Profiledetail extends React.Component {
                 <div className="col-sm-6">
                   <div className="form-group">
                     <label for="to">Date of Birth</label>
-                    <input type="date" className="form-control" id="dateofbirth" name='dob' value={state.dob.value} onChange={this.handleChange} max={this.maxDateForDOBInput()}/>
+                    <input type="date" className="form-control" id="dateofbirth" name='dob' value={state.dob.value} onChange={this.handleChange} max={this.maxDateForDOBInput()} />
                     {/* <div style={{ fontSize: 13, color: "red" }}>
                                {state.dob.message}
                               </div> */}
@@ -271,50 +266,31 @@ class Profiledetail extends React.Component {
                 <div className="col-sm-12">
                   <div className="form-group">
                     <label for="from">Street Address</label>
-                    <input type="text" className="form-control" name="streetAddress" value={state.streetAddress.value} onChange={this.handleChange} placeholder="101 HMK Road" />
-                    {/* <div style={{ fontSize: 13, color: "red" }}>
-                               {state.streetAddress.message}
-                              </div> */}
+                    <input type="text" className="form-control" name="streetAddress" value={state.streetAddress.value} onChange={this.handleChange} placeholder="Enter Street" />
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
                     <label for="from">City</label>
-                    <input type="text" className="form-control" placeholder="Dubai" name="city" value={state.city.value} onChange={this.handleChange} />
-                    {/* <div style={{ fontSize: 13, color: "red" }}>
-                               {state.city.message}
-                              </div> */}
+                    <input type="text" className="form-control" placeholder="Enter city" name="city" value={state.city.value} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
                     <label for="from">State</label>
-                    <input type="text" className="form-control" placeholder="Dubai" name="state" value={state.state.value} onChange={this.handleChange} />
-                    {/* <div style={{ fontSize: 13, color: "red" }}>
-                               {state.state.message}
-                              </div> */}
+                    <input type="text" className="form-control" placeholder="Enter state" name="state" value={state.state.value} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
                     <label for="from">Zip Code</label>
-                    <input type="text" className="form-control" placeholder="321014" name="zipcode" value={state.zipcode.value} onChange={this.handleChange} />
-                    {/* <div style={{ fontSize: 13, color: "red" }}>
-                               {state.zipcode.message}
-                              </div> */}
+                    <input type="text" className="form-control" placeholder="Enter pincode" name="zipcode" value={state.zipcode.value} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
                     <label for="status">Country</label>
-                    <input type="text" className="form-control" placeholder="country" name="country" value={state.country.value} onChange={this.handleChange} />
-                    {/* <div style={{ fontSize: 13, color: "red" }}>
-                               {state.country.message}
-                              </div>      */}
-                    {/* <select className="form-control"  >
-                                        <option>1</option>
-                                        <option>2</option>
-                                     </select> */}
+                    <input type="text" className="form-control" placeholder="Enter country" name="country" value={state.country.value} onChange={this.handleChange} />
                   </div>
                   <button type='submit' className="btn btn-primary" style={{ marginLeft: 310 }} onClick={this.submit}  >submit</button>
                 </div>

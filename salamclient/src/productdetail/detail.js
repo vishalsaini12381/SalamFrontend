@@ -56,8 +56,6 @@ class Detail extends React.Component {
               <div className="row">
                 <ul>
                   <li className="home"> <a href="#" title="Go to Home Page">Home</a><span>/</span></li>
-                  {/* <li className=""> <a href="#" title="Go to Home Page">{this.state.businessCategory}</a><span>/</span></li>
-                <li className="category13">{this.state.category}<span>/</span></li> */}
                   <li className="category13">{this.state.subcategory}</li>
                 </ul>
               </div>

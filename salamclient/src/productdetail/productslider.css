@@ -57,13 +57,12 @@
     transition: all 0.3s linear;
 }
 
-product-img-box .mainimage{
-    width: 100%;
-    height: 500px;
+.product-img-box .mainimage{
+    width: 300px !important;
+    height: 450px !important;
 }
 
 .product-img-box .mainimage img{
-    
     max-width: 100%;
     max-height: 100%;
 }

@@ -2471,6 +2471,7 @@ div.moreview_description.rtl {
 }
 .product-essential {
 	overflow: hidden;
+	margin-top: 15px;
 }
 .product-collateral .box-collateral {
 	margin: 0 0 15px;

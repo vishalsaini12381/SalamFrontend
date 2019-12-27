@@ -97,10 +97,10 @@ class Description extends React.Component {
       userId: userId,
       productId: productId,
     }).then((response) => {
-      
+
       toast.success("Product added to wishlist !", {
         position: toast.POSITION.BOTTOM_RIGHT
-      },{ autoClose: 500 });
+      }, { autoClose: 500 });
 
     }).catch(error => {
       toast.error("Some error occured !", {
@@ -142,17 +142,6 @@ class Description extends React.Component {
                 </div>
               </div>
             </div>
-            {/* <div className="col-lg-6 col-sm-6 col-xs-12">
-                    <div className="vendordetail">
-                       <div className="details">
-                          <h3>John Smith <span><i class="fa fa-star"></i> 4.5</span></h3>
-                          <p><i class="fa fa-map-marker"></i> 101 W 8th Ave Spokne WA 987547</p>
-                       </div>
-                       <div className="vendorpic">
-                         <img src="./images/vendor/1.jpg" alt="vendor photo" />
-                       </div>
-                    </div>
-                  </div> */}
           </div>
         </div>
         <div className="price-block">
@@ -174,7 +163,6 @@ class Description extends React.Component {
             </p> :
             <p>Not refundable</p>
           }
-          <p>{this.state.productDetail['aboutProduct']}</p>
         </div>
         <div className="add-to-box pro-quantity">
           <div className="add-to-cart">

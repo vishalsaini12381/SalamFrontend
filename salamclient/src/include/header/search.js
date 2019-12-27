@@ -1,11 +1,13 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom'
-import { bindActionCreators } from 'redux';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SearchField from 'react-search-field';
 import axios from 'axios';
 import './search.css';
 import Loader from 'react-loader-spinner'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const URL = process.env.REACT_APP_LOCAL;
 class Search extends React.Component {
   constructor(props) {
@@ -15,7 +17,6 @@ class Search extends React.Component {
       businesscategoryList: [],
       visible: false,
     };
-    this.searchJob = this.searchJob.bind(this);
   }
 
   // componentWillMount() {
@@ -34,23 +35,41 @@ class Search extends React.Component {
     })
   }
 
-  searchJob(event) {
-    console.log(event, 'fgf')
+  searchJob = (event) => {
     let obj = {}
     obj.search = event;
     // obj.userId = this.props.userId;
     // obj.type = this.props.type;
-    if (event === '') {
-      //this.pagi();
-    } else {
-      axios.post(URL + '/api/user/searchBox', obj).then((res) => {
+    if (event !== undefined) {
+      this.fetchProductAccordingToSearchInput(event)
+    }
+  }
+
+  fetchProductAccordingToSearchInput = (search) => {
+    let obj = {}
+    obj.search = search;
+    axios.post(URL + '/api/user/searchBox', obj)
+      .then((res) => {
         if (res) {
-          console.log('res.data.productres.data.product', res.data.product)
-          this.setState({ productList: res.data.product })
-          return window.location = '/Productlist'
+          // console.log('res.data.productres.data.product', res.data.product)
+          if (Array.isArray(res.data.product) && res.data.product.length > 0) {
+            this.props.history.push({
+              pathname: 'Productlist',
+              search: `?search_input=${search}`,
+              state: { productList: res.data.product }
+            })
+          } else {
+            toast.error("Sorry product not available !", {
+              position: toast.POSITION.BOTTOM_RIGHT
+            }, { autoClose: 500 });
+          }
         }
       })
-    }
+      .catch(error => {
+        toast.error("Sorry product not available !", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+      })
   }
 
   fetchBusinessCategory() {
@@ -71,6 +90,7 @@ class Search extends React.Component {
   render() {
     return (
       <header className="header-container">
+        <ToastContainer />
         <div className="header-top">
           <Loader visible={this.state.visible} type="Puff" className="signuploader" />
           <div className="container">
@@ -101,7 +121,7 @@ class Search extends React.Component {
               </div>
               <div className="col-lg-8 col-sm-6 col-md-8">
                 <div className="search-box">
-                  <form>
+                  <div>
                     <select name="category_id" className="cate-dropdown hidden-xs">
                       <option value="0">All Categories</option>
                       {
@@ -120,7 +140,7 @@ class Search extends React.Component {
                       classNames="test-class"
                     />
                     {/* <button id="submit-button" className="search-btn-bg"><span><i class="fa fa-search"></i></span></button> */}
-                  </form>
+                  </div>
                 </div>
               </div>
               <div className="col-lg-2 col-sm-3 col-md-2">

@@ -2,12 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import './categories.css';
-
 import "react-multi-carousel/lib/styles.css";
-import Slid from '../Slid';
-import Loader from 'react-loader-spinner'
-
-
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './newproduct.css';
@@ -79,7 +74,7 @@ class Categories extends React.Component {
               {
                 this.state.productList.map((e, i) => {
                   return (
-                    <div className="mutlislider">
+                    <div className="mutlislider" key={`productIndex_${i}`}>
                       <div className="productimage">
                         <a href={"Productdetail?product=" + e._id}><img src={e.file1} alt="product 1" /></a>
                         <a href={'Productdetail?product=' + e._id}><div className="viewproduct"><i className="fa fa-shopping-cart"></i> Add to Cart </div></a>

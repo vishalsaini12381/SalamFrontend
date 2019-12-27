@@ -18,6 +18,7 @@ class Favseller extends React.Component {
     this.fetchVendor = this.fetchVendor.bind(this);
   }
 
+
   componentDidMount() {
     this.fetchVendor();
   }
@@ -53,7 +54,7 @@ class Favseller extends React.Component {
     };
     if (this.state.vendorList.length > 0)
       return (
-        <section className="main-container col1-layout home-content-container seller-fluid">
+        <section className="container-fluid col1-layout home-content-container seller-fluid">
           <div className="container">
             <div className="std">
               <div className="best-seller-pro wow bounceInUp animated">
@@ -63,49 +64,53 @@ class Favseller extends React.Component {
                   </div>
                   <br />
                   <Carousel
-                    swipeable={false}
-                    draggable={false}
-                    showDots={true}
+                    // swipeable={false}
+                    // draggable={false}
+                    // showDots={true}
                     responsive={responsive}
-                    ssr={true} // means to render carousel on server-side.
-                    infinite={true}
-                    // autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                    autoPlaySpeed={1000}
-                    keyBoardControl={true}
-                    customTransition="all .5"
-                    transitionDuration={500}
-                    containerClass="carousel-container"
-                    removeArrowOnDeviceType={["tablet", "mobile"]}
-                    deviceType={this.props.deviceType}
-                    dotListClass="custom-dot-list-style"
-                    itemClass="carousel-item-padding-40-px">
+                  // ssr={true} // means to render carousel on server-side.
+                  // infinite={true}
+                  // autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                  autoPlaySpeed={1000}
+                  // keyBoardControl={true}
+                  // customTransition="all .5"
+                  // transitionDuration={500}
+                  containerClass="carousel-container"
+                  // removeArrowOnDeviceType={["tablet", "mobile"]}
+                  // deviceType={this.props.deviceType}
+                  dotListClass="custom-dot-list-style"
+                  itemClass="carousel-item-padding-40-px"
+                  >
                     {
-                      this.state.vendorList.map((e, i) => {
+                      this.state.vendorList.map((item, i) => {
                         return (
-                          <React.Fragment key={i}>
+                          <React.Fragment key={`favoriteSeller_${i}`}>
                             <div className="categoryslider">
                               <div className="sliderimage">
-                                <img style={{ width: '198px', height: '249px' }} src={e.image} />
+                                <img style={{ width: '198px', height: '249px' }} src={item.image !== null ? item.image : require('./vendor_profile.jpg')} />
+                              </div>
+                              <div className="categoryname">
+                                <a href="#">{item.name}</a>
                               </div>
                             </div>
                           </React.Fragment>
                         )
                       })
                     }
-                    <div className="categoryslider">
+                    {/* <div className="categoryslider">
                       <div className="sliderimage">
                         <img style={{ width: '198px', height: '249px' }} src="./images/categories/2.png" />
                       </div>
                       <div className="categoryname">
                         <a title=" Sample Product" href="#"> </a>
                       </div>
-                    </div>
+                    </div> */}
                   </Carousel>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </section >
       )
     return null
   }

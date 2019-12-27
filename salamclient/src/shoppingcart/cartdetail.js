@@ -92,21 +92,21 @@ class Cartdetail extends React.Component {
       action: action
     }).then((response) => {
       //console.log('this.responsefdfddfdddddddddd',response.data.product);
-      if (response.data.code == 200) {
+      if (response.data.success) {
         this.fetchMyCart();
         // return window.location.reload()
       } else {
         swal({
           title: "OOPS",
-          text: "Some error found.",
+          text: response.data.message,
           icon: "warning",
           dangerMode: true,
           closeOnClickOutside: false,
         }).then((d) => {
           //console.log('ddddddddddddddddddd',d)
-          if (d) {
-            return window.location = "/Login"
-          }
+          // if (d) {
+          //   return window.location = "/Login"
+          // }
         })
       }
     })
@@ -145,6 +145,8 @@ class Cartdetail extends React.Component {
                             <div className="price">
                               <label for="price">Price</label>
                               <h4>${parseFloat(e.amount).toFixed(2)}</h4>
+                              <span>{`Discount(${e.discount}%) : $${e.discountValue}`} </span><br />
+                              <span>{`Actual Price : $${e.price}`}</span>
                             </div>
                           </td>
                           <td>

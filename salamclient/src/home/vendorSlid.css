@@ -2,14 +2,14 @@
 .categories-fluid .react-multi-carousel-track li {
     width:230px!important;
 }
-.categories-fluid .categoryslider .sliderimage img{
+.sliderimage img{
     width: 200px;
     height: 250px;
 }
-.categories-fluid .categoryslider .categoryname{
+.categoryname{
     margin-top: 10px;
 }
-.categories-fluid .categoryslider .categoryname a{
+.categoryname a{
     font-size: 16px;
     font-weight: 600;
     color: #000;

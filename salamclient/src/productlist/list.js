@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './list.css';
-// import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import './sidebar.css';
@@ -25,23 +25,43 @@ class List extends React.Component {
     this.fetchSpecification = this.fetchSpecification.bind(this)
   }
 
-  componentWillMount() {
-    this.fetchSpecification();
-    this.fetchProduct();
+  componentDidMount() {
+
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    const subcategory = params.get('subcategory');
+    const search_input = params.get('search_input');
+    if (subcategory !== undefined && subcategory !== null) {
+      this.fetchSpecification(subcategory);
+      this.fetchProduct(subcategory);
+    } else if (search_input !== undefined && search_input !== null) {
+      if (this.props.location && this.props.location.state !== undefined && this.props.location.state.productList !== undefined) {
+        this.setState({
+          productList: this.props.location.state.productList
+        })
+      } else {
+        this.getProductFromSearchInput(search_input)
+      }
+    }
+
     // this.hadleChangeSpecification();
   }
 
-  fetchProduct() {
+  getProductFromSearchInput = (search) => {
+    let obj = {}
+    obj.search = search;
+    axios.post(URL + '/api/user/searchBox', obj)
+      .then((res) => {
+        if (res) {
+          console.log('res.data.productres.data.product', res.data.product)
+          this.setState({ productList: res.data.product })
+        }
+      })
+  }
 
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let foo = params.get('subcategory');
-    this.setState({
-      subcategoryids: foo
-    })
-
+  fetchProduct(subcategory) {
     axios.post(URL + '/api/user/fetchProduct', {
-      subcategoryid: foo,
+      subcategoryid: subcategory,
     }).then((response) => {
       console.log('this.responsefdfddfdddddddddd', response.data.product);
       this.setState({
@@ -50,15 +70,9 @@ class List extends React.Component {
     })
   }
 
-  fetchSpecification() {
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let foo = params.get('subcategory');
-    this.setState({
-      subcategoryids: foo
-    })
+  fetchSpecification(subcategory) {
     let obj = {};
-    obj.subCategoryId = foo
+    obj.subCategoryId = subcategory
     axios.post(URL + '/api/user/fetchSpecification', obj).then((response) => {
       this.setState({
         specificationList: response.data.doc
@@ -152,10 +166,8 @@ class List extends React.Component {
       }
       axios.post(URL + '/api/user/addToCart', data)
         .then((response) => {
-          console.log('this.responsefdfddfdddddddddd', response.data.product);
-          if (response.data.code == 100) {
-            // return window.location.reload()
-          } else {
+          // console.log('this.responsefdfddfdddddddddd', response.data.product);
+          if (!response.data.success) {
             swal({
               title: "OOPS",
               text: response.data.message,
@@ -220,7 +232,7 @@ class List extends React.Component {
       closeOnClickOutside: false,
     }).then((d) => {
     })
-}
+  }
 
   render() {
     return (
@@ -258,7 +270,7 @@ class List extends React.Component {
                                   {/* href={'Productdetail?product=' + e._id} */}
                                 </a>
                                 <a className="quick-view" href="#" onClick={(event) => this.addItemToWishList(event, e)}>
-                                  <div><i className="icon-eye-open"></i><span><i className="fa fa-heart"></i></span></div>
+                                  <div><i className="icon-eye-open"></i><span><i className="fa fa-heart"></i>Add Wishlist</span></div>
                                 </a> </div>
                             </div>
                             <div className="info">
@@ -338,4 +350,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(List);
+export default withRouter(connect(mapStateToProps)(List));

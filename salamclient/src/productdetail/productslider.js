@@ -83,17 +83,17 @@ class Productslider extends React.Component {
             }
             {
               this.state.productDetail['file2'] !== null ?
-                <li key="product_image2"><img src={this.state.productDetail['file1']} onClick={this.shoeImgs} alt="thumbnail" /></li> :
+                <li key="product_image2"><img src={this.state.productDetail['file2']} onClick={this.shoeImgs} alt="thumbnail" /></li> :
                 null
             }
             {
               this.state.productDetail['file3'] !== null ?
-                <li key="product_image3"><img src={this.state.productDetail['file1']} onClick={this.shoeImgs} alt="thumbnail" /></li> :
+                <li key="product_image3"><img src={this.state.productDetail['file3']} onClick={this.shoeImgs} alt="thumbnail" /></li> :
                 null
             }
             {
               this.state.productDetail['file4'] !== null ?
-                <li key="product_image4"><img src={this.state.productDetail['file1']} onClick={this.shoeImgs} alt="thumbnail" /></li> :
+                <li key="product_image4"><img src={this.state.productDetail['file4']} onClick={this.shoeImgs} alt="thumbnail" /></li> :
                 null
             }
           </ul>
