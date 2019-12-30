@@ -7,6 +7,10 @@ import axios from 'axios';
 import './sidebar.css';
 import swal from 'sweetalert';
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const URL = process.env.REACT_APP_LOCAL;
 
 class List extends React.Component {
@@ -166,6 +170,9 @@ class List extends React.Component {
       }
       axios.post(URL + '/api/user/addToCart', data)
         .then((response) => {
+          toast.success(response.data.message, {
+            position: toast.POSITION.BOTTOM_RIGHT
+          }, { autoClose: 200 });
           // console.log('this.responsefdfddfdddddddddd', response.data.product);
           if (!response.data.success) {
             swal({
@@ -196,6 +203,9 @@ class List extends React.Component {
       }).then((response) => {
         //console.log('this.responsefdfddfdddddddddd',response.data.product);
         if (response.data.code == 100) {
+          toast.success(response.data.message, {
+            position: toast.POSITION.BOTTOM_RIGHT
+          }, { autoClose: 200 });
           // return window.location.reload()
         } else {
           swal({
@@ -237,6 +247,7 @@ class List extends React.Component {
   render() {
     return (
       <div className="row">
+        <ToastContainer/>
         <section className="col-main col-sm-9 col-sm-push-3 wow bounceInUp animated productlist-fluid">
           <div className="category-title">
             <div className="breadcrumbs">

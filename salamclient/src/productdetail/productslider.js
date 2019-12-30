@@ -13,28 +13,24 @@ class Productslider extends React.Component {
       productDetail: [],
       productDetailFile: ''
     }
-
-    // this.fetchProductDetail = this.fetchProductDetail.bind(this);
   }
 
-  // componentWillMount() {
-  //   this.fetchProductDetail();
-  // }
 
   componentDidMount() {
-    if (this.props.productData[0] !== undefined) {
+    console.log(this.props.productData)
+    if (this.props.productData !== undefined) {
       this.setState({
-        productDetail: this.props.productData[0].product,
-        productDetailFile: this.props.productData[0].product['file1']
+        productDetail: this.props.productData.product,
+        // productDetailFile: this.props.productData.product['file1']
       })
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.productData[0] !== undefined) {
+    if (nextProps.productData !== undefined) {
       this.setState({
-        productDetail: nextProps.productData[0].product,
-        productDetailFile: nextProps.productData[0].product['file1']
+        productDetail: nextProps.productData.product,
+        productDetailFile: nextProps.productData.product['file1']
       })
     }
   }

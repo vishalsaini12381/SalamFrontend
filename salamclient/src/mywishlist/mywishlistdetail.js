@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './mywishlistdetail.css';
-
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const URL = process.env.REACT_APP_LOCAL;
 
 var divStyle = {
@@ -33,8 +35,8 @@ class Mywishlistdetail extends React.Component {
           this.setState({
             myWishlist: response.data.product,
           })
-        }else{
-          this.setState({myWishlist:[]})
+        } else {
+          this.setState({ myWishlist: [] })
         }
       })
     } else {
@@ -73,16 +75,37 @@ class Mywishlistdetail extends React.Component {
         }).then((d) => {
           //console.log('ddddddddddddddddddd',d)
           if (d) {
-            return window.location.reload();
+            // return window.location.reload();
           }
         })
       }
     })
   }
 
+  addToCart = (productId, userId) => {
+    axios.post(URL + '/api/user/addToCart', {
+      userId: userId,
+      productId: productId,
+      quantity: 1,
+      action: 1
+    }).then((response) => {
+      toast.success(response.data.message, {
+        position: toast.POSITION.BOTTOM_RIGHT
+      }, { autoClose: 500 });
+      
+      if (response.data.success)
+        this.addToWishlist(productId, userId)
+    }).catch(error => {
+      toast.error("Some error occured !", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      }, { autoClose: 500 });
+    })
+  }
+
   render() {
     return (
       <section className="col-main col-sm-9  wow bounceInUp animated cartdetail-fluid">
+        <ToastContainer />
         <div className="category-title">
           <h1>My Wishlist</h1>
           <div className="breadcrumbs">
@@ -119,8 +142,13 @@ class Mywishlistdetail extends React.Component {
                             </div>
                           </td>
                           <td>
-                            <div className="delete">
+                            <div className="cart-add">
                               <a href={"/Productdetail?product=" + e.productId._id}> <i className="fa fa-eye"></i></a>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="cart-add">
+                              <a style={divStyle} onClick={() => this.addToCart(e.productId._id, this.props.userId)}><i class="fa fa-shopping-bag"></i></a>
                             </div>
                           </td>
                           <td>

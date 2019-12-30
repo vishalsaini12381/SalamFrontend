@@ -12,40 +12,18 @@ class Detail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // businessCategory : '',
-      // category:'',
       subcategory: '',
       productData: []
     }
-
-    this.fetchProductDetail = this.fetchProductDetail.bind(this);
   }
 
-  componentWillMount() {
-    this.fetchProductDetail();
-  }
-
-  fetchProductDetail() {
-
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let foo = params.get('product');
+  componentDidMount() {
     this.setState({
-      productId: foo,
-    })
-
-    axios.post(URL + '/api/user/productDetail', {
-      productId: foo,
-    }).then((response) => {
-      // console.log('this.88888888888788888888888888887',response.data.productData[0]['product']['businesscategoryId'].businesscategory);
-      this.setState({
-        // businessCategory : response.data.productData[0]['product']['businesscategoryId'].businesscategory,
-        // category:response.data.productData[0]['product']['categoryId'].category,
-        subcategory: response.data.productData[0]['product']['subCategoryId'].subcategory,
-        productData: response.data.productData
-      })
+      subcategory: this.props.subcategory,
+      productData: this.props.productData
     })
   }
+
 
   render() {
     return (
@@ -62,7 +40,7 @@ class Detail extends React.Component {
             </div>
             <div class="row">
               <div class="product-view productdetail-fluid">
-                {this.state.productData.length > 0 ?
+                {this.state.productData !== undefined ?
                   <div class="product-essential">
                     <Productslider productData={this.state.productData} />
                     <Description productData={this.state.productData} />

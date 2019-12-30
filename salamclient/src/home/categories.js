@@ -79,14 +79,13 @@ class Categories extends React.Component {
                         <a href={"Productdetail?product=" + e._id}><img src={e.file1} alt="product 1" /></a>
                         <a href={'Productdetail?product=' + e._id}><div className="viewproduct"><i className="fa fa-shopping-cart"></i> Add to Cart </div></a>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <h3>{e.productName}</h3>
-                        <h4>
-                          <span>${e.productPrice}</span>
-                          ${((e.productPrice) - (e.productPrice) * (e.discount) / 100)}
-                        </h4>
+                      <div className="Product-Info">
+                        <div className="Product-Info--Name" title={e.productName}>{e.productName}</div>
+                        <div className="Product-Info--Price">
+                          <div className="Product-Info--CurrentPrice">${e.productPrice}</div>
+                          <div className="Product-Info--PreviousPrice">${((e.productPrice) - (e.productPrice) * (e.discount) / 100)}</div>
+                        </div>
                       </div>
-
                     </div>
                   )
                 })

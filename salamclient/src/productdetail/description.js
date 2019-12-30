@@ -32,45 +32,24 @@ class Description extends React.Component {
 
   componentDidMount() {
     // this.fetchProductDetail();
-    if (this.props.productData[0] !== undefined) {
+    if (this.props.productData !== undefined) {
       this.setState({
-        productDetail: this.props.productData[0].product,
-        isCart: this.props.productData[0].isCart,
-        isWishlist: this.props.productData[0].isWishlist,
+        productDetail: this.props.productData.product,
+        isCart: this.props.productData.isCart,
+        isWishlist: this.props.productData.isWishlist,
       })
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.productData[0] !== undefined) {
+    if (nextProps.productData !== undefined) {
       this.setState({
-        productDetail: nextProps.productData[0].product,
-        isCart: nextProps.productData[0].isCart,
-        isWishlist: nextProps.productData[0].isWishlist,
+        productDetail: nextProps.productData.product,
+        isCart: nextProps.productData.isCart,
+        isWishlist: nextProps.productData.isWishlist,
       })
     }
   }
-  // fetchProductDetail() {
-
-  //   let search = window.location.search;
-  //   let params = new URLSearchParams(search);
-  //   let foo = params.get('product');
-  //   this.setState({
-  //     productId: foo
-  //   })
-
-  //   axios.post(URL + '/api/user/productDetail', {
-  //     productId: foo,
-  //     userId: this.props.userId
-  //   }).then((response) => {
-  //     console.log('this.responsefdfddfdddddddddd', response.data.productData[0].product);
-  //     this.setState({
-  //       productDetail: response.data.productData[0].product,
-  //       isCart: response.data.productData[0].isCart,
-  //       isWishlist: response.data.productData[0].isWishlist,
-  //     })
-  //   })
-  // }
 
   addToCart = (productId, userId, price, discount, action) => {
 
@@ -97,8 +76,7 @@ class Description extends React.Component {
       userId: userId,
       productId: productId,
     }).then((response) => {
-
-      toast.success("Product added to wishlist !", {
+      toast.success(response.data.message, {
         position: toast.POSITION.BOTTOM_RIGHT
       }, { autoClose: 500 });
 

@@ -112,6 +112,12 @@ class Cartdetail extends React.Component {
     })
   }
 
+  round2Decimal = (num) => {
+    if (isNaN(num))
+      return 0
+    return (Math.round(num * 100) / 100).toFixed(2);
+  }
+
 
   render() {
     return (
@@ -195,7 +201,7 @@ class Cartdetail extends React.Component {
                 </div>
                 <div className="col-sm-6">
                   <div className="rightpart">
-                    <h4><span>Subtotal: </span>${this.state.subTotalCartAmount}</h4>
+                    <h4><span>Subtotal: </span>${this.round2Decimal(this.state.subTotalCartAmount)}</h4>
                   </div>
                 </div>
               </div>
@@ -208,13 +214,10 @@ class Cartdetail extends React.Component {
             <div className="block-title">Price Detail</div>
             <div className="block-content">
               <ul>
-                <li><a >Price({this.state.totalCartItem} Item)</a><span>${this.state.subTotalCartAmount}</span></li>
+                <li><a >Price({this.state.totalCartItem} Item)</a><span>${this.round2Decimal(this.state.subTotalCartAmount)}</span></li>
                 <li><a >Delivery Charge</a><span>$15</span></li>
                 <li><a >Subtotal</a><span>$
-              {
-                    this.state.totalCartAmount
-                    // this.state.total = parseFloat(15) + parseFloat(this.state.subTotal)
-                  }
+              {this.round2Decimal(this.state.totalCartAmount)}
                 </span></li>
               </ul>
               <div className="checkouts"><a onClick={() => this.props.history.push('Deliveryaddress')} href="#">Checkout</a></div>

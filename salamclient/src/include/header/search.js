@@ -100,14 +100,25 @@ class Search extends React.Component {
               </div>
               <div className="col-xs-6">
                 <div className="toplinks">
-                  <div className="links">
-                    {
-                      this.props.email ?
-                        <div className="wishlist"><a title="My Wishlist" href='#' onClick={() => this.props.history.push("Mywishlist")}><span className="hidden-xs">Wishlist</span></a><a href="/Myprofile" data-toggle="modal"><span className="hidden-xs">My Account</span></a> </div>
-                        :
+                  {
+                    this.props.email ?
+                      <div className="links">
+                        <div className="wishlist">
+                          <a title="My Wishlist" href='#' onClick={() => this.props.history.push("Mywishlist")}>
+                            <span className="hidden-xs">Wishlist</span>
+                          </a>
+                        </div>
+                        <div className="myaccount">
+                          <a href="/Myprofile" data-toggle="modal">
+                            <span className="hidden-xs">My Account</span></a>
+                        </div>
+                      </div>
+                      :
+                      <div className="links">
                         <div className="myaccount"><a href="/Login" data-toggle="modal"><span className="hidden-xs">Login</span></a> <a href="/Signup" data-toggle="modal"><span className="hidden-xs">Signup</span></a> </div>
-                    }
-                  </div>
+                      </div>
+                  }
+
                 </div>
               </div>
             </div>
