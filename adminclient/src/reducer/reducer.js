@@ -39,6 +39,11 @@ function productReduce (state = {productState : ''},action) {
             quantity : action.quantity,
             aboutProduct : action.aboutProduct,
             file : action.file,
+            file1 : action.file1,
+            file2 : action.file2,
+            file3 : action.file3,
+            file4 : action.file4,
+
             // userId : action.userId,
         }
     }

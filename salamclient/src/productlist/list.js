@@ -41,7 +41,8 @@ class List extends React.Component {
     } else if (search_input !== undefined && search_input !== null) {
       if (this.props.location && this.props.location.state !== undefined && this.props.location.state.productList !== undefined) {
         this.setState({
-          productList: this.props.location.state.productList
+          productList: this.props.location.state.productList,
+          filterArr : this.props.location.state.productList
         })
       } else {
         this.getProductFromSearchInput(search_input)
@@ -58,7 +59,7 @@ class List extends React.Component {
       .then((res) => {
         if (res) {
           console.log('res.data.productres.data.product', res.data.product)
-          this.setState({ productList: res.data.product })
+          this.setState({ productList: res.data.product, filterArr :  res.data.product})
         }
       })
   }
@@ -67,9 +68,10 @@ class List extends React.Component {
     axios.post(URL + '/api/user/fetchProduct', {
       subcategoryid: subcategory,
     }).then((response) => {
-      console.log('this.responsefdfddfdddddddddd', response.data.product);
+
       this.setState({
-        productList: response.data.product
+        productList: response.data.product,
+        filterArr : response.data.product
       })
     })
   }
@@ -99,62 +101,66 @@ class List extends React.Component {
       options.splice(index, 1)
     }
 
-    console.log('optionsoptionsoptions', options)
     // update the state with the new array of options
     this.setState({ specification: options }, () => {
       //this.fetchProduct();
     })
 
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let foo = params.get('subcategory');
-    this.setState({
-      subcategoryids: foo
-    })
-    let obj = {};
-    obj.subCategoryId = foo;
-    obj.specification = this.state.specification
-    console.log('this.state.specificationthis.state.specificationthis.state.specification', this.state.specification)
-    axios.post(URL + '/api/user/filterData', obj).then((response) => {
-      this.setState({
-        filterArr: [],
-        filterResult: [],
-        filterCheck: [],
-      })
-      console.log('this.sidebar', response.data.businessData)
-      if (response.data.businessData) {
-        response.data.businessData.forEach(element => {
-          console.log('/', this.state.specification)
-          if (this.state.specification) {
-            element.specification.forEach(async elmData => {
-              this.state.specification.forEach(elm => {
-                if (elm == elmData.value) {
-                  if (element._id in this.state.filterArr) {
-                    this.setState({
-                      filterArr: [],
-                      filterResult: [],
-                      filterCheck: [],
-                    })
-                  } else {
-                    this.state.filterArr.push(element)
-                  }
-                }
-              })
-            })
-          }
-        });
-      }
-
-      this.state.filterArr.map(img => {
+    // let search = window.location.search;
+    // let params = new URLSearchParams(search);
+    // let foo = params.get('subcategory');
+    // this.setState({
+    //   subcategoryids: foo
+    // })
+    // let obj = {};
+    // obj.subCategoryId = foo;
+    // obj.specification = this.state.specification
+    // console.log('this.state.specificationthis.state.specificationthis.state.specification', this.state.specification)
+    // axios.post(URL + '/api/user/filterData', obj).then((response) => {
+    //   this.setState({
+    //     filterArr: [],
+    //     filterResult: [],
+    //     filterCheck: [],
+    //   })
+    //   console.log('this.sidebar', response.data.businessData)
+    // if (response.data.businessData) {
+    console.log('/', this.state.specification)
+    if (Array.isArray(this.state.specification) && this.state.specification.length > 0) {
+      let filterArrTemp = [];
+      this.state.productList.forEach(product => {   
+        product.specification.forEach(async specItem => {
+          this.state.specification.forEach(elm => {
+            if (elm == specItem.value) {
+              if (product._id in filterArrTemp) {
+                this.setState({
+                  filterArr: [],
+                  filterResult: [],
+                  filterCheck: [],
+                })
+              } else {
+                filterArrTemp.push(product)
+              }
+            }
+          })
+        })
+      });
+      filterArrTemp.map(img => {
         if (this.state.filterCheck.indexOf(img._id) == -1) {
           this.state.filterResult.push(img)
           this.state.filterCheck.push(img._id)
         }
       });
       this.setState({
-        productList: this.state.filterResult
+        filterArr : filterArrTemp
       })
-    })
+      // }
+    } else if(this.state.specification.length === 0){
+      this.setState({
+        filterArr : this.state.productList
+      })
+    }
+
+    // })
   }
 
   addItemToCart = (event, product) => {
@@ -247,7 +253,7 @@ class List extends React.Component {
   render() {
     return (
       <div className="row">
-        <ToastContainer/>
+        <ToastContainer />
         <section className="col-main col-sm-9 col-sm-push-3 wow bounceInUp animated productlist-fluid">
           <div className="category-title">
             <div className="breadcrumbs">
@@ -260,11 +266,11 @@ class List extends React.Component {
           </div>
           <div className="category-products">
             {
-              (this.state.productList[0]) ? <ul className="products-grid">
+              (this.state.filterArr[0]) ? <ul className="products-grid">
 
                 {
                   //  this.state.productList > 0 ?
-                  this.state.productList.map((e, i) => {
+                  this.state.filterArr.map((e, i) => {
                     return (
                       <React.Fragment key={i}>
 

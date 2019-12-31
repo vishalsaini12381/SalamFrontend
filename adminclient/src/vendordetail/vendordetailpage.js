@@ -208,12 +208,6 @@ class Vendordetailpage extends React.Component {
                           <span>Favourite</span>
                           <Switch checked={this.state.featured === false ? false : this.state.featured} onChange={this.handleChangeButton} />
                         </label>
-                        {/* <div className="card-options">
-                                  <label className="custom-switch m-0">
-                                    <input type="checkbox" value = {this.state.checked} onChange = {this.handleChangeButton} className="custom-switch-input" />
-                                    <span className="custom-switch-indicator"></span>
-                                  </label>
-                                </div> */}
                         <table className="table row table-borderless w-100 m-0 ">
                           <tbody className="col-lg-6 p-0">
                             <tr>
@@ -229,7 +223,7 @@ class Vendordetailpage extends React.Component {
                               <td>
                                 <select className="form-control custom-select" name="status" value={this.state.adminStatus} onChange={this.handleChangeStatus}>
                                   {/* <option value = '' ></option> */}
-                                  <option>Unverify</option>
+                                  {/* <option>Unverify</option> */}
                                   <option>Verify</option>
                                   <option>Block</option>
                                   {/* <option>UnBlock</option> */}

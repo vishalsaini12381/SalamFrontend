@@ -13,9 +13,6 @@ class Productdetail extends Component {
                         </div>
                         <Footer />
                   </div>
-
-
-
             );
       }
 }

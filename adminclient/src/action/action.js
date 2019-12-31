@@ -37,6 +37,10 @@ function product(resp){
             quantity : resp.payload.quantity,
             aboutProduct : resp.payload.aboutProduct,
             file : resp.payload.file,
+            file1 : resp.payload.file1,
+            file2 : resp.payload.file2,
+            file3 : resp.payload.file3,
+            file4 : resp.payload.file4,
             // userId : resp.payload.userId,
         })        
     }

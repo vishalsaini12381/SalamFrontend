@@ -64,8 +64,8 @@ class ProductDataTable extends Component {
         this.setState({ visible: false });
       }
     })
-    this.setState({ visible: true });
-    return this.props.history.replace('/Productdetail');
+    // this.setState({ visible: true });
+    this.props.history.push('/Productdetail');
   }
 
   render(e, i) {
@@ -93,8 +93,6 @@ class ProductDataTable extends Component {
         'discount': e.discount + '%',
         'action': <div className="actiontrans" >
           <Link to="#" onClick={(e) => this.product(this, i)} value={e._id} > <i className="fa fa-eye "></i></Link> &nbsp;
-       {/* <Link to = "#"  > <i className="fa fa-edit"></i></Link> &nbsp; */}
-          {/* <Link to = "#"  > <i className="fa fa-trash"></i></Link>  */}
         </div>
       });
     })
@@ -138,10 +136,8 @@ class ProductDataTable extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('pppppppppppppppppppppp', state.productReduce);
   return {
     productState: state.productReduce.productState,
-    // email: state.inititateState.email,
     userId: state.inititateState.userId,
   }
 }

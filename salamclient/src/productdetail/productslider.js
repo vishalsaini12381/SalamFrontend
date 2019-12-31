@@ -55,12 +55,12 @@ class Productslider extends React.Component {
   // }
 
   shoeImgs(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     var navOpened = document.getElementById("imgsIs");
     // navOpened.setState({
     //   productDetailFile : e.target.value
     // })
-    console.log(navOpened.src = e.target.src)
+    // console.log(navOpened.src = e.target.src)
     //this.props.offline()    
   }
 

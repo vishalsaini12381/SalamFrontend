@@ -102,6 +102,14 @@ class Description extends React.Component {
     })
   }
 
+  renderSpecification = (specification = []) => {
+    if (specification.length > 0) {
+      return specification.map(item => {
+        return <div><span style={{textTransform: "capitalize"}}>{item.key} - {item.value}</span><br></br></div>
+      })
+    }
+    return null
+  }
   render() {
     console.log('productList', this.state.productDetail['aboutProduct']);
     return (
@@ -132,7 +140,9 @@ class Description extends React.Component {
         <div className="short-description overview-product">
           <h2>Quick Overview</h2>
           <p>{this.state.productDetail['aboutProduct']}</p>
+          {this.renderSpecification(this.state.productDetail.specification)}
         </div>
+
         <div className="short-description overview-product">
           <h7>Refund Policy</h7>
           {this.state.productDetail.isRefundable ?
