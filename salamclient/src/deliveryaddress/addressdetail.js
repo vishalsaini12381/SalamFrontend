@@ -35,7 +35,6 @@ class Addressdetail extends React.Component{
     }
 
     handleChangeFirstName(event){
-      console.log('eventeventevent',event)
       const {name,value} = event.target;
       let state = this.state;
       state[name].message = '';
@@ -48,12 +47,10 @@ class Addressdetail extends React.Component{
       this.fetchMyAddress();
     }
     fetchMyAddress(){
-      // console.log('this.props.userId',this.props.userId)
       if(this.props.userId){
         axios.post(URL+'/api/user/getAddress',{
           userId:this.props.userId
         }).then((response)=>{
-          console.log('this.responsefdfddfdddddddddd',response.data.getAddress);
           this.setState({
             myAddress : response.data.getAddress,
           })
@@ -66,7 +63,6 @@ class Addressdetail extends React.Component{
           dangerMode: true,
           closeOnClickOutside: false,
         }).then((d)=>{
-           //console.log('ddddddddddddddddddd',d)
             if(d){
             return window.location = "/Login"
           }
@@ -90,7 +86,6 @@ class Addressdetail extends React.Component{
             dangerMode: true,
             closeOnClickOutside: false,
           }).then((d)=>{
-             //console.log('ddddddddddddddddddd',d)
               if(d){
               //return window.location = "/Login"
             }
@@ -99,7 +94,6 @@ class Addressdetail extends React.Component{
       })
     }
     selectAddress(addressId){
-      console.log('addressId',addressId)
       this.setState({
         addressId:addressId
       });
@@ -112,7 +106,6 @@ class Addressdetail extends React.Component{
     validate (){
       let state = this.state;
       if (validator.isEmpty(state.fullName.value)){
-        console.log('eventeventeventevent')
         state.fullName.isValidate = false;
         state.fullName.message = 'Full Name Is Required';
         this.setState(state);
@@ -180,10 +173,7 @@ class Addressdetail extends React.Component{
         obj.landmark = this.state['landmark'].value; 
         obj.alterNumber = this.state['alterNumber'].value; 
         
-        console.log('?????????????????????/',obj);
-
         axios.post(URL+'/api/user/addAddress',obj).then((response)=>{
-          console.log('77777777777777777',response);
           if(response.data.code === 100){
             swal({
               title: "Success!",
@@ -356,7 +346,6 @@ class Addressdetail extends React.Component{
 }
 
 function mapStateToProps(state){
-  console.log('555555555555555555',state.inititateState.email);
    return{
       authenticateState : state.inititateState.authenticateState,
       email: state.inititateState.email,

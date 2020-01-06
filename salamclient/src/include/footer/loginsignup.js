@@ -150,7 +150,6 @@ class Loginsignup extends React.Component {
       obj.cpassword = this.state['cpassword'].value;
 
       axios.post(URL + '/api/Signup', obj).then((response) => {
-        console.log('77777777777777777', response);
         if (response.data.status === true) {
           swal("Successful",
             `${response.data.message}`,
@@ -178,15 +177,12 @@ class Loginsignup extends React.Component {
       obj.type = this.state.type;
       obj.email = this.state['mail'].value;
       obj.password = this.state['pass'].value;
-      console.log(';l;llllllljjjjjjjjjj', obj.type);
       axios.post(URL + '/api/Login', obj).then((response) => {
-        console.log('#########################', response);
         if (response.data.status === true) {
           swal("Successful",
             `${response.data.message}`,
             "success",
           ).then((d) => {
-            console.log('ddddddddddddddddddd', d)
             if (d) {
               return window.location = "/"
             }
@@ -202,7 +198,6 @@ class Loginsignup extends React.Component {
             `${response.data.message}`,
             "error",
           ).then((d) => {
-            console.log('elselslelelslslslle', d);
           })
         }
       })
@@ -215,23 +210,19 @@ class Loginsignup extends React.Component {
     if (isValid) {
       var obj = {};
       obj.email = this.state['Email'].value;
-      console.log('obj', obj);
 
       axios.post(URL + '/api/user/forgetPasswprd', obj).then((response) => {
-        console.log('response', response);
         if (response.data.status = true) {
           swal("Successful",
             `${response.data.message}`,
             "success",
           ).then((d) => {
-            console.log('wwwwwwwwwwwwwwww', d);
           })
         } else {
           swal("Error",
             `${response.data.message}`,
             "error",
           ).then((d) => {
-            console.log('eeeerrrrrttyyyy', d);
           })
         }
       })
@@ -239,7 +230,6 @@ class Loginsignup extends React.Component {
   }
 
   render() {
-    console.log('qqqqqqqqqqqqq', this.state.email);
     const state = this.state;
     return (
 
@@ -413,7 +403,6 @@ class Loginsignup extends React.Component {
 }
 
 function mapStateToProps(state) {
-  // console.log('555555555555555555',state.inititateState.authenticateState);
   return {
     authenticateState: state.inititateState.authenticateState,
     // type: state.inititateState.type

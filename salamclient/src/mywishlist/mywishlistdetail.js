@@ -26,7 +26,6 @@ class Mywishlistdetail extends React.Component {
   }
 
   fetchMyWishlist() {
-    // console.log('this.props.userId',this.props.userId)
     if (this.props.userId) {
       axios.post(URL + '/api/user/myWishlist', {
         userId: this.props.userId
@@ -47,7 +46,6 @@ class Mywishlistdetail extends React.Component {
         dangerMode: true,
         closeOnClickOutside: false,
       }).then((d) => {
-        //console.log('ddddddddddddddddddd',d)
         if (d) {
           return window.location = "/Login"
         }
@@ -61,7 +59,6 @@ class Mywishlistdetail extends React.Component {
       userId: userId,
       productId: productId,
     }).then((response) => {
-      //console.log('this.responsefdfddfdddddddddd',response.data.product);
       if (response.data.code == 100) {
         this.fetchMyWishlist();
         // return window.location.reload()
@@ -73,7 +70,6 @@ class Mywishlistdetail extends React.Component {
           dangerMode: true,
           closeOnClickOutside: false,
         }).then((d) => {
-          //console.log('ddddddddddddddddddd',d)
           if (d) {
             // return window.location.reload();
           }
@@ -186,7 +182,6 @@ class Mywishlistdetail extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('555555555555555555', state.inititateState.email);
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,

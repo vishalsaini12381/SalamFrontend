@@ -15,7 +15,6 @@ class Header extends React.Component {
 	}
 	componentDidMount() {
 		axios.post(URL + '/api/user/fetchBusinesscategory').then((response) => {
-			console.log('BusinessCategoryList', response.data.data);
 			if (response) {
 				this.setState({
 					businesscategoryList: response.data.data,

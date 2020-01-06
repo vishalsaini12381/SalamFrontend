@@ -58,7 +58,6 @@ class List extends React.Component {
     axios.post(URL + '/api/user/searchBox', obj)
       .then((res) => {
         if (res) {
-          console.log('res.data.productres.data.product', res.data.product)
           this.setState({ productList: res.data.product, filterArr :  res.data.product})
         }
       })
@@ -115,16 +114,13 @@ class List extends React.Component {
     // let obj = {};
     // obj.subCategoryId = foo;
     // obj.specification = this.state.specification
-    // console.log('this.state.specificationthis.state.specificationthis.state.specification', this.state.specification)
     // axios.post(URL + '/api/user/filterData', obj).then((response) => {
     //   this.setState({
     //     filterArr: [],
     //     filterResult: [],
     //     filterCheck: [],
     //   })
-    //   console.log('this.sidebar', response.data.businessData)
     // if (response.data.businessData) {
-    console.log('/', this.state.specification)
     if (Array.isArray(this.state.specification) && this.state.specification.length > 0) {
       let filterArrTemp = [];
       this.state.productList.forEach(product => {   
@@ -179,7 +175,6 @@ class List extends React.Component {
           toast.success(response.data.message, {
             position: toast.POSITION.BOTTOM_RIGHT
           }, { autoClose: 200 });
-          // console.log('this.responsefdfddfdddddddddd', response.data.product);
           if (!response.data.success) {
             swal({
               title: "OOPS",
@@ -188,7 +183,6 @@ class List extends React.Component {
               dangerMode: true,
               closeOnClickOutside: false,
             }).then((d) => {
-              //console.log('ddddddddddddddddddd',d)
               if (d) {
                 //return window.location = "/Login"
               }
@@ -207,7 +201,6 @@ class List extends React.Component {
         userId: this.props.userId,
         productId: product._id,
       }).then((response) => {
-        //console.log('this.responsefdfddfdddddddddd',response.data.product);
         if (response.data.code == 100) {
           toast.success(response.data.message, {
             position: toast.POSITION.BOTTOM_RIGHT
@@ -221,9 +214,7 @@ class List extends React.Component {
             dangerMode: true,
             closeOnClickOutside: false,
           }).then((d) => {
-            //console.log('ddddddddddddddddddd',d)
             if (d) {
-              // return window.location.reload();
             }
           })
         }
@@ -361,7 +352,6 @@ class List extends React.Component {
 
 
 function mapStateToProps(state) {
-  console.log('mapStateToProps List page', state.inititateState.userId);
   return {
     userId: state.inititateState.userId
   }

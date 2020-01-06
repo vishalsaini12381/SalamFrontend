@@ -41,24 +41,13 @@ class Orderdetail extends React.Component {
     let orderId = params.get('orderId');
 
     axios.get(`${URL}/api/user/myOrders/${orderId}`).then((response) => {
-      console.log('this.responsefdfddfdddddddddd', response);
 
       if (response.data.product !== undefined && Object.keys(response.data.product).length > 0) {
-        // const orderArray = response.data.product.orderItems
-        // if (Array.isArray(orderArray)) {
-        //   orderArray.map(item => {
-
-        //   })
-        // }
-
         this.setState({
           orderItems: response.data.product.orderItems,
           totalOrderCost: response.data.product.totalOrderCost,
           shippingCharges: response.data.product.shippingCharges,
           orderDetail: response.data.product
-          //     userDetail: response.data.resultData[0].orderDetail.userId,
-          // productDetail: response.data.resultData[0].productDetail,
-          // addressDetail: response.data.product.addressId,
         })
       }
     })
@@ -76,7 +65,6 @@ class Orderdetail extends React.Component {
 
     axios.post(`${URL}/api/user/get-return-request`)
       .then((response) => {
-        console.log('this.responsefdfddfdddddddddd', response);
         if (!response.data.success) {
           toast.error("Return request already sent", {
             position: toast.POSITION.BOTTOM_RIGHT
@@ -219,7 +207,6 @@ class Orderdetail extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('555555555555555555', state.inititateState.email);
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,

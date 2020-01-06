@@ -115,10 +115,7 @@ class Signuppage extends React.Component {
       obj.password = this.state['password'].value;
       obj.cpassword = this.state['cpassword'].value;
 
-      console.log('?????????????????????/', obj);
-
       axios.post(URL + '/api/user/Signup', obj).then((response) => {
-        console.log('77777777777777777', response);
         if (response.data.status === true) {
           swal({
             title: "Success!",

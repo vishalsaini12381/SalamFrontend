@@ -1,6 +1,5 @@
 function authenticate(resp){
     return dispatch =>{
-        console.log('99999999999999999',resp.payload);
         dispatch({
             type:  'authenticate',
             userId : resp.payload.userId,

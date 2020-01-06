@@ -24,7 +24,6 @@ class List extends React.Component {
 
   fetchProduct() {
     axios.post(URL + '/api/user/fetchProduct').then((response) => {
-      console.log('this.response', response.data.product);
       this.setState({
         productList: response.data.product
       })
@@ -35,7 +34,6 @@ class List extends React.Component {
     let obj = {};
     obj.subCategoryId = "5d7215b1c86f411656184ccd"
     axios.post(URL + '/api/user/fetchSpecification', obj).then((response) => {
-      console.log('this.sidebar', response.data.doc)
       this.setState({
         specificationList: response.data.doc
       })
@@ -43,7 +41,6 @@ class List extends React.Component {
   }
 
   render() {
-    console.log('this.productList', this.state.productList);
     return (
       <div className="row">
         <section className="col-main col-sm-9 col-sm-push-3 wow bounceInUp animated productlist-fluid">

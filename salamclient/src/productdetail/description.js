@@ -95,7 +95,6 @@ class Description extends React.Component {
       dangerMode: true,
       closeOnClickOutside: false,
     }).then((d) => {
-      console.log('ddddddddddddddddddd', d)
       if (d) {
         return window.location = "/Login"
       }
@@ -111,7 +110,6 @@ class Description extends React.Component {
     return null
   }
   render() {
-    console.log('productList', this.state.productDetail['aboutProduct']);
     return (
       <div className="product-shop col-lg-7 col-sm-7 col-xs-12">
         <ToastContainer />
@@ -202,7 +200,6 @@ class Description extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('555555555555555555', state.inititateState.email);
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,

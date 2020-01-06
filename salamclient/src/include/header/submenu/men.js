@@ -16,7 +16,6 @@
 
 //   fetchCategory(){
 //     axios.post('http://localhost:3100/api/fetchcategory').then((response)=>{
-//       console.log('//////////////////',response.data.category);
 //       if(response){
 //         this.setState({
 //           categoryList : response.data.category
@@ -27,7 +26,6 @@
 
 //   fetchSubCategory(){
 //     axios.post('http://localhost:3100/api/fetchSubCategory').then((resp)=>{
-//       console.log('|||||||||||||||||',resp.data.subcategory);
 //       if(resp){
 //         this.setState({
 //           SubcategoryList : resp.data.subcategory
@@ -42,8 +40,6 @@
 //   }
 
 // 	render(){
-//     console.log('categoryList',this.state.categoryList);
-//     console.log('SubcategoryList',this.state.SubcategoryList);
 // 		return(
 // //             <div className="level0-wrapper dropdown-6col">
 // //               <div className="level0-wrapper2">

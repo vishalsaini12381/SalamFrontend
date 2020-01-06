@@ -26,7 +26,6 @@ class Categories extends React.Component {
   allProducts() {
     this.setState({ visible: true });
     axios.post(URL + '/api/user/fetchHomeProduct').then((response) => {
-      console.log('OOOOOOOOOOOOOOOOOOO', response.data.product);
       this.setState({ visible: false });
       this.setState({
         productList: response.data.productData,

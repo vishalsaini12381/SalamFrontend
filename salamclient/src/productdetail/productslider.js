@@ -17,7 +17,6 @@ class Productslider extends React.Component {
 
 
   componentDidMount() {
-    console.log(this.props.productData)
     if (this.props.productData !== undefined) {
       this.setState({
         productDetail: this.props.productData.product,
@@ -46,7 +45,6 @@ class Productslider extends React.Component {
   //   axios.post(URL + '/api/user/productDetail', {
   //     productId: foo,
   //   }).then((response) => {
-  //     console.log('this.12112122122122122', response.data.productData[0].product);
   //     this.setState({
   //       productDetail: response.data.productData[0].product,
   //       productDetailFile: response.data.productData[0].product['file1']
@@ -55,12 +53,10 @@ class Productslider extends React.Component {
   // }
 
   shoeImgs(e) {
-    // console.log(e.target.value)
     var navOpened = document.getElementById("imgsIs");
     // navOpened.setState({
     //   productDetailFile : e.target.value
     // })
-    // console.log(navOpened.src = e.target.src)
     //this.props.offline()    
   }
 

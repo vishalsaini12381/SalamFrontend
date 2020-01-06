@@ -24,7 +24,6 @@ class WalletTransaction extends Component {
             axios.post(`${URL}/api/user/transaction`, {
                 userId: this.props.userId
             }).then((response) => {
-                console.log('this.responsefdfddfdddddddddd', response.data);
                 if (Array.isArray(response.data.data)) {
                     this.setState({
                         transactionArray: response.data.data,
@@ -40,7 +39,6 @@ class WalletTransaction extends Component {
                 dangerMode: true,
                 closeOnClickOutside: false,
             }).then((d) => {
-                //console.log('ddddddddddddddddddd',d)
                 if (d) {
                     return window.location = "/Login"
                 }

@@ -23,7 +23,6 @@ class Slid extends React.Component{
 
   allProducts(){
     axios.post(URL+'/api/user/fetchProduct').then((resp)=>{
-      console.log('OOOOOOOOOOOOOOOOOOO',resp);
       this.setState({
         productList : resp.data.doc,
       })
@@ -57,7 +56,6 @@ class Slid extends React.Component{
       children,
     } = this.state
     var e = '';
-   console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',this.state.productList);
 		return(
       <div>
          <ReactItemSlider productsInView="max" arrowSize="small">

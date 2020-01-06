@@ -30,7 +30,6 @@ class Productdetail extends React.Component {
 		axios.post(URL + '/api/user/productDetail', {
 			productId: foo,
 		}).then((response) => {
-			// console.log('this.88888888888788888888888888887',response.data.productData[0]['product']['businesscategoryId'].businesscategory);
 			if (response.data.productData) {
 				this.setState({
 					subcategory: response.data.productData['product']['subCategoryId'].subcategory,

@@ -32,12 +32,10 @@ class Paymentdetail extends React.Component {
     // this.fetchMyCart();
   }
   fetchMyCart() {
-    // console.log('this.props.userId',this.props.userId)
     if (this.props.userId) {
       axios.post(URL + '/api/user/myCart', {
         userId: this.props.userId
       }).then((response) => {
-        console.log('this.responsefdfddfdddddddddd', response);
         if (response.data.code == 100) {
           response.data.product.forEach(element => {
             this.state.subTotal = parseFloat(this.state.subTotal) + parseFloat(element.total);
@@ -52,7 +50,6 @@ class Paymentdetail extends React.Component {
             dangerMode: true,
             closeOnClickOutside: false,
           }).then((d) => {
-            //console.log('ddddddddddddddddddd',d)
             if (d) {
               return window.location = "/"
             }
@@ -68,7 +65,6 @@ class Paymentdetail extends React.Component {
         dangerMode: true,
         closeOnClickOutside: false,
       }).then((d) => {
-        //console.log('ddddddddddddddddddd',d)
         if (d) {
           return window.location = "/Login"
         }
@@ -78,7 +74,6 @@ class Paymentdetail extends React.Component {
   }
 
   securePayment() {
-    //console.log(this.state.subTotal+'/'+this.state.shippingAmount+'/'+this.state.total);                  
     let search = window.location.search;
     let params = new URLSearchParams(search);
     let foo = params.get('data');
@@ -92,7 +87,6 @@ class Paymentdetail extends React.Component {
           dangerMode: true,
           closeOnClickOutside: false,
         }).then((d) => {
-          //console.log('ddddddddddddddddddd',d)
           if (d) {
             // return window.location = "/Login"
           }
@@ -119,7 +113,6 @@ class Paymentdetail extends React.Component {
                   dangerMode: false,
                   closeOnClickOutside: false,
                 }).then((d) => {
-                  //console.log('ddddddddddddddddddd',d)
                   if (d) {
                     return window.location = "/myOrders"
                   }
@@ -132,7 +125,6 @@ class Paymentdetail extends React.Component {
                   dangerMode: true,
                   closeOnClickOutside: false,
                 }).then((d) => {
-                  //console.log('ddddddddddddddddddd',d)
                   if (d) {
                     return window.location = "/"
                   }
@@ -147,13 +139,11 @@ class Paymentdetail extends React.Component {
               dangerMode: true,
               closeOnClickOutside: false,
             }).then((d) => {
-              //console.log('ddddddddddddddddddd',d)
               if (d) {
                 // return window.location = "/Login"
               }
             })
           }
-          console.log('responseresponse', response)
         })
       }
 
@@ -165,7 +155,6 @@ class Paymentdetail extends React.Component {
         dangerMode: true,
         closeOnClickOutside: false,
       }).then((d) => {
-        //console.log('ddddddddddddddddddd',d)
         if (d) {
           return window.location = "/Login"
         }
@@ -175,7 +164,6 @@ class Paymentdetail extends React.Component {
   }
 
   changePaymentType(data) {
-    console.log(data)
     this.setState({
       paymentType: data
     })
@@ -204,7 +192,6 @@ class Paymentdetail extends React.Component {
         })
       })
       .catch(error => {
-        console.log("Payment Error: ", error);
         alert("Payment Error");
       });
   }
@@ -318,7 +305,6 @@ class Paymentdetail extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('555555555555555555', state.inititateState.email);
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,

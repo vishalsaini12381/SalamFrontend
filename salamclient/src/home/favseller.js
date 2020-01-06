@@ -34,7 +34,6 @@ class Favseller extends React.Component {
   }
 
   render() {
-    console.log('shivendra', this.state.vendorList);
     const responsive = {
       desktop: {
         breakpoint: { max: 3000, min: 1024 },

@@ -8,34 +8,32 @@ import Loader from 'react-loader-spinner'
 import './vendorSlid.css';
 const URL = process.env.REACT_APP_LOCAL;
 
-class Slid extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-          vendorList : [],
-          Favourite : 'Favourite',
-          visible  : false,
-        }
-        this.fetchVendor = this.fetchVendor.bind(this);
-      }
-      componentDidMount(){
-        this.fetchVendor();
-      }
-      fetchVendor(){
-        this.setState({visible : true});
-        axios.post(URL+'/api/user/fetchVendorList',{
-          Favourite : this.state.Favourite,
-        }).then((response)=>{
-            console.log('response',response.data.vendor);
-            this.setState({visible: false});
-          this.setState({
-            vendorList : response.data.vendor
-          })
-        })
-      }
-    
-	render(){
-        console.log('shivendra',this.state.vendorList);
+class Slid extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      vendorList: [],
+      Favourite: 'Favourite',
+      visible: false,
+    }
+    this.fetchVendor = this.fetchVendor.bind(this);
+  }
+  componentDidMount() {
+    this.fetchVendor();
+  }
+  fetchVendor() {
+    this.setState({ visible: true });
+    axios.post(URL + '/api/user/fetchVendorList', {
+      Favourite: this.state.Favourite,
+    }).then((response) => {
+      this.setState({ visible: false });
+      this.setState({
+        vendorList: response.data.vendor
+      })
+    })
+  }
+
+  render() {
     const responsive = {
       desktop: {
         breakpoint: { max: 3000, min: 1024 },
@@ -53,52 +51,51 @@ class Slid extends React.Component{
         slidesToSlide: 1, // optional, default to 1.
       },
     };
-   
-   console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',this.state.vendorList);
-		return(
-<div> 
-   <section className="main-container col1-layout home-content-container categories-fluid">
-    <div className="container">
-<Loader visible = {this.state.visible} type="Puff" className="signuploader" />
-      <div className="std">
-        <div className="best-seller-pro wow bounceInUp animated">
-          <div className="slider-items-products">
-            <div className="new_title center">
-              <h2>Categories</h2>
-            </div>
-            <br/>
-            <Carousel
-            swipeable={true}
-            draggable={true}
-            showDots={true}
-            responsive={responsive}
-            ssr={true} // means to render carousel on server-side.
-            infinite={true}
-            autoPlay={this.props.deviceType !== "mobile" ? true : false}
-            autoPlaySpeed={1000}
-            keyBoardControl={true}
-            customTransition="all .5"
-            transitionDuration={500}
-            containerClass="carousel-container"
-            removeArrowOnDeviceType={["tablet", "mobile"]}
-            deviceType={this.props.deviceType}
-            dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-40-px"
-          >
-             {
-    this.state.vendorList.map((e,i)=>{
-      return(
-        <React.Fragment key = {i}>
-      <div className="categoryslider">
-         <div className="sliderimage">
-            <img style = {{width : '198px',height:'249px'}} src =  {e.image} />
-         </div>
-      </div>
-      </React.Fragment>
-      )
-    })
-  }
-      {/* <div className="categoryslider">
+
+    return (
+      <div>
+        <section className="main-container col1-layout home-content-container categories-fluid">
+          <div className="container">
+            <Loader visible={this.state.visible} type="Puff" className="signuploader" />
+            <div className="std">
+              <div className="best-seller-pro wow bounceInUp animated">
+                <div className="slider-items-products">
+                  <div className="new_title center">
+                    <h2>Categories</h2>
+                  </div>
+                  <br />
+                  <Carousel
+                    swipeable={true}
+                    draggable={true}
+                    showDots={true}
+                    responsive={responsive}
+                    ssr={true} // means to render carousel on server-side.
+                    infinite={true}
+                    autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                    autoPlaySpeed={1000}
+                    keyBoardControl={true}
+                    customTransition="all .5"
+                    transitionDuration={500}
+                    containerClass="carousel-container"
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    deviceType={this.props.deviceType}
+                    dotListClass="custom-dot-list-style"
+                    itemClass="carousel-item-padding-40-px"
+                  >
+                    {
+                      this.state.vendorList.map((e, i) => {
+                        return (
+                          <React.Fragment key={i}>
+                            <div className="categoryslider">
+                              <div className="sliderimage">
+                                <img style={{ width: '198px', height: '249px' }} src={e.image} />
+                              </div>
+                            </div>
+                          </React.Fragment>
+                        )
+                      })
+                    }
+                    {/* <div className="categoryslider">
          <div className="sliderimage">
             <img style = {{width : '198px',height:'249px'}} src = "./images/categories/2.png"/>
          </div>
@@ -106,7 +103,7 @@ class Slid extends React.Component{
             <a title=" Sample Product" href="#">Men Fashion </a>
           </div>
       </div> */}
-    {/* {
+                    {/* {
     this.state.productList.map((e,i)=>{
       return(
         <React.Fragment key = {i}>
@@ -122,16 +119,16 @@ class Slid extends React.Component{
       )
     })
   } */}
-</Carousel>
-      
+                  </Carousel>
+
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
-    </div>
-  </section>
-  </div>
-			)
-	}
+    )
+  }
 }
 
 export default Slid;

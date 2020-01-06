@@ -24,12 +24,10 @@ class Orderdatatable extends Component {
   }
 
   fetchMyOrder() {
-    // console.log('this.props.userId',this.props.userId)
     if (this.props.userId) {
       axios.post(URL + '/api/user/myOrders', {
         userId: this.props.userId
       }).then((response) => {
-        console.log('this.responsefdfddfdddddddddd', response.data.product);
         this.setState({
           myOrders: response.data.product,
         })
@@ -42,7 +40,6 @@ class Orderdatatable extends Component {
         dangerMode: true,
         closeOnClickOutside: false,
       }).then((d) => {
-        //console.log('ddddddddddddddddddd',d)
         if (d) {
           return window.location = "/Login"
         }

@@ -51,7 +51,6 @@ class Search extends React.Component {
     axios.post(URL + '/api/user/searchBox', obj)
       .then((res) => {
         if (res) {
-          // console.log('res.data.productres.data.product', res.data.product)
           if (Array.isArray(res.data.product) && res.data.product.length > 0) {
             this.props.history.push({
               pathname: 'Productlist',
@@ -75,7 +74,6 @@ class Search extends React.Component {
   fetchBusinessCategory() {
     this.setState({ visible: true });
     axios.post(URL + '/api/user/fetchBusinesscategory').then((response) => {
-      console.log('BusinessCategoryList', response.data.data);
       if (response) {
         this.setState({ visible: false });
         this.setState({
@@ -202,7 +200,6 @@ class Search extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('555555555555555555', state.inititateState.email);
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,

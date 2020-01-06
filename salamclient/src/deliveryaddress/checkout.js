@@ -30,13 +30,11 @@ class Checkout extends React.Component {
   }
 
   fetchMyCart() {
-    // console.log('this.props.userId',this.props.userId)
     if (this.props.userId) {
       axios.post(URL + '/api/user/myCart', {
         userId: this.props.userId
       }).then((response) => {
         if (response.data.code == 100) {
-          console.log('this.responsefdfddfdddddddddd', response.data.product);
           this.setState({
             myCart: response.data.product,
           })
@@ -48,7 +46,6 @@ class Checkout extends React.Component {
             dangerMode: true,
             closeOnClickOutside: false,
           }).then((d) => {
-            //console.log('ddddddddddddddddddd',d)
             if (d) {
               return window.location = "/"
             }
@@ -63,7 +60,6 @@ class Checkout extends React.Component {
         dangerMode: true,
         closeOnClickOutside: false,
       }).then((d) => {
-        //console.log('ddddddddddddddddddd',d)
         if (d) {
           return window.location = "/Login"
         }
@@ -74,10 +70,8 @@ class Checkout extends React.Component {
 
   goToPayment = () => {
     var addressData = $('.selectedAddress').attr('id');
-    console.log('addressData', addressData)
     if (addressData) {
       this.props.history.push(`Paymentprocess?data=${addressData}`);
-      // window.location.href='/Paymentprocess?data='+addressData;
     } else {
       alert('Please select address...')
     }
@@ -115,7 +109,6 @@ class Checkout extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('555555555555555555', state.inititateState.email);
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,

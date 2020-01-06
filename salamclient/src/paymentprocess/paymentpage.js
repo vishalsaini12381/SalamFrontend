@@ -35,7 +35,6 @@ class Paymentpage extends React.Component {
         dangerMode: true,
         closeOnClickOutside: false,
       }).then((d) => {
-        //console.log('ddddddddddddddddddd',d)
         if (d) {
           return window.location = "/Login"
         }
@@ -47,7 +46,6 @@ class Paymentpage extends React.Component {
     axios.post(URL + '/api/user/myCart', {
       userId: this.props.userId
     }).then((response) => {
-      console.log('this.responsefdfddfdddddddddd', response);
       if (response.data.code == 100 && response.data.product) {
 
         // this.state.myCart.map((e, i) => {
@@ -76,7 +74,6 @@ class Paymentpage extends React.Component {
           dangerMode: true,
           closeOnClickOutside: false,
         }).then((d) => {
-          //console.log('ddddddddddddddddddd',d)
           if (d) {
             return window.location = "/"
           }
@@ -103,7 +100,6 @@ class Paymentpage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('555555555555555555', state.inititateState.email);
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,

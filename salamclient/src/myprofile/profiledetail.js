@@ -136,10 +136,8 @@ class Profiledetail extends React.Component {
     obj.state = this.state['state'].value;
     obj.country = this.state['country'].value;
     axios.post(URL + '/api/user/userProfile', obj).then((response) => {
-      console.log('33333333333333333', response);
       if (response.data.status === true) {
         // axios.post('http://3.92.136.66:4000/api/fetchUser').then((doc)=>{
-        // console.log('22222222222222222',doc);
         if (response) {
           this.props.authenticate({
             type: 'authenticate',
@@ -181,7 +179,6 @@ class Profiledetail extends React.Component {
 
   render() {
     const state = this.state;
-    console.log('mobile', this.state)
     return (
       <section className="col-main col-sm-9  wow bounceInUp animated profile-fluid">
         <div className="category-title">
@@ -307,7 +304,6 @@ class Profiledetail extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('jdgfdshfdsjhgvfdscvsdvch', state.inititateState)
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,

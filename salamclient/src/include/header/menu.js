@@ -22,26 +22,12 @@ class Menu extends React.Component {
       SubcategoryList: [],
       businesscategory: '',
     }
-    // this.fetchBusinessCategory = this.fetchBusinessCategory.bind(this);
     this.fetchCategory = this.fetchCategory.bind(this);
     this.fetchSubCategory = this.fetchSubCategory.bind(this);
   }
 
-  // fetchBusinessCategory() {
-  //   axios.post(URL + '/api/user/fetchBusinesscategory').then((response) => {
-  //     console.log('BusinessCategoryList', response.data.data);
-  //     if (response) {
-  //       this.setState({
-  //         businesscategoryList: response.data.data,
-  //         // businessCatData : response.data.business
-  //       })
-  //     }
-  //   })
-  // }
-
   fetchCategory() {
     axios.post(URL + '/api/user/fetchcategory').then((response) => {
-      // console.log('//////////////////',response.data.category);
       if (response) {
         this.setState({
           categoryList: response.data.category
@@ -52,7 +38,6 @@ class Menu extends React.Component {
 
   fetchSubCategory() {
     axios.post(URL + '/api/user/fetchSubCategory').then((resp) => {
-      // console.log('|||||||||||||||||',resp.data.results);
       if (resp) {
         this.setState({
           SubcategoryList: resp.data.results
@@ -74,18 +59,9 @@ class Menu extends React.Component {
     })
   }
   componentWillMount() {
-    // this.fetchBusinessCategory();
-    // this.fetchCategory();
-    // this.fetchSubCategory();
   }
 
   handleSelect(e, i) {
-    // console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWW',e.state.businesscategoryList[i]._id);
-    // this.setState({businesscategory : e.target.value});
-    // let obj = {};
-    // obj.businesscategory = e.target.value;
-    // console.log('resseeepeeppe', e);
-
   }
 
   subcat() {
@@ -95,7 +71,6 @@ class Menu extends React.Component {
 
 
   render(e) {
-    //console.log('businesscategoryList===================', this.state.businesscategoryList);
     return (
       <nav>
         <div className="container">

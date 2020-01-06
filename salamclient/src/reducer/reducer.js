@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux';
 
 function inititateState (state = {authenticateState :''} , action) {
-        console.log('reducer',action);
     if(action.type === 'authenticate'){
         return{
             // authenticateState : action.payload,

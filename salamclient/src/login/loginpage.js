@@ -60,9 +60,7 @@ class Loginpage extends React.Component {
       //obj.userId = this.state.userId;
       obj.email = this.state['mail'].value;
       obj.password = this.state['pass'].value;
-      console.log(';l;llllllljjjjjjjjjj', obj.type);
       axios.post(URL + '/api/user/Login', obj).then((response) => {
-        console.log('#########################', response);
         if (response.data.status === true) {
           swal({
             title: "Success!",
@@ -71,13 +69,11 @@ class Loginpage extends React.Component {
             dangerMode: false,
             closeOnClickOutside: false,
           }).then((d) => {
-            console.log('ddddddddddddddddddd', d)
             if (d) {
               return window.location = "/"
             }
           })
           if (response) {
-            //console.log('response.dataresponse.dataresponse.dataresponse.data',response.data)
             this.props.authenticate({
               type: 'authenticate',
               payload: response.data
@@ -88,7 +84,6 @@ class Loginpage extends React.Component {
             `${response.data.message}`,
             "error",
           ).then((d) => {
-            console.log('elselslelelslslslle', d);
           })
         }
       })
@@ -153,7 +148,6 @@ class Loginpage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('555555555555555555546456563564565646456', state);
   return {
     authenticateState: state.inititateState.authenticateState,
     // type: state.inititateState.type

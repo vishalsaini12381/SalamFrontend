@@ -28,13 +28,11 @@ class Cartdetail extends React.Component {
   }
 
   fetchMyCart() {
-    // console.log('this.props.userId',this.props.userId)
     if (this.props.userId) {
       axios.post(URL + '/api/user/myCart', {
         userId: this.props.userId
       }).then((response) => {
         if (response.data.code == 100) {
-          console.log('this.responsefdfddfdddddddddd', response.data.product);
           let subTotalCartAmount = 0;
           let totalCartItem = 0;
           if (Array.isArray(response.data.product)) {
@@ -57,7 +55,6 @@ class Cartdetail extends React.Component {
             dangerMode: true,
             closeOnClickOutside: false,
           }).then((d) => {
-            //console.log('ddddddddddddddddddd',d)
             if (d) {
               return window.location = "/"
             }
@@ -72,7 +69,6 @@ class Cartdetail extends React.Component {
         dangerMode: true,
         closeOnClickOutside: false,
       }).then((d) => {
-        //console.log('ddddddddddddddddddd',d)
         if (d) {
           return window.location = "/Login"
         }
@@ -82,7 +78,6 @@ class Cartdetail extends React.Component {
   }
 
   addToCart = (productId, userId, price, discount, action) => {
-    //console.log(productId+'/'+userId+'/'+price+'/'+discount);
     axios.post(URL + '/api/user/addToCart', {
       userId: userId,
       productId: productId,
@@ -91,7 +86,6 @@ class Cartdetail extends React.Component {
       quantity: 1,
       action: action
     }).then((response) => {
-      //console.log('this.responsefdfddfdddddddddd',response.data.product);
       if (response.data.success) {
         this.fetchMyCart();
         // return window.location.reload()
@@ -103,7 +97,6 @@ class Cartdetail extends React.Component {
           dangerMode: true,
           closeOnClickOutside: false,
         }).then((d) => {
-          //console.log('ddddddddddddddddddd',d)
           // if (d) {
           //   return window.location = "/Login"
           // }

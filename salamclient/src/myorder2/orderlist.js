@@ -23,18 +23,13 @@ class Orderlist extends React.Component{
   }
 
   fetchMyOrder(){
-    // console.log('this.props.userId',this.props.userId)
     if(this.props.userId){
       axios.post(URL+'/api/user/myOrders',{
         userId:this.props.userId
       }).then((response)=>{
-        
-          console.log('this.responsefdfddfdddddddddd',response.data.product);
           this.setState({
             myOrders : response.data.product,
-          })
-        
-        
+          })        
       })
     }else{
       swal({
@@ -44,7 +39,6 @@ class Orderlist extends React.Component{
         dangerMode: true,
         closeOnClickOutside: false,
       }).then((d)=>{
-         //console.log('ddddddddddddddddddd',d)
           if(d){
           return window.location = "/Login"
         }
@@ -172,7 +166,6 @@ class Orderlist extends React.Component{
 
 
 function mapStateToProps(state){
-  console.log('555555555555555555',state.inititateState.email);
    return{
       authenticateState : state.inititateState.authenticateState,
       email: state.inititateState.email,
