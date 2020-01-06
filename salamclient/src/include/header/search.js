@@ -87,6 +87,27 @@ class Search extends React.Component {
     })
   }
 
+  checkCart = () => {
+    if (this.props.userId) {
+      axios.post(URL + '/api/user/myCart', {
+        userId: this.props.userId
+      }).then((response) => {
+        if (Array.isArray(response.data.product) && response.data.product.length > 0) {
+          this.props.history.push('Shoppingcart')
+        } else {
+          toast.error("Your cart is empty. !", {
+            position: toast.POSITION.BOTTOM_RIGHT
+          }, { autoClose: 500 });
+        }
+      })
+    } else {
+
+      toast.error("First you have to login !", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      }, { autoClose: 500 });
+    }
+  }
+
   render() {
     return (
       <header className="header-container">
@@ -157,7 +178,7 @@ class Search extends React.Component {
               <div className="col-lg-2 col-sm-3 col-md-2">
                 <div className="top-cart-contain">
                   <div className="mini-cart">
-                    <div className="basket "> <a href="#" onClick={() => this.props.history.push('Shoppingcart')}> <i class="fa fa-shopping-bag"></i>
+                    <div className="basket "> <a href="#" onClick={() => this.checkCart()}> <i class="fa fa-shopping-bag"></i>
                       <div className="cart-box"><span className="title">My Cart</span></div>
                     </a></div>
                     <div>
@@ -184,7 +205,8 @@ function mapStateToProps(state) {
   console.log('555555555555555555', state.inititateState.email);
   return {
     authenticateState: state.inititateState.authenticateState,
-    email: state.inititateState.email
+    email: state.inititateState.email,
+    userId: state.inititateState.userId
   }
 }
 
