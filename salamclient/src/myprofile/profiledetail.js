@@ -174,7 +174,6 @@ class Profiledetail extends React.Component {
     if (mm < 10) {
       mm = '0' + mm
     }
-s
     today = yyyy + '-' + mm + '-' + dd;
     return today
   }
