@@ -161,6 +161,7 @@ class Orderdetail extends React.Component {
                   }
                 </tbody>
               </table>
+              <h4 style={{float : 'right'}}><span>Payment Method :</span>{this.state.orderDetail.paymentType}</h4>
             </div>
             <div className="continueshopping">
               <div className="row">
@@ -183,7 +184,7 @@ class Orderdetail extends React.Component {
             <div className="block-title">Price Detail</div>
             <div className="block-content">
               <ul>
-                <li><a href="#">Price({this.state.productDetail.length} Item)</a><span>${this.state.totalOrderCost}</span></li>
+                <li><a href="#">Price({this.state.orderItems.length} Item)</a><span>${this.state.totalOrderCost}</span></li>
                 <li><a href="#">Delivery Charge</a><span>${this.state.shippingCharges}</span></li>
                 <li><a href="#">Subtotal</a><span>${this.state.totalOrderCost + this.state.shippingCharges}</span></li>
               </ul>

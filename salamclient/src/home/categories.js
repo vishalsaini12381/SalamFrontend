@@ -1,11 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import axios from 'axios';
-import './categories.css';
-import "react-multi-carousel/lib/styles.css";
+import { Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
 import Carousel from 'react-multi-carousel';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-multi-carousel/lib/styles.css";
 import 'react-multi-carousel/lib/styles.css';
 import './newproduct.css';
+
+import './categories.css';
 
 
 const URL = process.env.REACT_APP_LOCAL;
@@ -31,6 +34,59 @@ class Categories extends React.Component {
         productList: response.data.productData,
       })
     })
+  }
+
+  addToCart = (productId, userId, price, discount, action) => {
+    if (this.props.userId !== undefined) {
+      axios.post(URL + '/api/user/addToCart', {
+        userId: userId,
+        productId: productId,
+        price: price,
+        discount: discount,
+        quantity: 1,
+        action: 1
+      }).then((response) => {
+        if (response.data.success) {
+          toast.success("Product added to cart !", {
+            position: toast.POSITION.BOTTOM_RIGHT
+          }, { autoClose: 500 });
+        } else {
+          toast.warn(response.data.message, {
+            position: toast.POSITION.BOTTOM_RIGHT
+          }, { autoClose: 500 });
+        }
+      }).catch(error => {
+        toast.error("Some error occured !", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+      })
+    } else {
+      toast.warn("You need to login to continue !", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      }, { autoClose: 500 });
+    }
+  }
+
+  addToWishlist(productId, userId) {
+    if (this.props.userId !== undefined) {
+      axios.post(URL + '/api/user/addToWishlist', {
+        userId: userId,
+        productId: productId,
+      }).then((response) => {
+        toast.success(response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+
+      }).catch(error => {
+        toast.error("Some error occured !", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+      })
+    } else {
+      toast.warn("You need to login to continue !", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      }, { autoClose: 500 });
+    }
   }
 
   componentDidMount() {
@@ -63,20 +119,24 @@ class Categories extends React.Component {
     if (this.state.productList.length > 0 && !visible)
       return (
         <div className="container-fluid newproduct-fluid" >
+          <ToastContainer />
           <div className="container">
-
             <div className="headingpart">
               <h2>New  Products</h2>
             </div>
             <Carousel responsive={responsive}>
-
               {
                 this.state.productList.map((e, i) => {
                   return (
                     <div className="mutlislider" key={`productIndex_${i}`}>
                       <div className="productimage">
                         <a href={"Productdetail?product=" + e._id}><img src={e.file1} alt="product 1" /></a>
-                        <a href={'Productdetail?product=' + e._id}><div className="viewproduct"><i className="fa fa-shopping-cart"></i> Add to Cart </div></a>
+                        <div className="viewproduct">
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <a href="javascript:void(0);" onClick={() => this.addToCart(e._id, this.props.userId)}><i className="fa fa-shopping-cart"></i> Add to Cart</a>
+                            <a href="javascript:void(0);" onClick={() => this.addToWishlist(e._id, this.props.userId)}><i className="fa fa-heart"></i> Add to Wishlist</a>
+                          </div>
+                        </div>
                       </div>
                       <div className="Product-Info">
                         <div className="Product-Info--Name" title={e.productName}>{e.productName}</div>
@@ -174,4 +234,13 @@ class Categories extends React.Component {
   }
 }
 
-export default Categories;
+
+function mapStateToProps(state) {
+  return {
+    authenticateState: state.inititateState.authenticateState,
+    email: state.inititateState.email,
+    userId: state.inititateState.userId
+  }
+}
+
+export default withRouter(connect(mapStateToProps)(Categories));

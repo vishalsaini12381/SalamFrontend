@@ -59,22 +59,21 @@ class Mywishlistdetail extends React.Component {
       userId: userId,
       productId: productId,
     }).then((response) => {
-      if (response.data.code == 100) {
+      if (response.data.success) {
+        toast.success(response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
         this.fetchMyWishlist();
-        // return window.location.reload()
       } else {
-        swal({
-          title: "OOPS",
-          text: "Some error found.",
-          icon: "warning",
-          dangerMode: true,
-          closeOnClickOutside: false,
-        }).then((d) => {
-          if (d) {
-            // return window.location.reload();
-          }
-        })
+        toast.warn(response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
       }
+    }).catch(error=>{
+      
+      toast.error("Some error occured !", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      }, { autoClose: 500 });
     })
   }
 
@@ -85,12 +84,17 @@ class Mywishlistdetail extends React.Component {
       quantity: 1,
       action: 1
     }).then((response) => {
-      toast.success(response.data.message, {
-        position: toast.POSITION.BOTTOM_RIGHT
-      }, { autoClose: 500 });
-      
-      if (response.data.success)
-        this.addToWishlist(productId, userId)
+      if (response.data.success) {
+        toast.success(response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+        // this.fetchMyWishlist();
+      } else {
+        toast.warn(response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+      }
+
     }).catch(error => {
       toast.error("Some error occured !", {
         position: toast.POSITION.BOTTOM_RIGHT
@@ -101,7 +105,7 @@ class Mywishlistdetail extends React.Component {
   render() {
     return (
       <section className="col-main col-sm-9  wow bounceInUp animated cartdetail-fluid">
-        <ToastContainer />
+        {/* <ToastContainer /> */}
         <div className="category-title">
           <h1>My Wishlist</h1>
           <div className="breadcrumbs">
@@ -127,13 +131,13 @@ class Mywishlistdetail extends React.Component {
 
                           <td>
                             <div className="price">
-                              <label for="price">Price</label>
+                              <label name="price">Price</label>
                               <h4>${e.productId.productPrice}</h4>
                             </div>
                           </td>
                           <td>
                             <div className="price">
-                              <label for="price">Discount</label>
+                              <label name="price">Discount</label>
                               <h4>${e.productId.discount}</h4>
                             </div>
                           </td>

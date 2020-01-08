@@ -52,12 +52,11 @@ class Productslider extends React.Component {
   //   })
   // }
 
-  shoeImgs(e) {
+  shoeImgs = (selectedFile) => {
     var navOpened = document.getElementById("imgsIs");
-    // navOpened.setState({
-    //   productDetailFile : e.target.value
-    // })
-    //this.props.offline()    
+    this.setState({
+      productDetailFile: selectedFile
+    })
   }
 
   render() {
@@ -67,30 +66,35 @@ class Productslider extends React.Component {
           <img id='imgsIs' src={this.state.productDetailFile} alt="thumbnail" />
         </div>
         <div className="moreimage">
-          <ul className="">
-            {
-              this.state.productDetail['file1'] !== null ?
-                <li key="product_image1"><img src={this.state.productDetail['file1']} onClick={this.shoeImgs} alt="thumbnail" /></li> :
-                null
-            }
-            {
-              this.state.productDetail['file2'] !== null ?
-                <li key="product_image2"><img src={this.state.productDetail['file2']} onClick={this.shoeImgs} alt="thumbnail" /></li> :
-                null
-            }
-            {
-              this.state.productDetail['file3'] !== null ?
-                <li key="product_image3"><img src={this.state.productDetail['file3']} onClick={this.shoeImgs} alt="thumbnail" /></li> :
-                null
-            }
-            {
-              this.state.productDetail['file4'] !== null ?
-                <li key="product_image4"><img src={this.state.productDetail['file4']} onClick={this.shoeImgs} alt="thumbnail" /></li> :
-                null
-            }
-          </ul>
-        </div>
+          {
+            this.state.productDetail['file1'] !== null ?
+              <a onClick={() => this.shoeImgs(this.state.productDetail['file1'])}>
+                <img src={this.state.productDetail['file1']} alt="thumbnail" />
+              </a>
+              :
+              null
+          }
+          {
+            this.state.productDetail['file2'] !== null ?
+              <a onClick={() => this.shoeImgs(this.state.productDetail['file2'])}>
+                <img src={this.state.productDetail['file2']} alt="thumbnail" />
+              </a>
+              : null
+          }
+          {
+            this.state.productDetail['file3'] !== null ?
+              <a onClick={() => this.shoeImgs(this.state.productDetail['file3'])}>
+                <img src={this.state.productDetail['file3']} alt="thumbnail" />
+              </a>
+              : null
+          }
+          {
+            this.state.productDetail['file4'] !== null ?
+              <li key="product_image4"><img src={this.state.productDetail['file4']} onClick={this.shoeImgs} alt="thumbnail" /></li> :
+              null
+          }
       </div>
+      </div >
     )
   }
 

@@ -61,9 +61,15 @@ class Description extends React.Component {
       quantity: 1,
       action: action
     }).then((response) => {
-      toast.success("Product added to cart !", {
-        position: toast.POSITION.BOTTOM_RIGHT
-      }, { autoClose: 500 });
+      if (response.data.success) {
+        toast.success("Product added to cart !", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+      } else {
+        toast.warn(response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+      }
     }).catch(error => {
       toast.error("Some error occured !", {
         position: toast.POSITION.BOTTOM_RIGHT
@@ -76,10 +82,10 @@ class Description extends React.Component {
       userId: userId,
       productId: productId,
     }).then((response) => {
+      console.log(response.data.message)
       toast.success(response.data.message, {
         position: toast.POSITION.BOTTOM_RIGHT
       }, { autoClose: 500 });
-
     }).catch(error => {
       toast.error("Some error occured !", {
         position: toast.POSITION.BOTTOM_RIGHT
@@ -101,13 +107,26 @@ class Description extends React.Component {
     })
   }
 
+  clubSpecification = (specification) => {
+    let objectSpec = {};
+    specification.map(item => {
+      if (objectSpec[item.key] !== undefined) {
+        objectSpec[item.key] = item.value + "-" + objectSpec[item.key];
+      } else {
+        objectSpec[item.key] = item.value;
+      }
+    })
+    return objectSpec;
+  }
   renderSpecification = (specification = []) => {
+    let itemOfRender = []
     if (specification.length > 0) {
-      return specification.map(item => {
-        return <div><span style={{textTransform: "capitalize"}}>{item.key} - {item.value}</span><br></br></div>
+      const newSpecificationObject = this.clubSpecification(specification);
+      Object.keys(newSpecificationObject).forEach((key, value) => {
+        itemOfRender.push(<div><span style={{ textTransform: "capitalize" }}>{key} : {newSpecificationObject[key]}</span><br></br></div>)
       })
     }
-    return null
+    return itemOfRender
   }
   render() {
     return (
@@ -153,11 +172,6 @@ class Description extends React.Component {
         <div className="add-to-box pro-quantity">
           <div className="add-to-cart">
             <div className="pull-left">
-              {/* <div className="custom pull-left">
-                          <button onClick="" className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
-                          <input type="text" className="input-text qty" title="Qty" value="1" maxlength="12" id="qty" name="qty"/>
-                          <button onClick="" className="increase items-count" type="button"><i className="fa fa-plus">&nbsp;</i></button>
-                        </div> */}
             </div>
             <div className="email-addto-box adtocart">
               <ul className="add-to-links">
@@ -182,7 +196,7 @@ class Description extends React.Component {
                 }
                 {
                   this.props.userId ?
-                    this.state.isWishlist ?
+                    this.state.isWishlist == 1 ?
                       <li><span className="separator">|</span> <a className="link-compare" style={divStyle} onClick={() => this.addToWishlist(this.state.productDetail['_id'], this.props.userId)}><span>Remove From Wishlist</span></a></li>
                       :
                       <li><span className="separator">|</span> <a className="link-compare" style={divStyle} onClick={() => this.addToWishlist(this.state.productDetail['_id'], this.props.userId)}><span>Add to Wishlist</span></a></li>

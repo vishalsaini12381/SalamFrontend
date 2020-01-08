@@ -117,3 +117,7 @@
     opacity: .5;
     
 }
+.newproduct-fluid .react-multiple-carousel__arrow--left {
+    right: 20px;
+    left: auto;
+}

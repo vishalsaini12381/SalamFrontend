@@ -4,10 +4,6 @@ import './detail.css';
 import Productslider from './productslider.js';
 import Description from './description.js';
 
-
-import axios from 'axios';
-const URL = process.env.REACT_APP_LOCAL;
-
 class Detail extends React.Component {
   constructor(props) {
     super(props);
@@ -33,7 +29,7 @@ class Detail extends React.Component {
             <div className="breadcrumbs">
               <div className="row">
                 <ul>
-                  <li className="home"> <a href="#" title="Go to Home Page">Home</a><span>/</span></li>
+                  <li className="home"> <a href="/" title="Go to Home Page">Home</a><span>/</span></li>
                   <li className="category13">{this.state.subcategory}</li>
                 </ul>
               </div>

@@ -65,7 +65,7 @@ class Orderdatatable extends Component {
       this.state.myOrders.map((e, i) => {
         var obj = {
           "orderid": e._id,
-          "email": e.customerId !== undefined ? e.customerId.email : '',
+          "email": e.customerId !== undefined && e.customerId !== null ? e.customerId.email : '',
           "amount": '$' + e.totalOrderCost,
           "shippingamount": '$' + e.shippingCharges,
           "total": '$' + (parseFloat(e.totalOrderCost) + parseFloat(e.shippingCharges)),

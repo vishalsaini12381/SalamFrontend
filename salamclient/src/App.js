@@ -60,7 +60,8 @@ class Apps extends React.Component
 							   <Route  path = "/Signup" component = {Signup} />
 							   <Route  path = "/Login" component = {Login} />
 							   <Route path = "/mywallet" component = {MyWallet}/>
-							   <Route  path = "/Sidebar" component = {Sidebar} />							   
+							   <Route  path = "/Sidebar" component = {Sidebar} />	
+							   						   
 					       </Router>
 						   </Provider>
 
