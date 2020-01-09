@@ -42,37 +42,26 @@ class DataTable extends Component {
 
   product(event, productId) {
     event.preventDefault();
-    // axios.post(URL + '/api/vendor/fetchProductList', {
-    //   productId: e.state.contList[i]._id
-    // }).then((response) => {
-    //   console.log('this.props.product', response);
-    //   if (response) {
-    //     this.props.product({
-    //       type: 'product',
-    //       payload: response.data
-    //     })
-    //   }
-    // })
     this.props.history.push(`/Productdetail?productId=${productId}`);
   }
 
-  editProduct(e, i) {
-    var that = this;
-    console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWW', e.state.contList[i]._id);
-    axios.post(URL + '/api/vendor/fetchProductList', {
-      productId: e.state.contList[i]._id
-    }).then((response) => {
-      console.log('DDDDDDDDDDDDDDDDD', response);
-      if (response) {
-        that.props.product({
-          type: 'product',
-          payload: response.data
-        })
-      }
-      console.log('---------------------------', response);
-    })
-    this.props.history.push('/Editproductpage');
-  }
+  // editProduct(e, i) {
+  //   var that = this;
+  //   console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWW', e.state.contList[i]._id);
+  //   axios.post(URL + '/api/vendor/fetchProductList', {
+  //     productId: e.state.contList[i]._id
+  //   }).then((response) => {
+  //     console.log('DDDDDDDDDDDDDDDDD', response);
+  //     if (response) {
+  //       that.props.product({
+  //         type: 'product',
+  //         payload: response.data
+  //       })
+  //     }
+  //     console.log('---------------------------', response);
+  //   })
+  // this.props.history.push(`/Editproductpage?productId=${productId}`);
+  // }
 
   deleteProduct(e) {
     swal({
@@ -121,9 +110,18 @@ class DataTable extends Component {
         'price': '$' + e.productPrice,
         'quantity': e.quantity,
         'discount': e.discount + '%',
-        'action': <div className="actiontrans" > <a href="#" onClick={(event) => this.product(event, e._id)} value={e._id} > <i className="fa fa-eye "></i></a> &nbsp;
-       <Link to="#" onClick={(e) => this.editProduct(this, i)} value={e._id} > <i className="fa fa-edit"></i></Link> &nbsp;
-       <Link to="#" onClick={this.deleteProduct.bind(this, e._id)} > <i className="fa fa-trash"></i> </Link> </div>
+        'action': <div className="actiontrans" >
+          <a href="javascript:void(0)"
+            onClick={(event) => this.product(event, e._id)} value={e._id} >
+            <i className="fa fa-eye "></i></a> &nbsp;
+          <a to="javascript:void(0)"
+            onClick={() => this.props.history.push(`/Editproductpage?productId=${e._id}`)}
+            value={e._id} >
+            <i className="fa fa-edit"></i>
+          </a> &nbsp;
+          <a to="javascript:void(0)" onClick={this.deleteProduct.bind(this, e._id)} > <i className="fa fa-trash"></i>
+          </a>
+        </div>
       });
     })
 

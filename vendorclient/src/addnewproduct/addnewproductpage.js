@@ -237,7 +237,7 @@ class Addnewproductpage extends React.Component {
       return false;
     }
     if (!validator.isEmpty(state.aboutProduct.value)) {
-      if (!validator.isLength(state.aboutProduct.value, 10, 100)) {
+      if (!validator.isLength(state.aboutProduct.value, 10, 1000)) {
         state.aboutProduct.isValidate = false;
         state.aboutProduct.message = 'Description must be of 10- 100 characters'
         this.setState(state);

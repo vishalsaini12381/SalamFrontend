@@ -15,37 +15,142 @@ class Editproductpage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      businesscategory: { value: this.props.businesscategory, isValidate: true, message: '' },
-      category: { value: this.props.category, isValidate: true, message: '' },
-      subCategory: { value: this.props.subCategory, isValidate: true, message: '' },
-      productName: { value: this.props.productName, isValidate: true, message: '' },
-      brandName: { value: this.props.brandName, isValidate: true, message: '' },
-      productPrice: { value: this.props.productPrice, isValidate: true, message: '' },
-      quantity: { value: this.props.quantity, isValidate: true, message: '' },
-      discount: { value: this.props.discount, isValidate: true, message: '' },
-      aboutProduct: { value: this.props.aboutProduct, isValidate: true, message: '' },
+      businesscategory: { value: '', isValidate: true, message: '' },
+      category: { value: '', isValidate: true, message: '' },
+      subCategory: { value: '', isValidate: true, message: '' },
+      productName: { value: '', isValidate: true, message: '' },
+      brandName: { value: '', isValidate: true, message: '' },
+      productPrice: { value: '', isValidate: true, message: '' },
+      quantity: { value: '', isValidate: true, message: '' },
+      discount: { value: '', isValidate: true, message: '' },
+      aboutProduct: { value: '', isValidate: true, message: '' },
       // file         : '',
       file1: this.props.file1,
       file2: this.props.file2,
       file3: this.props.file3,
       file4: this.props.file4,
-
+      productId: '',
+      businessList: [],
+      categoryList: [],
+      subCategoryList: []
     }
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
     this.handleChageImage1 = this.handleChageImage1.bind(this);
     this.handleChageImage2 = this.handleChageImage2.bind(this);
     this.handleChageImage3 = this.handleChageImage3.bind(this);
     this.handleChageImage4 = this.handleChageImage4.bind(this);
   }
+  getUrlParameter = (name) => {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    let results = regex.exec(window.location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  };
 
-  handleChange(event) {
-    const { name, value } = event.target;
+  componentDidMount() {
+    const productId = this.getUrlParameter('productId');
+    if (productId) {
+      this.setState({
+        productId
+      }, () => this.getProductDetail());
+    }
+  }
+  getProductDetail = () => {
+    axios.post(URL + '/api/vendor/fetchProductList', {
+      productId: this.state.productId
+    }).then((response) => {
+      if (response.data !== undefined) {
+        const product = response.data
+        this.setState({
+          file1: product.file1,
+          file2: product.file2,
+          file3: product.file3,
+          file4: product.file4,
+          productId: product._id,
+          productName: { value: product.productName, isValidate: true, message: '' },
+          productPrice: { value: product.productPrice, isValidate: true, message: '' },
+          discount: { value: product.discount, isValidate: true, message: '' },
+          businesscategory: { value: product.businesscategory, isValidate: true, message: '' },
+          category: { value: product.category, isValidate: true, message: '' },
+          subCategory: { value: product.subCategory, isValidate: true, message: '' },
+          brandName: { value: product.brandName, isValidate: true, message: '' },
+          quantity: { value: product.quantity, isValidate: true, message: '' },
+          aboutProduct: { value: product.aboutProduct, isValidate: true, message: '' },
+          categoryList: [{ category: product.category }],
+          subCategoryList: [{ subcategory: product.subCategory }]
+        }, () => {
+          this.fetchBusinessCategory()
+        })
+      }
+    }).catch(error => {
+      console.log("object", error)
+    })
+
+  }
+
+  fetchBusinessCategory = () => {
+    axios.post(URL + '/api/vendor/fetchBusiness').then((response) => {
+      console.log('BusinessResponse', response.data.doc);
+      this.setState({
+        businessList: response.data.doc
+      })
+    })
+  }
+
+  handleBussinessChange = (e, i) => {
+    const { name, value } = e.target;
     let state = this.state;
     state[name].message = '';
     state[name].value = value;
     this.setState(state);
+    let obj = {};
+    obj.businesscategory = e.target.value
+    axios.post(URL + '/api/vendor/fetchCategory', obj).then((resp) => {
+      if (resp.data.status) {
+        this.setState({
+          categoryList: resp.data.category
+        })
+      }
+    })
   }
+
+  handleSelectSubCategory = (e) => {
+    const { name, value } = e.target;
+    let state = this.state;
+    state[name].message = '';
+    state[name].value = value;
+    this.setState(state);
+    let obj = {};
+    obj.category = e.target.value
+    axios.post(URL + '/api/vendor/fetchsubCategory', obj).then((resp) => {
+      if (resp.data.status) {
+        this.setState({
+          subCategoryList: resp.data.subcategory
+        })
+      }
+    })
+  }
+
+  handleSelectSpecification = (e) => {
+    const { name, value } = e.target;
+    let state = this.state;
+    state[name].message = '';
+    state[name].value = value;
+    this.setState(state);
+    let obj = {};
+    obj.subCategoryId = e.target.value;
+
+    axios.post(URL + '/api/vendor/fetchSpecification', obj).then((response) => {
+      console.log('response', response.data.doc);
+      if (response.data.status) {
+        this.setState({
+          specificationList: response.data.doc
+        })
+      }
+    })
+  }
+
 
   handleChageImage1(e) {
     e.preventDefault();
@@ -211,7 +316,6 @@ class Editproductpage extends React.Component {
 
 
   render() {
-    // console.log('XXXXXXXXXXXXXXXXXXXXXXX',this.props.productId);
     const state = this.state;
     return (
       <div className="my-3 my-md-5">
@@ -234,26 +338,51 @@ class Editproductpage extends React.Component {
                     <div className="col-md-6 col-lg-6">
                       <div className="form-group">
                         <label className="form-label">Business Category</label>
-                        <select name="Category" className="form-control custom-select" name="businesscategory" value={state.businesscategory.value} onChange={this.handleChange}>
-                          <option>{this.props.businesscategory}</option>
+                        <select name="Category" className="form-control custom-select" name="businesscategory" value={state.businesscategory.value} onChange={this.handleBussinessChange}>
+                          {
+                            this.state.businessList.map((e, i) => {
+                              return (
+                                <React.Fragment key={i}>
+                                  <option value={e.businesscategory} >{e.businesscategory}</option>
+                                </React.Fragment>
+                              )
+                            })
+                          }
                         </select>
                       </div>
                     </div>
                     <div className="col-md-6 col-lg-6">
                       <div className="form-group">
                         <label className="form-label">Category</label>
-                        <select name="Category" className="form-control custom-select" name="category" value={state.category.value} onChange={this.handleChange}>
-                          <option>{this.props.category}</option>
+                        <select name="Category" className="form-control custom-select" name="category"
+                          value={state.category.value}
+                          onChange={this.handleSelectSubCategory.bind(this)}>
+                          {
+                            this.state.categoryList.map((e, i) => {
+                              return (
+                                <React.Fragment key={i}>
+                                  <option value={e.category} >{e.category}</option>
+                                </React.Fragment>
+                              )
+                            })
+                          }
                         </select>
                       </div>
                     </div>
                     <div className="col-md-6 col-lg-6">
                       <div className="form-group">
                         <label className="form-label">Select Sub Category</label>
-                        <select name="Category" className="form-control custom-select" name="subCategory" value={state.subCategory.value} onChange={this.handleChange}>
-                          {/* <option value= "" hidden selected>Select</option> */}
-                          <option >{this.props.subCategory}</option>
-
+                        <select name="Category" className="form-control custom-select" name="subCategory"
+                          value={state.subCategory.value} onChange={this.handleSelectSpecification}>
+                          {
+                            this.state.subCategoryList.map((e, i) => {
+                              return (
+                                <React.Fragment key={i}>
+                                  <option value={e._id} >{e.subcategory}</option>
+                                </React.Fragment>
+                              )
+                            })
+                          }
                         </select>
 
                       </div>
@@ -317,7 +446,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage1} className="custom-file-input" />
-                          <img src={this.state.file1} style={{ height: '270px', width: '220px' , marginTop : '50px'}} />
+                          <img src={this.state.file1} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -328,7 +457,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage2} className="custom-file-input" />
-                          <img src={this.state.file2} style={{ height: '270px', width: '220px' , marginTop : '50px'}} />
+                          <img src={this.state.file2} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -339,7 +468,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage3} className="custom-file-input" />
-                          <img src={this.state.file3} style={{ height: '270px', width: '220px' , marginTop : '50px'}} />
+                          <img src={this.state.file3} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -350,7 +479,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage4} className="custom-file-input" />
-                          <img src={this.state.file4} style={{ height: '270px', width: '220px' , marginTop : '50px'}} />
+                          <img src={this.state.file4} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -380,25 +509,9 @@ class Editproductpage extends React.Component {
 }
 
 function mapstateToProps(state) {
-  console.log('CCCCCCCCCCCCCC', state.productReduce.productId);
   return {
-    // productId : state.productReduce.productId,
     authenticateState: state.inititateState.authenticateState,
-    userId: state.inititateState.userId,
-    file1: state.productReduce.file1,
-    file2: state.productReduce.file2,
-    file3: state.productReduce.file3,
-    file4: state.productReduce.file4,
-    productId: state.productReduce.productId,
-    productName: state.productReduce.productName,
-    productPrice: state.productReduce.productPrice,
-    discount: state.productReduce.discount,
-    businesscategory: state.productReduce.businesscategory,
-    category: state.productReduce.category,
-    subCategory: state.productReduce.subCategory,
-    brandName: state.productReduce.brandName,
-    quantity: state.productReduce.quantity,
-    aboutProduct: state.productReduce.aboutProduct
+    userId: state.inititateState.userId
   }
 }
 
