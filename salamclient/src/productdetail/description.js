@@ -159,7 +159,7 @@ class Description extends React.Component {
           <p>{this.state.productDetail['aboutProduct']}</p>
           {this.renderSpecification(this.state.productDetail.specification)}
         </div>
-
+        <br/>
         <div className="short-description overview-product">
           <h7>Refund Policy</h7>
           {this.state.productDetail.isRefundable ?

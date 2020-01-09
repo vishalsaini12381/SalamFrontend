@@ -93,10 +93,6 @@ class Menu extends React.Component {
                                       <React.Fragment key={i}>
                                         <li className="level3 nav-6-1 parent item"> <a href="#"><span>{f.categories}</span></a>
                                           <ul className="level1">
-                                            {/* {
-                      this.state.SubcategoryList.map((e,i)=>{
-                        return(
-                          <React.Fragment key = {i} > */}
                                             {
                                               f['subcategorie'].map((g, c) => {
                                                 return (

@@ -176,7 +176,7 @@ class Search extends React.Component {
               <div className="col-lg-2 col-sm-3 col-md-2">
                 <div className="top-cart-contain">
                   <div className="mini-cart">
-                    <div className="basket "> <a href="#" onClick={() => this.checkCart()}> <i class="fa fa-shopping-bag"></i>
+                    <div className="basket "> <a href="javascript:void(0);" onClick={() => this.checkCart()}> <i class="fa fa-shopping-bag"></i>
                       <div className="cart-box"><span className="title">My Cart</span></div>
                     </a></div>
                     <div>

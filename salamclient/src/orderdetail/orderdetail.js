@@ -63,7 +63,7 @@ class Orderdetail extends React.Component {
       subOrderId: item._id
     }
 
-    axios.post(`${URL}/api/user/get-return-request`)
+    axios.post(`${URL}/api/user/get-return-request`, data)
       .then((response) => {
         if (!response.data.success) {
           toast.error("Return request already sent", {
@@ -151,7 +151,13 @@ class Orderdetail extends React.Component {
 
                           <td>
                             <div className="price">
-                              <a onClick={() => this.getReturnOrderRequest(item)}><i class="fa fa-question-circle need--help-icon" aria-hidden="true"></i>
+                              <a href="javascript:void(0);" onClick={() => this.getReturnOrderRequest(item)}>
+                                <h4 style={{
+                                  background: "cadetblue",
+                                  borderRadius: "10px",
+                                  textAlign: 'center',
+                                  marginTop: "34px"
+                                }}>{item.productId.isRefundable ? "Return" : "Not Returnable"}</h4>
                               </a>
                             </div>
                           </td>
@@ -159,9 +165,16 @@ class Orderdetail extends React.Component {
                       )
                     })
                   }
+
                 </tbody>
               </table>
-              <h4 style={{float : 'right'}}><span>Payment Method :</span>{this.state.orderDetail.paymentType}</h4>
+
+              <div className="Other-order-detail">
+                <div className="Other-order-detail--payment">
+                  <h4 style={{ float: 'right' }}><span>Payment Method :</span>{this.state.orderDetail.paymentType}</h4>
+                </div>
+              </div>
+              {/* <h4 style={{float : 'right'}}><span>Payment Method :</span>{this.state.orderDetail.paymentType}</h4> */}
             </div>
             <div className="continueshopping">
               <div className="row">
