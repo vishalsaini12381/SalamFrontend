@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import Header from './include/header.js';
 import Footer from './include/footer.js';
 import Detail from './productdetail/detail.js';
@@ -25,10 +26,12 @@ class Productdetail extends React.Component {
 		let foo = params.get('product');
 		this.setState({
 			productId: foo,
+			userId: this.props.userId
 		})
 
 		axios.post(URL + '/api/user/productDetail', {
 			productId: foo,
+			userId: this.props.userId
 		}).then((response) => {
 			if (response.data.productData) {
 				this.setState({
@@ -54,4 +57,14 @@ class Productdetail extends React.Component {
 		);
 	}
 }
-export default Productdetail;
+
+function mapStateToProps(state) {
+	return {
+	  authenticateState: state.inititateState.authenticateState,
+	  email: state.inititateState.email,
+	  userId: state.inititateState.userId
+	}
+  }
+  
+  export default withRouter(connect(mapStateToProps)(Productdetail));
+

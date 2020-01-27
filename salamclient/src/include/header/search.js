@@ -16,6 +16,7 @@ class Search extends React.Component {
       search: '',
       businesscategoryList: [],
       visible: false,
+      cartCount: 0
     };
   }
 
@@ -176,8 +177,13 @@ class Search extends React.Component {
               <div className="col-lg-2 col-sm-3 col-md-2">
                 <div className="top-cart-contain">
                   <div className="mini-cart">
-                    <div className="basket "> <a href="javascript:void(0);" onClick={() => this.checkCart()}> <i class="fa fa-shopping-bag"></i>
-                      <div className="cart-box"><span className="title">My Cart</span></div>
+                    <div className="basket "> <a href="javascript:void(0);" onClick={() => this.checkCart()}> <i className="fa fa-shopping-bag"></i>
+                      <div className="cart-box">
+                        <span className="title">My Cart</span>
+                        {/* {this.state.cartCount ? */}
+                          <span className="cart-count">2</span>
+                          {/* //  : null} */}
+                      </div>
                     </a></div>
                     <div>
                     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
@@ -70,6 +70,7 @@ class Description extends React.Component {
           position: toast.POSITION.BOTTOM_RIGHT
         }, { autoClose: 500 });
       }
+      window.location.reload();
     }).catch(error => {
       toast.error("Some error occured !", {
         position: toast.POSITION.BOTTOM_RIGHT
@@ -82,10 +83,10 @@ class Description extends React.Component {
       userId: userId,
       productId: productId,
     }).then((response) => {
-      console.log(response.data.message)
       toast.success(response.data.message, {
         position: toast.POSITION.BOTTOM_RIGHT
       }, { autoClose: 500 });
+      window.location.reload();
     }).catch(error => {
       toast.error("Some error occured !", {
         position: toast.POSITION.BOTTOM_RIGHT
@@ -159,9 +160,9 @@ class Description extends React.Component {
           <p>{this.state.productDetail['aboutProduct']}</p>
           {this.renderSpecification(this.state.productDetail.specification)}
         </div>
-        <br/>
+        <br />
         <div className="short-description overview-product">
-          <h7>Refund Policy</h7>
+          <h6>Refund Policy</h6>
           {this.state.productDetail.isRefundable ?
             <p>Days to refund : {this.state.productDetail.returnPolicy.daysToReturn}<br />
               {this.state.productDetail.returnPolicy.conditions}
@@ -185,7 +186,6 @@ class Description extends React.Component {
                             :
                             <button style={divStyle} onClick={() => this.addToCart(this.state.productDetail['_id'], this.props.userId, this.state.productDetail['productPrice'], this.state.productDetail['discount'], 2)} className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
                         }
-
                         <input type="text" className="input-text qty" title="Qty" value={this.state.isCart} maxlength="12" id="qty" name="qty" />
                         <button style={divStyle} onClick={() => this.addToCart(this.state.productDetail['_id'], this.props.userId, this.state.productDetail['productPrice'], this.state.productDetail['discount'], 1)} className="increase items-count" type="button"><i className="fa fa-plus">&nbsp;</i></button>
                       </div>
@@ -196,12 +196,25 @@ class Description extends React.Component {
                 }
                 {
                   this.props.userId ?
-                    this.state.isWishlist == 1 ?
-                      <li><span className="separator">|</span> <a className="link-compare" style={divStyle} onClick={() => this.addToWishlist(this.state.productDetail['_id'], this.props.userId)}><span>Remove From Wishlist</span></a></li>
-                      :
-                      <li><span className="separator">|</span> <a className="link-compare" style={divStyle} onClick={() => this.addToWishlist(this.state.productDetail['_id'], this.props.userId)}><span>Add to Wishlist</span></a></li>
-                    :
-                    <li><span className="separator">|</span> <a className="link-compare" style={divStyle} onClick={() => this.onClickDiv(this.state.productDetail['_id'])}><span>Add to Wishlist</span></a></li>
+                    this.state.isWishlist === 1 ?
+                      <li>
+                        <span className="separator">|</span>
+                        <a className="link-compare" style={divStyle} onClick={() => this.addToWishlist(this.state.productDetail['_id'], this.props.userId)}>
+                          <span>Remove From Wishlist</span>
+                        </a>
+                      </li> :
+                      <li>
+                        <span className="separator">|</span>
+                        <a className="link-compare" style={divStyle} onClick={() => this.addToWishlist(this.state.productDetail['_id'], this.props.userId)}>
+                          <span>Add to Wishlist</span>
+                        </a>
+                      </li> :
+                    <li>
+                      <span className="separator">|</span>
+                      <a className="link-compare" style={divStyle} onClick={() => this.onClickDiv(this.state.productDetail['_id'])}>
+                        <span>Add to Wishlist</span>
+                      </a>
+                    </li>
                 }
               </ul>
             </div>
@@ -222,4 +235,3 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps)(Description));
-// export default Description;

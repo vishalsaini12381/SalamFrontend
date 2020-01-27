@@ -233,7 +233,7 @@ class Loginsignup extends React.Component {
     const state = this.state;
     return (
 
-      <div className="modal fade signupmodal" id="signuplogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div className="modal fade signupmodal" id="signuplogin" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -346,7 +346,7 @@ class Loginsignup extends React.Component {
                                   </div>
                                 </div>
                               </form>
-                              <div class="forgompass">
+                              <div className="forgompass">
                                 <a className="btn-two" href="#">Forgot Password?</a>
                               </div>
                             </div>

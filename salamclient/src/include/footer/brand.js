@@ -19,11 +19,11 @@ class Brand extends React.Component {
   }
 
   renderBrands = () => {
-    return this.state.brandList.map(item => {
+    return this.state.brandList.map((item, index) => {
       if (item.file !== null)
-        return <div className="item"><a href="#x"><img src={item.file} alt="Image" /></a></div>
+        return <div key={`brands-${index}`} className="item"><a href="#x"><img src={item.file} alt="Image" /></a></div>
       else
-        return <div className="brand-name-container"><span> {item.brandName}</span></div>
+        return <div key={`brands-${index}`} className="brand-name-container"><span> {item.brandName}</span></div>
     })
   }
   render() {
@@ -34,15 +34,7 @@ class Brand extends React.Component {
             <div id="brand-logo-slider" className="product-flexslider hidden-buttons">
               <div className="brand-item" style={{ opacity: '1' }}>
                 {this.renderBrands()}
-                {/* <div className="item"> <a href="#x"><img src="./images/brand/1.png" alt="Image" /></a> </div>
-                <div className="item"> <a href="#x"><img src="./images/brand/2.png" alt="Image" /></a> </div>
-                <div className="item"> <a href="#x"><img src="./images/brand/3.png" alt="Image" /></a> </div>
-                <div className="item"> <a href="#x"><img src="./images/brand/4.png" alt="Image" /></a> </div>
-                <div className="item"> <a href="#x"><img src="./images/brand/5.png" alt="Image" /></a> </div>
-                <div className="item"> <a href="#x"><img src="./images/brand/6.png" alt="Image" /></a> </div>
-                <div className="item"> <a href="#x"><img src="./images/brand/1.png" alt="Image" /></a> </div>
-                <div className="item"> <a href="#x"><img src="./images/brand/4.png" alt="Image" /></a> </div> */}
-              </div>
+                </div>
             </div>
           </div>
         </div>
