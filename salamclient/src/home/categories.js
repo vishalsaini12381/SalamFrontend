@@ -1,18 +1,15 @@
 import React from 'react';
 import axios from 'axios';
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Carousel from 'react-multi-carousel';
-import { toast, ToastContainer } from 'react-toastify';
+import { addToCartAction } from '../action/cart.action';
+import { addToWishlistAction } from '../action/wishlist.action'
 import "react-multi-carousel/lib/styles.css";
-import 'react-multi-carousel/lib/styles.css';
 import './newproduct.css';
-
 import './categories.css';
-
-
 const URL = process.env.REACT_APP_LOCAL;
-
 
 class Categories extends React.Component {
   constructor(props) {
@@ -37,56 +34,23 @@ class Categories extends React.Component {
   }
 
   addToCart = (productId, userId, price, discount, action) => {
-    if (this.props.userId !== undefined) {
-      axios.post(URL + '/api/user/addToCart', {
-        userId: userId,
-        productId: productId,
-        price: price,
-        discount: discount,
-        quantity: 1,
-        action: 1
-      }).then((response) => {
-        if (response.data.success) {
-          toast.success("Product added to cart !", {
-            position: toast.POSITION.BOTTOM_RIGHT
-          }, { autoClose: 500 });
-        } else {
-          toast.warn(response.data.message, {
-            position: toast.POSITION.BOTTOM_RIGHT
-          }, { autoClose: 500 });
-        }
-      }).catch(error => {
-        toast.error("Some error occured !", {
-          position: toast.POSITION.BOTTOM_RIGHT
-        }, { autoClose: 500 });
-      })
-    } else {
-      toast.warn("You need to login to continue !", {
-        position: toast.POSITION.BOTTOM_RIGHT
-      }, { autoClose: 500 });
-    }
+    const data = {
+      userId: userId,
+      productId: productId,
+      price: price,
+      discount: discount,
+      quantity: 1,
+      action: 1
+    };
+    this.props.addToCartAction(data);
   }
 
   addToWishlist(productId, userId) {
-    if (this.props.userId !== undefined) {
-      axios.post(URL + '/api/user/addToWishlist', {
-        userId: userId,
-        productId: productId,
-      }).then((response) => {
-        toast.success(response.data.message, {
-          position: toast.POSITION.BOTTOM_RIGHT
-        }, { autoClose: 500 });
-
-      }).catch(error => {
-        toast.error("Some error occured !", {
-          position: toast.POSITION.BOTTOM_RIGHT
-        }, { autoClose: 500 });
-      })
-    } else {
-      toast.warn("You need to login to continue !", {
-        position: toast.POSITION.BOTTOM_RIGHT
-      }, { autoClose: 500 });
-    }
+    const data = {
+      userId: userId,
+      productId: productId,
+    };
+    this.props.addToWishlistAction(data)
   }
 
   componentDidMount() {
@@ -119,7 +83,6 @@ class Categories extends React.Component {
     if (this.state.productList.length > 0 && !visible)
       return (
         <div className="container-fluid newproduct-fluid" >
-          <ToastContainer />
           <div className="container">
             <div className="headingpart">
               <h2>New  Products</h2>
@@ -243,4 +206,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Categories));
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addToCartAction,
+  addToWishlistAction
+}, dispatch)
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Categories));

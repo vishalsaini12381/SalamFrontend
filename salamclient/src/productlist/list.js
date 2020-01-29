@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import './list.css';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import './sidebar.css';
 import swal from 'sweetalert';
-
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { addToCartAction } from '../action/cart.action';
+import { addToWishlistAction } from '../action/wishlist.action'
 
 const URL = process.env.REACT_APP_LOCAL;
 
@@ -42,7 +41,7 @@ class List extends React.Component {
       if (this.props.location && this.props.location.state !== undefined && this.props.location.state.productList !== undefined) {
         this.setState({
           productList: this.props.location.state.productList,
-          filterArr : this.props.location.state.productList
+          filterArr: this.props.location.state.productList
         })
       } else {
         this.getProductFromSearchInput(search_input)
@@ -58,7 +57,7 @@ class List extends React.Component {
     axios.post(URL + '/api/user/searchBox', obj)
       .then((res) => {
         if (res) {
-          this.setState({ productList: res.data.product, filterArr :  res.data.product})
+          this.setState({ productList: res.data.product, filterArr: res.data.product })
         }
       })
   }
@@ -70,7 +69,7 @@ class List extends React.Component {
 
       this.setState({
         productList: response.data.product,
-        filterArr : response.data.product
+        filterArr: response.data.product
       })
     })
   }
@@ -105,25 +104,9 @@ class List extends React.Component {
       //this.fetchProduct();
     })
 
-    // let search = window.location.search;
-    // let params = new URLSearchParams(search);
-    // let foo = params.get('subcategory');
-    // this.setState({
-    //   subcategoryids: foo
-    // })
-    // let obj = {};
-    // obj.subCategoryId = foo;
-    // obj.specification = this.state.specification
-    // axios.post(URL + '/api/user/filterData', obj).then((response) => {
-    //   this.setState({
-    //     filterArr: [],
-    //     filterResult: [],
-    //     filterCheck: [],
-    //   })
-    // if (response.data.businessData) {
     if (Array.isArray(this.state.specification) && this.state.specification.length > 0) {
       let filterArrTemp = [];
-      this.state.productList.forEach(product => {   
+      this.state.productList.forEach(product => {
         product.specification.forEach(async specItem => {
           this.state.specification.forEach(elm => {
             if (elm == specItem.value) {
@@ -147,12 +130,12 @@ class List extends React.Component {
         }
       });
       this.setState({
-        filterArr : filterArrTemp
+        filterArr: filterArrTemp
       })
       // }
-    } else if(this.state.specification.length === 0){
+    } else if (this.state.specification.length === 0) {
       this.setState({
-        filterArr : this.state.productList
+        filterArr: this.state.productList
       })
     }
 
@@ -160,91 +143,31 @@ class List extends React.Component {
   }
 
   addItemToCart = (event, product) => {
-    event.preventDefault();
-    if (this.isUserLoggedIn()) {
-      const data = {
-        userId: this.props.userId,
-        productId: product._id,
-        price: product.productPrice,
-        discount: product.discount,
-        quantity: 1,
-        action: 1
-      }
-      axios.post(URL + '/api/user/addToCart', data)
-        .then((response) => {
-          toast.success(response.data.message, {
-            position: toast.POSITION.BOTTOM_RIGHT
-          }, { autoClose: 200 });
-          if (!response.data.success) {
-            swal({
-              title: "OOPS",
-              text: response.data.message,
-              icon: "warning",
-              dangerMode: true,
-              closeOnClickOutside: false,
-            }).then((d) => {
-              if (d) {
-                //return window.location = "/Login"
-              }
-            })
-          }
-        })
-    } else {
-      this.messageToLogin()
+    const data = {
+      userId: this.props.userId,
+      productId: product._id,
+      price: product.productPrice,
+      discount: product.discount,
+      quantity: 1,
+      action: 1
     }
+
+    this.props.addToCartAction(data);
+
   }
 
   addItemToWishList = (event, product) => {
-    event.preventDefault();
-    if (this.isUserLoggedIn()) {
-      axios.post(URL + '/api/user/addToWishlist', {
-        userId: this.props.userId,
-        productId: product._id,
-      }).then((response) => {
-        if (response.data.code == 100) {
-          toast.success(response.data.message, {
-            position: toast.POSITION.BOTTOM_RIGHT
-          }, { autoClose: 200 });
-          // return window.location.reload()
-        } else {
-          swal({
-            title: "OOPS",
-            text: "Some error found.",
-            icon: "warning",
-            dangerMode: true,
-            closeOnClickOutside: false,
-          }).then((d) => {
-            if (d) {
-            }
-          })
-        }
-      })
-    } else {
-      this.messageToLogin()
-    }
-  }
-
-  isUserLoggedIn = () => {
-    if (this.props.userId !== undefined)
-      return true
-    return false
-  }
-
-  messageToLogin = () => {
-    swal({
-      title: "OOPS",
-      text: "You need login to add item.",
-      icon: "warning",
-      dangerMode: true,
-      closeOnClickOutside: false,
-    }).then((d) => {
-    })
+    
+    const data = {
+      userId: this.props.userId,
+      productId: product._id,
+    };
+    this.props.addToWishlistAction(data);
   }
 
   render() {
     return (
       <div className="row">
-        <ToastContainer />
         <section className="col-main col-sm-9 col-sm-push-3 wow bounceInUp animated productlist-fluid">
           <div className="category-title">
             <div className="breadcrumbs">
@@ -357,4 +280,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(List));
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addToCartAction,
+  addToWishlistAction
+}, dispatch)
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(List));

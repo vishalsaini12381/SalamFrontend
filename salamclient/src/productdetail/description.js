@@ -3,11 +3,11 @@ import { withRouter } from 'react-router-dom';
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import swal from 'sweetalert';
-import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './description.css';
 import axios from 'axios';
 import { addToCartAction } from '../action/cart.action'
+import { addToWishlistAction } from '../action/wishlist.action'
 const URL = process.env.REACT_APP_LOCAL;
 
 var divStyle = {
@@ -63,19 +63,11 @@ class Description extends React.Component {
   }
 
   addToWishlist(productId, userId) {
-    axios.post(URL + '/api/user/addToWishlist', {
+    const data = {
       userId: userId,
       productId: productId,
-    }).then((response) => {
-      toast.success(response.data.message, {
-        position: toast.POSITION.BOTTOM_RIGHT
-      }, { autoClose: 500 });
-      window.location.reload();
-    }).catch(error => {
-      toast.error("Some error occured !", {
-        position: toast.POSITION.BOTTOM_RIGHT
-      }, { autoClose: 500 });
-    })
+    }
+    this.props.addToWishlistAction(data);
   }
 
   onClickDiv = (column) => {
@@ -116,7 +108,7 @@ class Description extends React.Component {
   render() {
     return (
       <div className="product-shop col-lg-7 col-sm-7 col-xs-12">
-        <ToastContainer />
+        
         <div className="product-heading">
           <div className="row">
             <div className="col-lg-6 col-sm-6 col-xs-12">
@@ -214,12 +206,14 @@ function mapStateToProps(state) {
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,
-    userId: state.inititateState.userId
+    userId: state.inititateState.userId,
+    wishlist : state.wishlist
   }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  addToCartAction
+  addToCartAction,
+  addToWishlistAction
 }, dispatch)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Description));

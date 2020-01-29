@@ -6,6 +6,8 @@ import Footer from './include/footer.js';
 import Detail from './productdetail/detail.js';
 import Similarproduct from './productdetail/similarproduct.js';
 import Customerreview from './productdetail/customerreview.js';
+import { ToastContainer } from 'react-toastify';
+
 import axios from "axios";
 const URL = process.env.REACT_APP_LOCAL;
 class Productdetail extends React.Component {
@@ -47,6 +49,7 @@ class Productdetail extends React.Component {
 	render() {
 		return (
 			<div>
+				<ToastContainer />
 				<Header />
 				{Object.keys(this.state.productData).length > 0 ? <Detail productData={this.state.productData} subcategory={this.state.subcategory} /> : null}
 				{Object.keys(this.state.productData).length > 0 ? <Similarproduct similarProduct={this.state.similarProduct} /> : null}

@@ -3,10 +3,12 @@ import { Link, withRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom';
 import './cartdetail.css';
 import './checkout.css';
-
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
+import { bindActionCreators } from 'redux';
+import { addToCartAction, fetchMyCartAction } from '../action/cart.action';
+
 const URL = process.env.REACT_APP_LOCAL;
 
 class Cartdetail extends React.Component {
@@ -28,81 +30,34 @@ class Cartdetail extends React.Component {
   }
 
   fetchMyCart() {
-    if (this.props.userId) {
-      axios.post(URL + '/api/user/myCart', {
-        userId: this.props.userId
-      }).then((response) => {
-        if (response.data.code == 100) {
-          let subTotalCartAmount = 0;
-          let totalCartItem = 0;
-          if (Array.isArray(response.data.product)) {
-            response.data.product.map(item => {
-              subTotalCartAmount += parseFloat(item.total)
-              totalCartItem += parseInt(item.quantity)
-            })
-          }
-          this.setState({
-            myCart: response.data.product,
-            subTotalCartAmount,
-            totalCartAmount: subTotalCartAmount + 15,
-            totalCartItem
-          })
-        } else {
-          swal({
-            title: "OOPS",
-            text: "Your cart is empty.",
-            icon: "warning",
-            dangerMode: true,
-            closeOnClickOutside: false,
-          }).then((d) => {
-            if (d) {
-              return window.location = "/"
-            }
-          })
-        }
-      })
-    } else {
-      swal({
-        title: "OOPS",
-        text: "First you have to login!",
-        icon: "warning",
-        dangerMode: true,
-        closeOnClickOutside: false,
-      }).then((d) => {
-        if (d) {
-          return window.location = "/Login"
-        }
-      })
+    const data = {
+      userId: this.props.userId
     }
-
+    this.props.fetchMyCartAction(data);
   }
 
   addToCart = (productId, userId, price, discount, action) => {
-    axios.post(URL + '/api/user/addToCart', {
+    const data = {
       userId: userId,
       productId: productId,
       price: price,
       discount: discount,
       quantity: 1,
       action: action
-    }).then((response) => {
-      if (response.data.success) {
-        this.fetchMyCart();
-        // return window.location.reload()
-      } else {
-        swal({
-          title: "OOPS",
-          text: response.data.message,
-          icon: "warning",
-          dangerMode: true,
-          closeOnClickOutside: false,
-        }).then((d) => {
-          // if (d) {
-          //   return window.location = "/Login"
-          // }
-        })
-      }
-    })
+    }
+
+    this.props.addToCartAction(data)
+  }
+
+  componentWillReceiveProps(nextProps){
+    
+    if(nextProps.cartDetail !== undefined && nextProps.cartDetail.myCart !== undefined){
+      this.setState({
+        ...nextProps.cartDetail
+      })
+    }else if(nextProps.cartDetail.myCart === undefined){
+      window.location = '/';
+    }
   }
 
   round2Decimal = (num) => {
@@ -227,10 +182,19 @@ function mapStateToProps(state) {
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,
-    userId: state.inititateState.userId
+    userId: state.inititateState.userId,
+    cartDetail: state.cart.cartDetail
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Cartdetail));
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addToCartAction,
+  fetchMyCartAction
+}, dispatch)
+
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cartdetail));
 
 // export default Cartdetail;

@@ -1,23 +1,26 @@
-import {CartFilters} from '../action/cart.action';
+import { toast } from "react-toastify";
+import { CartFilters } from '../action/cart.action';
 
 const initialState = {
     pending: false,
     cartTotal: null,
-    error: null
+    error: null,
+    cartDetail: {}
 }
 
 export function cartReducer(state = initialState, action) {
-    switch(action.type) {
-        case CartFilters.CART_UPDATE_PENDING: 
+    switch (action.type) {
+        case CartFilters.CART_UPDATE_PENDING:
             return {
                 ...state,
                 pending: true
             }
         case CartFilters.CART_UPDATE_SUCCESS:
+            toast.success(action.payload.message);
             return {
                 ...state,
                 pending: false,
-                cartTotal: action.payload
+                cartTotal: action.payload.cartTotal
             }
         case CartFilters.CART_UPDATE_FAILED:
             return {
@@ -25,7 +28,29 @@ export function cartReducer(state = initialState, action) {
                 pending: false,
                 error: action.error
             }
-        default: 
+        case CartFilters.FETCH_CART_PENDING:
+            return {
+                ...state,
+                pending: true
+            }
+        case CartFilters.FETCH_CART_SUCCESS:
+            return {
+                ...state,
+                pending: false,
+                cartDetail: action.payload
+            }
+        case CartFilters.FETCH_CART_FAILED:
+            return {
+                ...state,
+                pending: false,
+                error: action.error
+            }
+        case CartFilters.USER_REQUIRED:
+            toast.warn("Need to login to continue");
+            return {
+                ...state
+            }
+        default:
             return state;
     }
 }

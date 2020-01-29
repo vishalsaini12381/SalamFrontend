@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import { cartReducer } from '../reducer/cart.reducer'
+import { wishlistReducer } from '../reducer/wishlist.reducer'
 
 function inititateState (state = {authenticateState :''} , action) {
     if(action.type === 'authenticate'){
@@ -26,5 +27,6 @@ function inititateState (state = {authenticateState :''} , action) {
 
 export default combineReducers ({
     inititateState,
-    cart : cartReducer
+    cart : cartReducer,
+    wishlist : wishlistReducer
 })

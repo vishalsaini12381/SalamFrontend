@@ -1,24 +1,41 @@
-import { addToWishlistAPI } from '../api/cart.api'
+import { addToWishlistAPI } from '../api/wishlist.api'
 
 export const WishlistFilters = {
+    USER_REQUIRED: 'USER_REQUIRED',
     WISHLIST_UPDATE_PENDING: 'WISHLIST_UPDATE_PENDING',
     WISHLIST_UPDATE_SUCCESS: 'WISHLIST_UPDATE_SUCCESS',
     WISHLIST_UPDATE_FAILED: 'WISHLIST_UPDATE_FAILED'
 }
 
-export const updateWishlist = data => ({
+export const updateWishlistPending = () => ({
+    type: WishlistFilters.WISHLIST_UPDATE_PENDING
+})
+
+export const updateWishlistCompleted = data => ({
     type: WishlistFilters.WISHLIST_UPDATE_SUCCESS,
-    payload : data
+    payload: data
+})
+
+export const updateWishlistFailed = (error) => ({
+    type: WishlistFilters.WISHLIST_UPDATE_FAILED,
+    error
+})
+const userAuthRequired = () => ({
+    type: WishlistFilters.USER_REQUIRED
 })
 
 export const addToWishlistAction = (data) => {
     return dispatch => {
-        addToCartAPI('user/addToWishlist',data)
-        .then(response => {
-            dispatch(updateWishlist(response.data))
-        })
-        .catch(error=>{
-            console.log('------------->>')
-        })
+        if (data.userId === undefined)
+            return dispatch(userAuthRequired())
+
+        dispatch(updateWishlistPending())
+        addToWishlistAPI('user/addToWishlist', data)
+            .then(response => {
+                dispatch(updateWishlistCompleted(response.data))
+            })
+            .catch(error => {
+                dispatch(updateWishlistFailed(error))
+            })
     }
 }
