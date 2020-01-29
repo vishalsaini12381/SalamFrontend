@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import { cartReducer } from '../reducer/cart.reducer'
 
 function inititateState (state = {authenticateState :''} , action) {
     if(action.type === 'authenticate'){
@@ -16,12 +17,14 @@ function inititateState (state = {authenticateState :''} , action) {
             zipcode  : action.zipcode,
             city : action.city,
             state : action.state,
-            country : action.country
+            country : action.country,
+            cartTotal : action.cartTotal
         }
     }
     return state;
 }
 
 export default combineReducers ({
-    inititateState
+    inititateState,
+    cart : cartReducer
 })

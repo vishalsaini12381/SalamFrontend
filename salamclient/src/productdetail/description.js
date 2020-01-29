@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
 import swal from 'sweetalert';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './description.css';
-
-// import {Link} from 'react-router-dom';
 import axios from 'axios';
+import { addToCartAction } from '../action/cart.action'
 const URL = process.env.REACT_APP_LOCAL;
 
 var divStyle = {
@@ -27,7 +26,6 @@ class Description extends React.Component {
       isCart: 0,
       isWishlist: 0,
     }
-    // this.fetchProductDetail = this.fetchProductDetail.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +37,7 @@ class Description extends React.Component {
         isWishlist: this.props.productData.isWishlist,
       })
     }
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,30 +51,15 @@ class Description extends React.Component {
   }
 
   addToCart = (productId, userId, price, discount, action) => {
-
-    axios.post(URL + '/api/user/addToCart', {
+    const data = {
       userId: userId,
       productId: productId,
       price: price,
       discount: discount,
       quantity: 1,
       action: action
-    }).then((response) => {
-      if (response.data.success) {
-        toast.success("Product added to cart !", {
-          position: toast.POSITION.BOTTOM_RIGHT
-        }, { autoClose: 500 });
-      } else {
-        toast.warn(response.data.message, {
-          position: toast.POSITION.BOTTOM_RIGHT
-        }, { autoClose: 500 });
-      }
-      window.location.reload();
-    }).catch(error => {
-      toast.error("Some error occured !", {
-        position: toast.POSITION.BOTTOM_RIGHT
-      }, { autoClose: 500 });
-    })
+    }
+    this.props.addToCartAction(data);
   }
 
   addToWishlist(productId, userId) {
@@ -234,4 +218,8 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Description));
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addToCartAction
+}, dispatch)
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Description));

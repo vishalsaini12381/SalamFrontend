@@ -16,7 +16,7 @@ class Search extends React.Component {
       search: '',
       businesscategoryList: [],
       visible: false,
-      cartCount: 0
+      cartTotal: 0
     };
   }
 
@@ -32,7 +32,8 @@ class Search extends React.Component {
   componentWillReceiveProps(nextProps) {
     const props = nextProps;
     this.setState({
-      businesscategoryList: props.businesscategoryList
+      businesscategoryList: props.businesscategoryList,
+      cartTotal: props.cartTotal
     })
   }
 
@@ -180,9 +181,9 @@ class Search extends React.Component {
                     <div className="basket "> <a href="javascript:void(0);" onClick={() => this.checkCart()}> <i className="fa fa-shopping-bag"></i>
                       <div className="cart-box">
                         <span className="title">My Cart</span>
-                        {/* {this.state.cartCount ? */}
-                          <span className="cart-count">2</span>
-                          {/* //  : null} */}
+                        {this.state.cartTotal ?
+                          <span className="cart-count">{this.state.cartTotal}</span>
+                          : null}
                       </div>
                     </a></div>
                     <div>
@@ -209,7 +210,8 @@ function mapStateToProps(state) {
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,
-    userId: state.inititateState.userId
+    userId: state.inititateState.userId,
+    cartTotal: state.cart.cartTotal
   }
 }
 
