@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './paymentpage.css';
 import Processbar from './processbar.js';
 import Paymentdetail from './paymentdetail.js';

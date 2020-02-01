@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './checkout.css';
 
 import { Link, withRouter } from 'react-router-dom'

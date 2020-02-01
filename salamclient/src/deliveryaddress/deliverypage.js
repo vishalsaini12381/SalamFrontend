@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './deliverypage.css';
 import Processbar from './processbar.js';
 import Addressdetail from './addressdetail.js';

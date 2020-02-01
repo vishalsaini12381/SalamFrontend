@@ -1,16 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './loginsignup.css';
 import validator from 'validator';
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import swal from 'sweetalert';
-import Bootstrap from 'bootstrap';
 import { bindActionCreators } from 'redux';
 import action from '../../action/action';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import { stat, copyFileSync } from 'fs';
 const URL = process.env.REACT_APP_LOCAL;
 
 
@@ -212,7 +209,7 @@ class Loginsignup extends React.Component {
       obj.email = this.state['Email'].value;
 
       axios.post(URL + '/api/user/forgetPasswprd', obj).then((response) => {
-        if (response.data.status = true) {
+        if (response.data.status === true) {
           swal("Successful",
             `${response.data.message}`,
             "success",
@@ -244,8 +241,8 @@ class Loginsignup extends React.Component {
                 <div className="col-sm-6">
                   <div className="loginsignup ">
                     <ul className="nav nav-tabs" role="tablist">
-                      <li role="presentation" className="active"><a href="#Signup" aria-controls="Signup" role="tab" data-toggle="tab">Signup</a></li>
-                      <li role="presentation"><a href="#Login" aria-controls="Login" role="tab" data-toggle="tab">Login</a></li>
+                      <li role="presentation" className="active"><a href="/Signup" aria-controls="Signup" role="tab" data-toggle="tab">Signup</a></li>
+                      <li role="presentation"><a href="#Login" aria-controls="/Login" role="tab" data-toggle="tab">Login</a></li>
                     </ul>
                     <div className="tab-content">
                       <div role="tabpanel" className="tab-pane active" id="Signup">
@@ -347,7 +344,7 @@ class Loginsignup extends React.Component {
                                 </div>
                               </form>
                               <div className="forgompass">
-                                <a className="btn-two" href="#">Forgot Password?</a>
+                                <a className="btn-two" href="/#">Forgot Password?</a>
                               </div>
                             </div>
                           </div>
@@ -355,7 +352,7 @@ class Loginsignup extends React.Component {
                         <div className="Forget two">
                           <div className="heafingpoint">
                             <div className="formdesign">
-                              <a className="arrow btn-one" href="#"> <i className="fa fa-arrow-left"></i> </a>
+                              <a className="arrow btn-one" href="/#"> <i className="fa fa-arrow-left"></i> </a>
                               <form className="form-inline my-arrow" onSubmit={this.forgetPassword} >
                                 <div className="row">
                                   <div className="col-sm-12">

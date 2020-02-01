@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Header from './include/header.js';
 import Footer from './include/footer.js';
 import Detail from './productdetail/detail.js';
 import Similarproduct from './productdetail/similarproduct.js';
-import Customerreview from './productdetail/customerreview.js';
 import { ToastContainer } from 'react-toastify';
 
 import axios from "axios";

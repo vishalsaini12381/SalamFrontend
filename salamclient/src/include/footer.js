@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Brand from './footer/brand.js';
 import Newsletter from './footer/newsletter.js';
 import Footerlink from './footer/footerlink.js';

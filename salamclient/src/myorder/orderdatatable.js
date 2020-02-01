@@ -1,8 +1,7 @@
 import moment from 'moment'; // Example for onSort prop
 import React, { Component } from 'react'; // Import React
-import { render } from 'react-dom'; // Import render method
 import Datatable from 'react-bs-datatable'; // Import this package
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
@@ -58,7 +57,6 @@ class Orderdatatable extends Component {
     ];
 
     const body = [
-
     ];
 
     if (this.state.myOrders) {
@@ -69,9 +67,10 @@ class Orderdatatable extends Component {
           "amount": '$' + e.totalOrderCost,
           "shippingamount": '$' + e.shippingCharges,
           "total": '$' + (parseFloat(e.totalOrderCost) + parseFloat(e.shippingCharges)),
-          "view": <a href="#" onClick={() => this.props.history.push(`orderdetail?orderId=${e._id}`)}><i class="fa fa-eye"></i></a>
+          "view": <a href="/#" onClick={() => this.props.history.push(`orderdetail?orderId=${e._id}`)}><i class="fa fa-eye"></i></a>
         }
         body.push(obj);
+        return i;
       })
     }
 

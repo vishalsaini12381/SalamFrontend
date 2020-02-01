@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './paymentdetail.css';
 class Paymentdetail extends React.Component{
 	render()

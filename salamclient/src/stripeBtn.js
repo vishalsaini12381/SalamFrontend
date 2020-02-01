@@ -1,10 +1,5 @@
-import React, { Fragment } from "react";
+import React from "react";
 import StripeCheckout from "react-stripe-checkout";
-import axios from "axios";
-
-import swal from 'sweetalert';
-import $ from 'jquery';
-const URL = process.env.REACT_APP_LOCAL;
 
 const stripeBtn = ({ payableAmount, shippingCharges, cartAmount, userId,saveOrderData }) => {
   const publishableKey = "pk_test_ndY3VSaj13uVmOszfc4dUyB500lSM6buEd";

@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { retrieveItem } from './Config';
-import { SERVER_URL,LOCAL_SERVER_URL } from './Constant';
+import {LOCAL_SERVER_URL } from './Constant';
 export const request = async (path, data, method) => {
   let token = localStorage.getItem('token')
 

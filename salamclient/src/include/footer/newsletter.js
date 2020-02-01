@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './newsletter.css';
 class Newsletter extends React.Component{
 	render()
@@ -22,11 +21,11 @@ class Newsletter extends React.Component{
           <div className="col-xs-12 col-sm-3 col-md-3">
             <div className="social">
               <ul>
-                <li className="fb"><a href="#"></a></li>
-                <li className="tw"><a href="#"></a></li>
-                <li className="linkedin"><a href="#"></a></li>
-                <li className="youtube"><a href="#"></a></li>
-                <li className="pintrest"><a href="#"></a></li>
+                <li className="fb"><a href="/#"></a></li>
+                <li className="tw"><a href="/#"></a></li>
+                <li className="linkedin"><a href="/#"></a></li>
+                <li className="youtube"><a href="/#"></a></li>
+                <li className="pintrest"><a href="/#"></a></li>
               </ul>
             </div>
           </div>

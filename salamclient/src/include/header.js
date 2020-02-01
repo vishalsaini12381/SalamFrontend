@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Search from './header/search.js';
 import Menu from './header/menu.js';
 import axios from 'axios';

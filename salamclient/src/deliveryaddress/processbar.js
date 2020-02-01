@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './processbar.css';
 class Processbar extends React.Component{
 	render()

@@ -1,15 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './loginpage.css';
 import validator from 'validator';
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import swal from 'sweetalert';
-import Bootstrap from 'bootstrap';
 import { bindActionCreators } from 'redux';
 import action from '../action/action';
 import { connect } from 'react-redux';
-import $ from 'jquery';
 const URL = process.env.REACT_APP_LOCAL;
 
 class Loginpage extends React.Component {

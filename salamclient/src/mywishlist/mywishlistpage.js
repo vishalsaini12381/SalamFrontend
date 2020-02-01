@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './mywishlistpage.css';
 import Sidebar from './sidebar.js';
 import Mywishlistdetail from './mywishlistdetail.js';

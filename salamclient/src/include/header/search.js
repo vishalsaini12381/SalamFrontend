@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SearchField from 'react-search-field';
 import axios from 'axios';
@@ -125,7 +125,7 @@ class Search extends React.Component {
                     this.props.email ?
                       <div className="links">
                         <div className="wishlist">
-                          <a title="My Wishlist" href='#' onClick={() => this.props.history.push("Mywishlist")}>
+                          <a title="My Wishlist" href='/#' onClick={() => this.props.history.push("Mywishlist")}>
                             <span className="hidden-xs">Wishlist</span>
                           </a>
                         </div>
@@ -178,7 +178,7 @@ class Search extends React.Component {
               <div className="col-lg-2 col-sm-3 col-md-2">
                 <div className="top-cart-contain">
                   <div className="mini-cart">
-                    <div className="basket "> <a href="javascript:void(0);" onClick={() => this.checkCart()}> <i className="fa fa-shopping-bag"></i>
+                    <div className="basket "> <a href="/#" onClick={() => this.checkCart()}> <i className="fa fa-shopping-bag"></i>
                       <div className="cart-box">
                         <span className="title">My Cart</span>
                         {this.state.cartTotal ?
@@ -189,7 +189,7 @@ class Search extends React.Component {
                     <div>
                     </div>
                   </div>
-                  <div id="ajaxconfig_info"> <a href="#"></a>
+                  <div id="ajaxconfig_info">
                     <input value="" type="hidden" />
                     <input id="enable_module" value="1" type="hidden" />
                     <input className="effect_to_cart" value="1" type="hidden" />

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './profilepage.css';
 import Sidebar from './sidebar.js';
 import Profiledetail from './profiledetail.js';

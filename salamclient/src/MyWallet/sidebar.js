@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './sidebar.css';
 import axios from 'axios';
 import swal from 'sweetalert';

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import { Link, withRouter } from 'react-router-dom'
 import './checkout.css';
 import './addressdetail.css';

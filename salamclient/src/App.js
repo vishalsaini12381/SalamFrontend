@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -22,7 +21,7 @@ import Login from './login';
 import Sidebar from './productlist/sidebar';
 import Mywishlist from './mywishlist';
 import MyWallet from './MyWallet'
-import { create } from 'domain';
+// import { create } from 'domain';
 
 const persistedState = loadState();
 const store = createStore(

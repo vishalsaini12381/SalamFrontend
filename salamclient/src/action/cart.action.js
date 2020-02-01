@@ -63,6 +63,7 @@ export const fetchMyCartAction = (data) => {
                     response.data.product.map(item => {
                         subTotalCartAmount += parseFloat(item.total)
                         totalCartItem += parseInt(item.quantity)
+                        return item;
                     })
                 }
                 dispatch(fetchCartCompleted({

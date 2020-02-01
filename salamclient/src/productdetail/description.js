@@ -5,10 +5,8 @@ import { bindActionCreators } from 'redux';
 import swal from 'sweetalert';
 import 'react-toastify/dist/ReactToastify.css';
 import './description.css';
-import axios from 'axios';
 import { addToCartAction } from '../action/cart.action'
 import { addToWishlistAction } from '../action/wishlist.action'
-const URL = process.env.REACT_APP_LOCAL;
 
 var divStyle = {
   cursor: 'pointer',
@@ -92,6 +90,7 @@ class Description extends React.Component {
       } else {
         objectSpec[item.key] = item.value;
       }
+      return item;
     })
     return objectSpec;
   }
@@ -108,7 +107,6 @@ class Description extends React.Component {
   render() {
     return (
       <div className="product-shop col-lg-7 col-sm-7 col-xs-12">
-        
         <div className="product-heading">
           <div className="row">
             <div className="col-lg-6 col-sm-6 col-xs-12">

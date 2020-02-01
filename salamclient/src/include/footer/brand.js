@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './brand.css';
 import axios from 'axios';
 const URL = process.env.REACT_APP_LOCAL;
@@ -21,7 +20,7 @@ class Brand extends React.Component {
   renderBrands = () => {
     return this.state.brandList.map((item, index) => {
       if (item.file !== null)
-        return <div key={`brands-${index}`} className="item"><a href="#x"><img src={item.file} alt="Image" /></a></div>
+        return <div key={`brands-${index}`} className="item"><a href="#x"><img src={item.file} alt="brand_photo" /></a></div>
       else
         return <div key={`brands-${index}`} className="brand-name-container"><span> {item.brandName}</span></div>
     })

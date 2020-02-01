@@ -1,19 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './menu.css';
-// import Men from './submenu/men.js';
-import Women from './submenu/women.js';
-import Kids from './submenu/kids.js';
-import Homeappliance from './submenu/homeappliance.js';
-import Sportsbooks from './submenu/sportsbooks.js';
-import Electronics from './submenu/electronics.js';
-import Furnitures from './submenu/furnitures.js';
 import axios from 'axios';
 const URL = process.env.REACT_APP_LOCAL;
 
-
 class Menu extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -80,18 +70,16 @@ class Menu extends React.Component {
                 this.state.businesscategoryList.map((e, i) => {
                   return (
                     <React.Fragment key={i}>
-                      <li className="level0 nav-5 level-top first"><a href="#"><span>{e.business_name}</span> </a>
-                        {/* <Men/> */}
+                      <li className="level0 nav-5 level-top first"><a href="/#"><span>{e.business_name}</span> </a>
                         <div className="level0-wrapper dropdown-6col">
                           <div className="level0-wrapper2">
                             <div className="nav-block nav-block-center">
                               <ul className="level0">
                                 {
-                                  // var categoryData=e.businesscategory['category'];
                                   e['categories'].map((f, d) => {
                                     return (
                                       <React.Fragment key={i}>
-                                        <li className="level3 nav-6-1 parent item"> <a href="#"><span>{f.categories}</span></a>
+                                        <li className="level3 nav-6-1 parent item"> <a href="/#"><span>{f.categories}</span></a>
                                           <ul className="level1">
                                             {
                                               f['subcategorie'].map((g, c) => {
@@ -100,10 +88,6 @@ class Menu extends React.Component {
                                                 )
                                               })
                                             }
-                                            {/* </React.Fragment>
-                        )
-                      })
-                    } */}
                                           </ul>
                                         </li>
                                       </React.Fragment>
@@ -119,33 +103,11 @@ class Menu extends React.Component {
                   )
                 })
               }
-              {/* <li className="level0 nav-5 level-top first"><a href="#"><span>Men</span> </a>
-            <Men/>
-          </li>
-          <li className="level0 nav-5 level-top first"><a href="#"><span>Women</span> </a>
-            <Women/>
-          </li>
-          <li className="level0 nav-5 level-top first"><a href="#"><span>Kids</span> </a>
-           <Kids/>
-          </li>
-          <li className="level0 nav-5 level-top first"><a href="#"><span>Home Appliances</span> </a>
-            <Homeappliance/>
-          </li>
-          <li className="level0 nav-5 level-top first"><a href="#"><span>Sports,Books</span> </a>
-            <Sportsbooks/>
-          </li>
-          <li className="level0 nav-5 level-top first"><a href="#"><span>Electronics</span> </a>
-            <Electronics/>
-          </li>
-          <li className="level0 nav-5 level-top first"><a href="#"><span>Furnitures</span> </a>
-            <Furnitures/>
-          </li> */}
+              
             </ul>
           </div>
         </div>
       </nav>
-
-
     )
   }
 }

@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './cartpage.css';
-import Checkout from './checkout.js';
 import Cartdetail from './cartdetail.js';
 import Processbar from './processbar.js';
 class Cartpage extends React.Component {

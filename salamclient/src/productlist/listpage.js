@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './listpage.css';
 // import Sidebar from './sidebar.js';
 import List from './list.js';

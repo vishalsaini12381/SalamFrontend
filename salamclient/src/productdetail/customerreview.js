@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './customerreview.css';
 class Customerreview extends React.Component {
   render() {

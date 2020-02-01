@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom'
-import ReactDOM from 'react-dom';
+
 import './cartdetail.css';
 import './checkout.css';
 import { connect } from 'react-redux';
@@ -106,7 +106,7 @@ class Cartdetail extends React.Component {
                           <td>
                             <div className="add-to-box pro-quantity">
                               <div className="add-to-cart">
-                                <label for="qty">Qty:</label>
+                                <label htmlFor="qty">Qty:</label>
                                 <div className="pull-left">
                                   <div className="custom pull-left">
                                     {
@@ -115,7 +115,7 @@ class Cartdetail extends React.Component {
                                         :
                                         <button onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 2)} className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
                                     }
-                                    <input type="text" className="input-text qty" title="Qty" value={e.quantity} maxlength="12" id="qty" name="qty" />
+                                    <input readOnly type="text" className="input-text qty" title="Qty" value={e.quantity} maxLength="12" id="qty" name="qty" />
                                     <button onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 1)} className="increase items-count" type="button"><i className="fa fa-plus">&nbsp;</i></button>
                                   </div>
                                 </div>

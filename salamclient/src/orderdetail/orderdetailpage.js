@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './orderdetailpage.css';
-import Paymentdetail from './paymentdetail.js';
 import Orderdetail from './orderdetail.js';
 class Orderdetailpage extends React.Component {
   render() {

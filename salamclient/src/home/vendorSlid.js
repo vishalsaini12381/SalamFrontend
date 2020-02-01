@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import axios from 'axios';
-// import '../src/home/categories.css';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Loader from 'react-loader-spinner'
@@ -88,38 +86,14 @@ class Slid extends React.Component {
                           <React.Fragment key={i}>
                             <div className="categoryslider">
                               <div className="sliderimage">
-                                <img style={{ width: '198px', height: '249px' }} src={e.image} />
+                                <img alt="Vendor_Profile" style={{ width: '198px', height: '249px' }} src={e.image} />
                               </div>
                             </div>
                           </React.Fragment>
                         )
                       })
                     }
-                    {/* <div className="categoryslider">
-         <div className="sliderimage">
-            <img style = {{width : '198px',height:'249px'}} src = "./images/categories/2.png"/>
-         </div>
-         <div className="categoryname">
-            <a title=" Sample Product" href="#">Men Fashion </a>
-          </div>
-      </div> */}
-                    {/* {
-    this.state.productList.map((e,i)=>{
-      return(
-        <React.Fragment key = {i}>
-          <div className="categoryslider">
-            <div className="sliderimage">
-                <img style = {{width : '198px',height:'249px'}} src = {e.file}/>
-            </div>
-            <div className="categoryname">
-                  {e.category}
-            </div>
-          </div>
-        </React.Fragment>
-      )
-    })
-  } */}
-                  </Carousel>
+                 </Carousel>
 
                 </div>
               </div>

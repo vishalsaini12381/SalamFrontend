@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
-import vendorSlid from './vendorSlid';
 import Carousel from "react-multi-carousel";
 import './vendorSlid.css';
 import './favseller.css';
@@ -75,24 +73,16 @@ class Favseller extends React.Component {
                           <React.Fragment key={`favoriteSeller_${i}`}>
                             <div className="categoryslider">
                               <div className="sliderimage">
-                                <img style={{ width: '198px', height: '249px' }} src={item.image !== null ? item.image : require('./vendor_profile.jpg')} />
+                                <img alt="Favorite_seller" style={{ width: '198px', height: '249px' }} src={item.image !== null ? item.image : require('./vendor_profile.jpg')} />
                               </div>
                               <div className="categoryname">
-                                <a href="#">{item.name}</a>
+                                <a href="/#">{item.name}</a>
                               </div>
                             </div>
                           </React.Fragment>
                         )
                       })
                     }
-                    {/* <div className="categoryslider">
-                      <div className="sliderimage">
-                        <img style={{ width: '198px', height: '249px' }} src="./images/categories/2.png" />
-                      </div>
-                      <div className="categoryname">
-                        <a title=" Sample Product" href="#"> </a>
-                      </div>
-                    </div> */}
                   </Carousel>
                 </div>
               </div>
