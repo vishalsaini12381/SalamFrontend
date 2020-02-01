@@ -1,12 +1,10 @@
 import React from 'react';
-
 import './list.css';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import './sidebar.css';
-import swal from 'sweetalert';
 import { addToCartAction } from '../action/cart.action';
 import { addToWishlistAction } from '../action/wishlist.action'
 
@@ -109,7 +107,7 @@ class List extends React.Component {
       this.state.productList.forEach(product => {
         product.specification.forEach(async specItem => {
           this.state.specification.forEach(elm => {
-            if (elm == specItem.value) {
+            if (elm === specItem.value) {
               if (product._id in filterArrTemp) {
                 this.setState({
                   filterArr: [],
@@ -124,10 +122,11 @@ class List extends React.Component {
         })
       });
       filterArrTemp.map(img => {
-        if (this.state.filterCheck.indexOf(img._id) == -1) {
+        if (this.state.filterCheck.indexOf(img._id) === -1) {
           this.state.filterResult.push(img)
           this.state.filterCheck.push(img._id)
         }
+        return img;
       });
       this.setState({
         filterArr: filterArrTemp
@@ -157,7 +156,7 @@ class List extends React.Component {
   }
 
   addItemToWishList = (event, product) => {
-    
+
     const data = {
       userId: this.props.userId,
       productId: product._id,
@@ -190,17 +189,23 @@ class List extends React.Component {
 
                         <li className="item col-lg-4 col-md-4 col-sm-6 col-xs-6">
                           <div className="col-item">
-                            <div className="product-image-area"> <a className="product-image" title="Sample Product" href={'Productdetail?product=' + e._id}> <img src={e.file1}
-                              className="img-responsive" style={{ height: '200px', width: '100%' }} alt="a" /> </a>
+                            <div className="product-image-area">
+                              <a className="product-image" title="Sample Product" 
+                              href={'/Productdetail?product=' + e._id}> 
+                              <img alt="image_name" 
+                              src={e.file1}
+                              className="img-responsive" 
+                              style={{ height: '200px', width: '100%' }} 
+                              alt="a" /> </a>
                               <div className="hover_fly">
-                                <a className="exclusive ajax_add_to_cart_button" href="#" onClick={(event) => this.addItemToCart(event, e)} title="Add Cart">
+                                <a  href='/#' className="exclusive ajax_add_to_cart_button" onClick={(event) => this.addItemToCart(event, e)} title="Add Cart">
                                   <div>
                                     <i className="icon-shopping-cart"></i>
                                     <span><i className="fa fa-shopping-bag"></i> Add Cart</span>
                                   </div>
                                   {/* href={'Productdetail?product=' + e._id} */}
                                 </a>
-                                <a className="quick-view" href="#" onClick={(event) => this.addItemToWishList(event, e)}>
+                                <a  href='/#' className="quick-view"  onClick={(event) => this.addItemToWishList(event, e)}>
                                   <div><i className="icon-eye-open"></i><span><i className="fa fa-heart"></i>Add Wishlist</span></div>
                                 </a> </div>
                             </div>
@@ -239,7 +244,7 @@ class List extends React.Component {
                   })
                 }
               </ul>
-                : <img src="./no-product.png"></img>
+                : <img alt="no_product_name" src="./no-product.png"></img>
             }
           </div>
         </section>{

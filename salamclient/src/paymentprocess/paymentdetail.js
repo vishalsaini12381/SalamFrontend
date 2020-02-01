@@ -1,18 +1,12 @@
 import React from 'react';
-
 import './paymentdetail.css';
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
-import $ from 'jquery';
 import StripeBtn from "../stripeBtn";
 import Loading from './Loading'
 const URL = process.env.REACT_APP_LOCAL;
-
-var divStyle = {
-  cursor: 'pointer',
-};
 
 class Paymentdetail extends React.Component {
   constructor(props) {
@@ -27,21 +21,21 @@ class Paymentdetail extends React.Component {
     }
   }
 
-  componentWillMount() {
-    //this.securePayment();
-    // this.fetchMyCart();
-  }
   fetchMyCart() {
     if (this.props.userId) {
       axios.post(URL + '/api/user/myCart', {
         userId: this.props.userId
       }).then((response) => {
-        if (response.data.code == 100) {
+        if (response.data.code === 100) {
+          let subTotal = 0;
           response.data.product.forEach(element => {
-            this.state.subTotal = parseFloat(this.state.subTotal) + parseFloat(element.total);
+            subTotal += parseFloat(element.total);
           });
-          this.state.total = parseFloat(this.state.shippingAmount) + parseFloat(this.state.subTotal)
-
+          
+          this.setState({
+            subTotal,
+            total : parseFloat(this.state.shippingAmount) + parseFloat(subTotal)
+          })
         } else {
           swal({
             title: "OOPS",
@@ -79,7 +73,7 @@ class Paymentdetail extends React.Component {
     let foo = params.get('data');
 
     if (this.props.userId) {
-      if (this.state.paymentType == 0) {
+      if (this.state.paymentType === 0) {
         swal({
           title: "OOPS",
           text: "Select payment mode",
@@ -96,7 +90,7 @@ class Paymentdetail extends React.Component {
         axios.post(URL + '/api/user/getSingleAddress', {
           addressId: foo
         }).then((response) => {
-          if (response.data.code == 100) {
+          if (response.data.code === 100) {
             axios.post(URL + '/api/user/codOrder', {
               addressId: foo,
               userId: this.props.userId,
@@ -105,7 +99,7 @@ class Paymentdetail extends React.Component {
               shippingCharges: this.state.shippingAmount,
               amount: this.state.total
             }).then((orderResponse) => {
-              if (orderResponse.data.code == 200) {
+              if (orderResponse.data.code === 200) {
                 swal({
                   title: "Success",
                   text: "Order placed successfully.",
@@ -182,9 +176,6 @@ class Paymentdetail extends React.Component {
     axios
       .post(URL + "/api/user/payment", { ...data, addressId })
       .then(response => {
-        // let search = window.location.search;
-        // let params = new URLSearchParams(search);
-        // let foo = params.get('data');
         this.setState({
           isLoading: false
         }, () => {

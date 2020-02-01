@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import axios from 'axios';
 import '../src/home/categories.css';
 import Carousel from "react-multi-carousel";
@@ -77,61 +76,15 @@ class Slid extends React.Component {
                     // dotListClass="custom-dot-list-style"
                     itemClass="carousel-item-padding-40-px"
                   >
-                    {
-                      // this.state.productList.map((e,i)=>{
-                      //   return(
-                      //     <React.Fragment key = {i}>
-                      //   <div className="categoryslider">
-                      //      <div className="sliderimage">
-                      //         <img style = {{width : '198px',height:'249px'}} src =  {e.file} />
-                      //      </div>
-                      //      <div className="categoryname">
-                      //         <a title=" Sample Product" href="#"></a>
-                      //       </div>
-                      //   </div>
-                      //   </React.Fragment>
-                      //   )
-                      // })
-                    }
                     <div className="categoryslider">
                       <div className="sliderimage">
-                        <img style={{ width: '198px', height: '249px' }} src="./images/categories/2.png" />
+                        <img alt="slider_image" style={{ width: '198px', height: '249px' }} src="./images/categories/2.png" />
                       </div>
                       <div className="categoryname">
-                        <a title=" Sample Product" href="#"></a>
+                        <a title=" Sample Product" href="/#"></a>
                       </div>
                     </div>
-                    {/* <div className="categoryslider">
-         <div className="sliderimage">
-            <img style = {{width : '198px',height:'249px'}} src = "./images/categories/3.png"/>
-         </div>
-         <div className="categoryname">
-            <a title=" Sample Product" href="#">Men Fashion </a>
-          </div>
-</div> */}
-
-
-
-
-
-                    {/* {
-    this.state.productList.map((e,i)=>{
-      return(
-        <React.Fragment key = {i}>
-          <div className="categoryslider">
-            <div className="sliderimage">
-                <img style = {{width : '198px',height:'249px'}} src = {e.file}/>
-            </div>
-            <div className="categoryname">
-                  {e.category}
-            </div>
-          </div>
-        </React.Fragment>
-      )
-    })
-  } */}
                   </Carousel>
-
                 </div>
               </div>
             </div>

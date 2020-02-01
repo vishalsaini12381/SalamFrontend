@@ -1,18 +1,5 @@
 import React from 'react';
-
 import './checkout.css';
-
-import { Link, withRouter } from 'react-router-dom'
-
-import { connect } from 'react-redux';
-import swal from 'sweetalert';
-import axios from 'axios';
-import $ from 'jquery';
-const URL = process.env.REACT_APP_LOCAL;
-
-var divStyle = {
-  cursor: 'pointer',
-};
 
 function Checkout({ totalProduct, payableAmount, cartAmount }) {
   return (
@@ -21,13 +8,11 @@ function Checkout({ totalProduct, payableAmount, cartAmount }) {
         <div className="block-title">Price Detail</div>
         <div className="block-content">
           <ul>
-            <li><a >Price({totalProduct} Item)</a><span>${cartAmount}</span></li>
-            <li><a >Delivery Charge</a><span>$15</span></li>
-
-            <li><a >Subtotal</a><span id="spanAmountDataId">${payableAmount}
+            <li><a href="/#">Price({totalProduct} Item)</a><span>${cartAmount}</span></li>
+            <li><a href="/#">Delivery Charge</a><span>$15</span></li>
+            <li><a href="/#">Subtotal</a><span id="spanAmountDataId">${payableAmount}
             </span></li>
           </ul>
-          {/* <div className="checkouts"><a style={divStyle}  onClick={() => this.goToPayment()}>Checkout</a></div> */}
         </div>
       </div>
     </aside>

@@ -50,7 +50,7 @@ class List extends React.Component {
               <div className="row">
                 <ul>
                   <li className="home"> <a href="/" title="Go to Home Page">Home</a><span>/</span></li>
-                  {/* <li className=""> <a href="#" title="Go to Home Page">Men Fashion</a><span>/</span></li> */}
+                  {/* <li className=""> <a href="/#" title="Go to Home Page">Men Fashion</a><span>/</span></li> */}
                   {/* <li className="category13"> Men T-Shirt</li> */}
                 </ul>
               </div>
@@ -65,7 +65,7 @@ class List extends React.Component {
                     <React.Fragment key={i}>
                       <li className="item col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         <div className="col-item">
-                          <div className="product-image-area"> <a className="product-image" title="Sample Product" href="#"> <img src={e.file1} className="img-responsive" style={{ height: '200px', width: '200px' }} alt="a" /> </a>
+                          <div className="product-image-area"> <a className="product-image" title="Sample Product" href="/#"> <img src={e.file1} className="img-responsive" style={{ height: '200px', width: '200px' }} alt="a" /> </a>
                             <div className="hover_fly"> <a className="exclusive ajax_add_to_cart_button" href="/Shoppingcart" title="Add Cart">
                               <div><i className="icon-shopping-cart"></i><span><i className="fa fa-shopping-bag"></i> Add Cart</span></div>
                             </a> <a className="quick-view" href="/Shoppingcart">
@@ -85,7 +85,7 @@ class List extends React.Component {
                               <div className="item-content">
                                 <div className="price-box">
                                   <p className="special-price"> <span className="price"> {e.brandName} </span></p>
-                                  {/* <p className="special-price"> <span className="price"> Size: </span><a href="#">M</a>,<a href="#">X</a>,<a href="#">L</a>,<a href="#">XL</a> </p> */}
+                                  {/* <p className="special-price"> <span className="price"> Size: </span><a href="/#">M</a>,<a href="/#">X</a>,<a href="/#">L</a>,<a href="/#">XL</a> </p> */}
                                 </div>
                               </div>
                             </div>

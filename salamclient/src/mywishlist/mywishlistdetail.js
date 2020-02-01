@@ -1,11 +1,10 @@
 import React from 'react';
-
 import './mywishlistdetail.css';
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const URL = process.env.REACT_APP_LOCAL;
@@ -30,7 +29,7 @@ class Mywishlistdetail extends React.Component {
       axios.post(URL + '/api/user/myWishlist', {
         userId: this.props.userId
       }).then((response) => {
-        if (response.data.code == 100) {
+        if (response.data.code === 100) {
           this.setState({
             myWishlist: response.data.product,
           })
@@ -69,8 +68,8 @@ class Mywishlistdetail extends React.Component {
           position: toast.POSITION.BOTTOM_RIGHT
         }, { autoClose: 500 });
       }
-    }).catch(error=>{
-      
+    }).catch(error => {
+
       toast.error("Some error occured !", {
         position: toast.POSITION.BOTTOM_RIGHT
       }, { autoClose: 500 });
@@ -105,7 +104,6 @@ class Mywishlistdetail extends React.Component {
   render() {
     return (
       <section className="col-main col-sm-9  wow bounceInUp animated cartdetail-fluid">
-        {/* <ToastContainer /> */}
         <div className="category-title">
           <h1>My Wishlist</h1>
           <div className="breadcrumbs">
@@ -125,7 +123,9 @@ class Mywishlistdetail extends React.Component {
                     if (e.productId !== null)
                       return (
                         <tr>
-                          <td class="image"><a class="product-image" title="Sample Product" href="#"><img width="75" alt="Sample Product" src={e.productId.file1} /></a></td>
+                          <td class="image">
+                            <a href="/#" class="product-image" title="Sample Product">
+                              <img width="75" alt="Sample Product" src={e.productId.file1} /></a></td>
                           <td><h3 className="product-name">{e.productId.productName}</h3>
                             <h4>Brand: <span>{e.productId.brandName}</span></h4></td>
 
@@ -148,16 +148,17 @@ class Mywishlistdetail extends React.Component {
                           </td>
                           <td>
                             <div className="cart-add">
-                              <a style={divStyle} onClick={() => this.addToCart(e.productId._id, this.props.userId)}><i class="fa fa-shopping-bag"></i></a>
+                              <a href="/#" style={divStyle} onClick={() => this.addToCart(e.productId._id, this.props.userId)}><i class="fa fa-shopping-bag"></i></a>
                             </div>
                           </td>
                           <td>
                             <div className="delete">
-                              <a style={divStyle} onClick={() => this.addToWishlist(e.productId._id, this.props.userId)}> <i className="fa fa-close"></i></a>
+                              <a href="/#" style={divStyle} onClick={() => this.addToWishlist(e.productId._id, this.props.userId)}> <i className="fa fa-close"></i></a>
                             </div>
                           </td>
                         </tr>
                       )
+                      return e;
                   })
 
                 }
@@ -179,8 +180,6 @@ class Mywishlistdetail extends React.Component {
           </div>
         </div>
       </section>
-
-
     )
   }
 }

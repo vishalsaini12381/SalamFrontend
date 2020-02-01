@@ -1,13 +1,8 @@
 import React from 'react';
-
 import './similarproduct.css';
-import { Link } from 'react-router-dom'
-import axios from 'axios';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Slid from '../Slid';
 import Loader from 'react-loader-spinner'
-const URL = process.env.REACT_APP_LOCAL;
 
 class Similarproduct extends React.Component {
 
@@ -68,10 +63,10 @@ class Similarproduct extends React.Component {
                             <React.Fragment key={i}>
                               <div className="categoryslider">
                                 <div className="sliderimage">
-                                  <a href={"Productdetail?product=" + e._id}><img style={{ width: '198px', height: '249px' }} src={e.file1} /></a>
+                                  <a href={"Productdetail?product=" + e._id}><img alt="product_detail" style={{ width: '198px', height: '249px' }} src={e.file1} /></a>
                                 </div>
                                 <div className="categoryname">
-                                  <a title=" Sample Product" href="#"></a>
+                                  <a title="Sample Product" href="/#"></a>
                                 </div>
                               </div>
                             </React.Fragment>

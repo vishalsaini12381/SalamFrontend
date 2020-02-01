@@ -1,9 +1,7 @@
 import React from 'react';
-
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import './checkout.css';
 import './addressdetail.css';
-
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
@@ -34,9 +32,23 @@ class Checkout extends React.Component {
       axios.post(URL + '/api/user/myCart', {
         userId: this.props.userId
       }).then((response) => {
-        if (response.data.code == 100) {
+        if (response.data.code === 100) {
+          let subTotal = 0;
+          let totalProduct = 0;
+          if (Array.isArray(response.data.product)) {
+            response.data.product.map((e, i) => {
+              subTotal += parseFloat(this.state.subTotal) + parseFloat(e.total);
+              totalProduct += parseInt(this.state.totalProduct) + 1;
+              return i;
+            })
+          }
           this.setState({
             myCart: response.data.product,
+            subTotal,
+            totalProduct,
+            total : parseFloat(15) + parseFloat(subTotal)
+          }, () => {
+
           })
         } else {
           swal({
@@ -78,32 +90,23 @@ class Checkout extends React.Component {
   }
 
   render() {
-    this.state.myCart.map((e, i) => {
-      this.state.subTotal = parseFloat(this.state.subTotal) + parseFloat(e.total);
-      this.state.totalProduct = parseInt(this.state.totalProduct) + 1;
-    })
     return (
-
       <aside className="col-right sidebar col-sm-4 wow bounceInUp animated checkout-fluid">
         <div className="block block-account">
           <div className="block-title">Price Detail</div>
           <div className="block-content">
             <ul>
-              <li><a >Price({this.state.totalProduct} Item)</a><span>${this.state.subTotal}</span></li>
-              <li><a >Delivery Charge</a><span>$15</span></li>
+              <li><a href="/#">Price({this.state.totalProduct} Item)</a><span>${this.state.subTotal}</span></li>
+              <li><a href="/#">Delivery Charge</a><span>$15</span></li>
 
-              <li><a >Subtotal</a><span>$
-              {
-                  this.state.total = parseFloat(15) + parseFloat(this.state.subTotal)
-                }
+              <li><a href="/#">Subtotal</a><span>$
+              
               </span></li>
             </ul>
-            <div className="checkouts"><a style={divStyle} onClick={() => this.goToPayment()}>Checkout</a></div>
+            <div className="checkouts"><a href="/#" style={divStyle} onClick={() => this.goToPayment()}>Checkout</a></div>
           </div>
         </div>
       </aside>
-
-
     )
   }
 }

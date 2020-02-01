@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import axios from 'axios';
 import swal from 'sweetalert';
-import moment from 'moment'
 const URL = process.env.REACT_APP_LOCAL;
 
 class WalletTransaction extends Component {
@@ -50,16 +49,6 @@ class WalletTransaction extends Component {
         return (
             <section className="col-main col-sm-9  wow bounceInUp animated cartdetail-fluid">
                 <div class="category-title">
-                    {/* <h1>My Wallet</h1><br />
-                    <div class="breadcrumbs">
-                        <div class="row" style={{ "padding": "0px 20px" }}>
-                            <ul>
-                                <li class="home"> <a href="#" title="Go to Home Page">Home</a><span>/</span></li>
-                                <li class="category13"> My wallet</li>
-                            </ul>
-                        </div>
-                    </div> */}
-
                     <div class="continueshopping" style={{ "padding-bottom": "10px", "margin-bottom": "10px" }} >
                         <div class="row">
                             <div class="col-sm-12">
@@ -91,30 +80,6 @@ class WalletTransaction extends Component {
                                                 </tr>)
                                             })
                                         }
-                                        {/* <tr class="first odd">
-                                            <td>#132456</td>
-                                            <td>9/9/10</td>
-                                            <td>100 $</td>
-                                            <td>#12a453</td>
-                                        </tr>
-                                        <tr class="first odd">
-                                            <td>#132456</td>
-                                            <td>9/9/10</td>
-                                            <td>100 $</td>
-                                            <td>#12a453</td>
-                                        </tr>
-                                        <tr class="first odd">
-                                            <td>#132456</td>
-                                            <td>9/9/10</td>
-                                            <td>100 $</td>
-                                            <td>#12a453</td>
-                                        </tr>
-                                        <tr class="first odd">
-                                            <td>#132456</td>
-                                            <td>9/9/10</td>
-                                            <td>100 $</td>
-                                            <td>#12a453</td>
-                                        </tr> */}
                                     </tbody>
                                 </table>
                             </div>

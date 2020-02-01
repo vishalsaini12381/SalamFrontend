@@ -93,7 +93,7 @@ class Categories extends React.Component{
                   <a href={"Productdetail?product="+e._id}><img style = {{width : '198px',height:'249px'}} src =  {e.file1} /></a>
               </div>
               <div className="categoryname">
-                  <a title=" Sample Product" href="#"></a>
+                  <a title=" Sample Product" href="/#"></a>
                 </div>
             </div>
             </React.Fragment>
@@ -105,7 +105,7 @@ class Categories extends React.Component{
             <img style = {{width : '198px',height:'249px'}} src = "./images/categories/2.png"/>
          </div>
          <div className="categoryname">
-            <a title=" Sample Product" href="#"></a>
+            <a title=" Sample Product" href="/#"></a>
           </div>
       </div> */}
 </Carousel>

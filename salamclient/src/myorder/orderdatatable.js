@@ -83,7 +83,7 @@ class Orderdatatable extends Component {
     };
 
     const customLabels = {
-      first: '<<',
+      first: '<',
       last: '>>',
       prev: '<',
       next: '>',

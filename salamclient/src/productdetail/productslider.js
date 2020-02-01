@@ -1,9 +1,5 @@
 import React from 'react';
-
 import './productslider.css';
-
-import axios from 'axios';
-const URL = process.env.REACT_APP_LOCAL;
 
 class Productslider extends React.Component {
 
@@ -33,27 +29,8 @@ class Productslider extends React.Component {
       })
     }
   }
-  // fetchProductDetail() {
-
-  //   let search = window.location.search;
-  //   let params = new URLSearchParams(search);
-  //   let foo = params.get('product');
-  //   this.setState({
-  //     productId: foo,
-  //   })
-
-  //   axios.post(URL + '/api/user/productDetail', {
-  //     productId: foo,
-  //   }).then((response) => {
-  //     this.setState({
-  //       productDetail: response.data.productData[0].product,
-  //       productDetailFile: response.data.productData[0].product['file1']
-  //     })
-  //   })
-  // }
 
   shoeImgs = (selectedFile) => {
-    var navOpened = document.getElementById("imgsIs");
     this.setState({
       productDetailFile: selectedFile
     })
@@ -68,7 +45,7 @@ class Productslider extends React.Component {
         <div className="moreimage">
           {
             this.state.productDetail['file1'] !== null ?
-              <a onClick={() => this.shoeImgs(this.state.productDetail['file1'])}>
+              <a href="/#" onClick={() => this.shoeImgs(this.state.productDetail['file1'])}>
                 <img src={this.state.productDetail['file1']} alt="thumbnail" />
               </a>
               :
@@ -76,14 +53,14 @@ class Productslider extends React.Component {
           }
           {
             this.state.productDetail['file2'] !== null ?
-              <a onClick={() => this.shoeImgs(this.state.productDetail['file2'])}>
+              <a href="/#" onClick={() => this.shoeImgs(this.state.productDetail['file2'])}>
                 <img src={this.state.productDetail['file2']} alt="thumbnail" />
               </a>
               : null
           }
           {
             this.state.productDetail['file3'] !== null ?
-              <a onClick={() => this.shoeImgs(this.state.productDetail['file3'])}>
+              <a href="/#" onClick={() => this.shoeImgs(this.state.productDetail['file3'])}>
                 <img src={this.state.productDetail['file3']} alt="thumbnail" />
               </a>
               : null

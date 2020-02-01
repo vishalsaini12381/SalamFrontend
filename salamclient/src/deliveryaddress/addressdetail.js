@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import './addressdetail.css';
 import validator from 'validator';
 import {connect} from 'react-redux';
@@ -75,7 +74,7 @@ class Addressdetail extends React.Component{
       axios.post(URL+'/api/user/deleteAddress',{
         addressId:addressId
       }).then((response)=>{
-        if(response.data.code==100){
+        if(response.data.code === 100){
           // return window.location.reload()
           this.fetchMyAddress();
         }else{
@@ -222,7 +221,7 @@ class Addressdetail extends React.Component{
                         <p>Phone: <span>+{e.mobile}</span></p>
                         <div className="deleteaddress" style={divStyle}  onClick={() => this.removeAddress(e._id)}><i className="fa fa-close"></i></div>
                         {
-                          this.state.isChecked==1 ?
+                          this.state.isChecked===1 ?
                             <div className="rightsign"><i className="fa fa-check"></i></div>
                             :
                             <div className="rightsign" ></div>
@@ -354,5 +353,3 @@ function mapStateToProps(state){
 }
 
 export default withRouter(connect(mapStateToProps)(Addressdetail));
-
-// export default Addressdetail;

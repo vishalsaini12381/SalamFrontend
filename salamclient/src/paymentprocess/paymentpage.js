@@ -4,11 +4,10 @@ import './paymentpage.css';
 import Processbar from './processbar.js';
 import Paymentdetail from './paymentdetail.js';
 import Checkout from './checkout.js';
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
-import $ from 'jquery';
 
 const URL = process.env.REACT_APP_LOCAL;
 
@@ -46,18 +45,15 @@ class Paymentpage extends React.Component {
     axios.post(URL + '/api/user/myCart', {
       userId: this.props.userId
     }).then((response) => {
-      if (response.data.code == 100 && response.data.product) {
+      if (response.data.code === 100 && response.data.product) {
 
-        // this.state.myCart.map((e, i) => {
-        //   this.state.subTotal = parseFloat(this.state.subTotal) + parseFloat(e.total);
-        //   this.state.totalProduct = parseInt(this.state.totalProduct) + 1;
-        // })
         let myCart = response.data.product;
         let cartAmount = 0;
         let totalNumberOfProduct = 0;
         myCart.map(item => {
           cartAmount += parseFloat(item.total);
           totalNumberOfProduct++;
+          return item;
         })
 
         this.setState({

@@ -10,9 +10,9 @@ class Paymentdetail extends React.Component{
             <div className="block-title">Price Detail</div>
             <div className="block-content">
               <ul>
-                <li><a href="#">Price(3 Item)</a><span>$550</span></li>
-                <li><a href="#">Delivery Charge</a><span>$15</span></li>
-                <li><a href="#">Subtotal</a><span>$565</span></li>
+                <li><a href="/#">Price(3 Item)</a><span>$550</span></li>
+                <li><a href="/#">Delivery Charge</a><span>$15</span></li>
+                <li><a href="/#">Subtotal</a><span>$565</span></li>
               </ul>
             </div>
           </div>
@@ -20,7 +20,7 @@ class Paymentdetail extends React.Component{
             <div className="block-title">Payment Detail</div>
             <div className="block-content">
               <ul>
-                <li><a href="#">Paument Mehood</a><span>Online</span></li>
+                <li><a href="/#">Paument Mehood</a><span>Online</span></li>
               </ul>
             </div>
           </div>
@@ -28,7 +28,7 @@ class Paymentdetail extends React.Component{
             <div className="block-title">Shipping Address</div>
             <div className="block-content">
               <ul>
-                <li><a href="#">H-134 Modal town New Delhi </a></li>
+                <li><a href="/#">H-134 Modal town New Delhi </a></li>
               </ul>
             </div>
           </div>

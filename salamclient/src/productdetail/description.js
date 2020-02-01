@@ -155,7 +155,7 @@ class Description extends React.Component {
                     this.state.isCart ?
                       <div className="custom pull-left">
                         {
-                          this.state.isCart == 1 ?
+                          this.state.isCart ===1 ?
                             <button style={divStyleDisabled} className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
                             :
                             <button style={divStyle} onClick={() => this.addToCart(this.state.productDetail['_id'], this.props.userId, this.state.productDetail['productPrice'], this.state.productDetail['discount'], 2)} className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
@@ -164,28 +164,28 @@ class Description extends React.Component {
                         <button style={divStyle} onClick={() => this.addToCart(this.state.productDetail['_id'], this.props.userId, this.state.productDetail['productPrice'], this.state.productDetail['discount'], 1)} className="increase items-count" type="button"><i className="fa fa-plus">&nbsp;</i></button>
                       </div>
                       :
-                      <li> <a className="link-wishlist" style={divStyle} onClick={() => this.addToCart(this.state.productDetail['_id'], this.props.userId, this.state.productDetail['productPrice'], this.state.productDetail['discount'], 1)}><span>Add to Cart</span></a></li>
+                      <li> <a href='/#' className="link-wishlist" style={divStyle} onClick={() => this.addToCart(this.state.productDetail['_id'], this.props.userId, this.state.productDetail['productPrice'], this.state.productDetail['discount'], 1)}><span>Add to Cart</span></a></li>
                     :
-                    <li> <a className="link-wishlist" style={divStyle} onClick={() => this.onClickDiv(this.state.productDetail['_id'])}><span>Add to Cart</span></a></li>
+                    <li> <a href='/#' className="link-wishlist" style={divStyle} onClick={() => this.onClickDiv(this.state.productDetail['_id'])}><span>Add to Cart</span></a></li>
                 }
                 {
                   this.props.userId ?
                     this.state.isWishlist === 1 ?
                       <li>
                         <span className="separator">|</span>
-                        <a className="link-compare" style={divStyle} onClick={() => this.addToWishlist(this.state.productDetail['_id'], this.props.userId)}>
+                        <a href='/#' className="link-compare" style={divStyle} onClick={() => this.addToWishlist(this.state.productDetail['_id'], this.props.userId)}>
                           <span>Remove From Wishlist</span>
                         </a>
                       </li> :
                       <li>
                         <span className="separator">|</span>
-                        <a className="link-compare" style={divStyle} onClick={() => this.addToWishlist(this.state.productDetail['_id'], this.props.userId)}>
+                        <a href='/#' className="link-compare" style={divStyle} onClick={() => this.addToWishlist(this.state.productDetail['_id'], this.props.userId)}>
                           <span>Add to Wishlist</span>
                         </a>
                       </li> :
                     <li>
                       <span className="separator">|</span>
-                      <a className="link-compare" style={divStyle} onClick={() => this.onClickDiv(this.state.productDetail['_id'])}>
+                      <a href='/#' className="link-compare" style={divStyle} onClick={() => this.onClickDiv(this.state.productDetail['_id'])}>
                         <span>Add to Wishlist</span>
                       </a>
                     </li>

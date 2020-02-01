@@ -152,7 +152,7 @@ class Customerreview extends React.Component {
               </div>
             </div>
             <div className="writeaareview">
-              <a href="#"> Write a review</a>
+              <a href="/#"> Write a review</a>
             </div>
           </div>
         </div>

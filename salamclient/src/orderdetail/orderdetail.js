@@ -1,11 +1,8 @@
 import React from 'react';
-
 import './orderdetail.css';
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import swal from 'sweetalert';
 import axios from 'axios';
-import NeedHelpDropdown from './NeedHelpDropdown';
 import Modal from './Modal';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -95,7 +92,7 @@ class Orderdetail extends React.Component {
             <div className="breadcrumbs">
               <div className="row">
                 <ul>
-                  <li className="home"> <a href="#" title="Go to Home Page">Home</a><span>/</span></li>
+                  <li className="home"> <a href="/#" title="Go to Home Page">Home</a><span>/</span></li>
                   <li className="category13"> Order Detail</li>
                 </ul>
               </div>
@@ -107,7 +104,7 @@ class Orderdetail extends React.Component {
                     this.state.orderItems.map((item, i) => {
                       return (
                         <tr>
-                          <td class="image"><a class="product-image" title="Sample Product" href="#"><img width="75" alt="Sample Product" src={item.productId.file1} /></a></td>
+                          <td class="image"><a class="product-image" title="Sample Product" href="/#"><img width="75" alt="Sample Product" src={item.productId.file1} /></a></td>
                           <td><h3 className="product-name">{item.productId.productName}</h3>
                             <h4>Brand: <span>{item.productId.brandName}</span></h4></td>
                           <td>
@@ -151,7 +148,7 @@ class Orderdetail extends React.Component {
 
                           <td>
                             <div className="price">
-                              <a href="javascript:void(0);" onClick={() => this.getReturnOrderRequest(item)}>
+                              <a href="#/" onClick={() => this.getReturnOrderRequest(item)}>
                                 <h4 style={{
                                   background: "cadetblue",
                                   borderRadius: "10px",
@@ -197,9 +194,9 @@ class Orderdetail extends React.Component {
             <div className="block-title">Price Detail</div>
             <div className="block-content">
               <ul>
-                <li><a href="#">Price({this.state.orderItems.length} Item)</a><span>${this.state.totalOrderCost}</span></li>
-                <li><a href="#">Delivery Charge</a><span>${this.state.shippingCharges}</span></li>
-                <li><a href="#">Subtotal</a><span>${this.state.totalOrderCost + this.state.shippingCharges}</span></li>
+                <li><a href="/#">Price({this.state.orderItems.length} Item)</a><span>${this.state.totalOrderCost}</span></li>
+                <li><a href="/#">Delivery Charge</a><span>${this.state.shippingCharges}</span></li>
+                <li><a href="/#">Subtotal</a><span>${this.state.totalOrderCost + this.state.shippingCharges}</span></li>
               </ul>
             </div>
           </div>

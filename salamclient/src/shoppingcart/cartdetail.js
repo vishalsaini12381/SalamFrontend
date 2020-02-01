@@ -1,15 +1,10 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom'
-
+import { withRouter } from 'react-router-dom'
 import './cartdetail.css';
 import './checkout.css';
 import { connect } from 'react-redux';
-import swal from 'sweetalert';
-import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { addToCartAction, fetchMyCartAction } from '../action/cart.action';
-
-const URL = process.env.REACT_APP_LOCAL;
 
 class Cartdetail extends React.Component {
   constructor(props) {
@@ -76,7 +71,7 @@ class Cartdetail extends React.Component {
             <div className="breadcrumbs">
               <div className="row">
                 <ul>
-                  <li className="home"> <a href="#" title="Go to Home Page">Home</a><span>/</span></li>
+                  <li className="home"> <a href="/#" title="Go to Home Page">Home</a><span>/</span></li>
                   <li className="category13"> My Cart</li>
                 </ul>
               </div>
@@ -86,8 +81,8 @@ class Cartdetail extends React.Component {
                 <tbody>
                   {
                     this.state.myCart.map((e, i) => {
-                      this.state.subTotal = parseFloat(this.state.subTotal) + parseFloat(e.total);
-                      this.state.totalProduct = parseInt(this.state.totalProduct) + 1;
+                      // this.state.subTotal = parseFloat(this.state.subTotal) + parseFloat(e.total);
+                      // this.state.totalProduct = parseInt(this.state.totalProduct) + 1;
                       return (
 
                         <tr>
@@ -110,7 +105,7 @@ class Cartdetail extends React.Component {
                                 <div className="pull-left">
                                   <div className="custom pull-left">
                                     {
-                                      e.quantity == 1 ?
+                                      e.quantity === 1 ?
                                         <button className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
                                         :
                                         <button onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 2)} className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
@@ -130,7 +125,7 @@ class Cartdetail extends React.Component {
                           </td>
                           <td>
                             <div className="delete">
-                              <a onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 3)}> <i className="fa fa-close"></i></a>
+                              <a href='/#' onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 3)}> <i className="fa fa-close"></i></a>
                             </div>
                           </td>
                         </tr>
@@ -162,13 +157,13 @@ class Cartdetail extends React.Component {
             <div className="block-title">Price Detail</div>
             <div className="block-content">
               <ul>
-                <li><a >Price({this.state.totalCartItem} Item)</a><span>${this.round2Decimal(this.state.subTotalCartAmount)}</span></li>
-                <li><a >Delivery Charge</a><span>$15</span></li>
-                <li><a >Subtotal</a><span>$
+                <li><a  href='/#'>Price({this.state.totalCartItem} Item)</a><span>${this.round2Decimal(this.state.subTotalCartAmount)}</span></li>
+                <li><a href='/#'>Delivery Charge</a><span>$15</span></li>
+                <li><a href='/#'>Subtotal</a><span>$
               {this.round2Decimal(this.state.totalCartAmount)}
                 </span></li>
               </ul>
-              <div className="checkouts"><a onClick={() => this.props.history.push('Deliveryaddress')} href="#">Checkout</a></div>
+              <div className="checkouts"><a onClick={() => this.props.history.push('Deliveryaddress')} href="/#">Checkout</a></div>
             </div>
           </div>
         </aside>

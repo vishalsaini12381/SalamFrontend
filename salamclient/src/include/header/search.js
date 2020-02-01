@@ -159,7 +159,7 @@ class Search extends React.Component {
                       {
                         this.state.businesscategoryList.map((e, i) => {
                           return (
-                            <option value={e.business_id}>{e.business_name}</option>
+                            <option key={`new_option_${i}`} value={e.business_id}>{e.business_name}</option>
                           )
                         })
                       }

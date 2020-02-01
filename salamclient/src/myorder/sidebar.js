@@ -28,17 +28,18 @@ class Sidebar extends React.Component {
           <div className="block-title">My Account</div>
           <div className="block-content">
             <ul>
-              <li><a href = '#' onClick={()=> this.props.history.push("Myprofile")}>My Profile </a></li>
-              <li className="current"><a href="#">My Order</a></li>
-              <li><a href='#' onClick={() => this.props.history.push("mywallet")}>My Wallet</a></li>
-              <li><a href = '#' onClick={()=> this.props.history.push("Mywishlist")}>My Wishlist</a></li>
-              <li><a href="#">Setting</a></li>
-              <li><a>Sell With Us</a></li>
-              <li><a>About Us</a></li>
-              <li><a>Help & Support</a></li>
-              <li><a>Privacy Policy</a></li>
-              <li><a>Term & Condition</a></li>
-              <li><a onClick={this.logout.bind(this)}>Log Out</a></li>
+              <li><a href = '/#' onClick={()=> this.props.history.push("Myprofile")}>My Profile </a></li>
+              <li className="current"><a href="/#">My Order</a></li>
+              <li><a href="/#" onClick={() => this.props.history.push("mywallet")}>My Wallet</a></li>
+              <li><a href = '/#' onClick={()=> this.props.history.push("Mywishlist")}>My Wishlist</a></li>
+              <li><a href="/#">Setting</a></li>
+              <li><a href="/#">Setting</a></li>
+              <li><a href="/#">Sell With Us</a></li>
+              <li><a href="/#">About Us</a></li>
+              <li><a href="/#">Help & Support</a></li>
+              <li><a href="/#">Privacy Policy</a></li>
+              <li><a href="/#">Term & Condition</a></li>
+              <li><a href="/#" onClick={this.logout.bind(this)}>Log Out</a></li>
             </ul>
           </div>
         </div>

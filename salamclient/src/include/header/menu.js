@@ -78,13 +78,13 @@ class Menu extends React.Component {
                                 {
                                   e['categories'].map((f, d) => {
                                     return (
-                                      <React.Fragment key={i}>
+                                      <React.Fragment key={`categories_el_${d}`}>
                                         <li className="level3 nav-6-1 parent item"> <a href="/#"><span>{f.categories}</span></a>
                                           <ul className="level1">
                                             {
                                               f['subcategorie'].map((g, c) => {
                                                 return (
-                                                  <li className="level2 nav-6-1-1"> <a href={"/Productlist?subcategory=" + g._id} ><span>{g.subcategory}</span></a> </li>
+                                                  <li key={`li_el_${c}`} className="level2 nav-6-1-1"> <a href={"/Productlist?subcategory=" + g._id} ><span>{g.subcategory}</span></a> </li>
                                                 )
                                               })
                                             }

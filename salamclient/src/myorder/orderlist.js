@@ -12,8 +12,8 @@ class Orderlist extends React.Component {
           <div className="breadcrumbs">
             <div className="row">
               <ul>
-                <li className="home"> <a href="#" title="Go to Home Page">Home</a><span>/</span></li>
-                <li className=""> <a href="#" title="Go to Home Page">My Account</a><span>/</span></li>
+                <li className="home"> <a href="/#" title="Go to Home Page">Home</a><span>/</span></li>
+                <li className=""> <a href="/#" title="Go to Home Page">My Account</a><span>/</span></li>
                 <li className="category13"> My Order</li>
               </ul>
             </div>

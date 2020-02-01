@@ -8,9 +8,9 @@ class Processbar extends React.Component{
 
           <div className="processbar-fluid">
               <ul>
-                <li className="active"><a href="#">My Shopping Cart</a></li>
-                <li><a >Delivery Address</a></li>
-                <li><a >Payment</a></li>
+                <li className="active"><a href="/#">My Shopping Cart</a></li>
+                <li><a href='/#'>Delivery Address</a></li>
+                <li><a href='/#'>Payment</a></li>
               </ul>
           </div>
 

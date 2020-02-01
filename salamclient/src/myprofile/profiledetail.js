@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import swal from 'sweetalert';
-import validator from 'validator';
-import $ from 'jquery';
 import action from '../action/action';
 import './profiledetail.css';
 const URL = process.env.REACT_APP_LOCAL;
@@ -46,78 +44,7 @@ class Profiledetail extends React.Component {
     state[name].value = value;
     this.setState(state);
   }
-
-  // validate (){
-  //   let state = this.state;
-  // if (validator.isEmpty(state.firstName.value)){
-  //   state.firstName.isValidate = false;
-  //   state.firstName.message = 'First Name Required';
-  //   this.setState(state);
-  //   return false;
-  // }
-
-  // if (validator.isEmpty(state.lastName.value)){
-  //   state.lastName.isValidate = false;
-  //   state.lastName.message = 'Please Fill The Last Name';
-  //   this.setState(state);
-  //   return false;
-  // }
-  // if(validator.isEmpty(state.mobile.value)){
-  //   state.mobile.isValidate = false;
-  //   state.mobile.message = 'Please Fill The Mobile';
-  //   this.setState(state);
-  //   return false;
-  // }
-  // if(!validator.isNumeric(state.mobile.value)){
-  //   state.mobile.isValidate = false;
-  //   state.mobile.message = 'Must be Number';
-  //   this.setState(state);
-  //   return false;
-  // }
-  // if(validator.isEmpty(state.dob.value)){
-  //   state.dob.isValidate = false;
-  //   state.dob.message = 'Please Fill The Date of birth';
-  //   this.setState(state);
-  //   return false;
-  // }
-  // if(validator.isEmpty(state.gender.value)){
-  //   state.gender.isValidate = false;
-  //   state.gender.message = 'Please Select Your gender';
-  //   this.setState(state);
-  //   return false;
-  // }   
-  //  if(validator.isEmpty(state.streetAddress.value)){
-  //   state.streetAddress.isValidate = false;
-  //   state.streetAddress.message = 'Please Fill The StreetAddress';
-  //   this.setState(state);
-  //   return false;
-  // }   
-  //  if(validator.isEmpty(state.city.value)){
-  //   state.city.isValidate = false;
-  //   state.city.message = 'Please Fill The City';
-  //   this.setState(state);
-  //   return false;
-  // }  
-  //   if(validator.isEmpty(state.zipcode.value)){
-  //   state.zipcode.isValidate = false;
-  //   state.zipcode.message = 'Please Fill The Zip Code';
-  //   this.setState(state);
-  //   return false;
-  // }
-  // if(validator.isEmpty(state.state.value)){
-  //   state.state.isValidate = false;
-  //   state.state.message = 'Please Fill The State';
-  //   this.setState(state);
-  //   return false;
-  // }
-  // if(validator.isEmpty(state.country.value)){
-  //   state.country.isValidate = false;
-  //   state.country.message = 'Please Fill The Country';
-  //   this.setState(state);
-  //   return false;
-  // }
-  // }
-
+  
   submit(event) {
     event.preventDefault();
     // let isValid = this.validate();
@@ -182,12 +109,12 @@ class Profiledetail extends React.Component {
     return (
       <section className="col-main col-sm-9  wow bounceInUp animated profile-fluid">
         <div className="category-title">
-          {/* <h1>My Profile<span className="editprofile"><a href="#">Edit Profile</a></span></h1> */}
+          {/* <h1>My Profile<span className="editprofile"><a href="/#">Edit Profile</a></span></h1> */}
           <div className="breadcrumbs">
             <div className="row">
               <ul>
                 <li className="home"> <a href="/" title="Go to Home Page">Home</a><span>/</span></li>
-                <li className=""> <a href="#" title="Go to Home Page">My Account</a><span>/</span></li>
+                <li className=""> <a href="/#" title="Go to Home Page">My Account</a><span>/</span></li>
                 <li className="category13"> My Profile</li>
               </ul>
             </div>
