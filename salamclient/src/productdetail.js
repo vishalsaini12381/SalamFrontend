@@ -1,4 +1,5 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Header from './include/header.js';
@@ -6,9 +7,10 @@ import Footer from './include/footer.js';
 import Detail from './productdetail/detail.js';
 import Similarproduct from './productdetail/similarproduct.js';
 import { ToastContainer } from 'react-toastify';
-
 import axios from "axios";
+import { fetchProductDetailAction } from './action/product.action'
 const URL = process.env.REACT_APP_LOCAL;
+
 class Productdetail extends React.Component {
 	constructor(props) {
 		super(props)
@@ -21,27 +23,14 @@ class Productdetail extends React.Component {
 	}
 
 	fetchProductDetail() {
-
 		let search = window.location.search;
 		let params = new URLSearchParams(search);
 		let foo = params.get('product');
-		this.setState({
+		const data = {
 			productId: foo,
 			userId: this.props.userId
-		})
-
-		axios.post(URL + '/api/user/productDetail', {
-			productId: foo,
-			userId: this.props.userId
-		}).then((response) => {
-			if (response.data.productData) {
-				this.setState({
-					subcategory: response.data.productData['product']['subCategoryId'].subcategory,
-					productData: response.data.productData,
-					similarProduct: response.data.similarProduct
-				})
-			}
-		})
+		}
+		this.props.fetchProductDetailAction(data);
 	}
 
 
@@ -50,9 +39,8 @@ class Productdetail extends React.Component {
 			<div>
 				<ToastContainer />
 				<Header />
-				{Object.keys(this.state.productData).length > 0 ? <Detail productData={this.state.productData} subcategory={this.state.subcategory} /> : null}
-				{Object.keys(this.state.productData).length > 0 ? <Similarproduct similarProduct={this.state.similarProduct} /> : null}
-				{/* {Object.keys(this.state.productData).length > 0 ? <Customerreview /> : null} */}
+				<Detail/>
+				<Similarproduct />
 				<Footer />
 			</div>
 
@@ -62,11 +50,15 @@ class Productdetail extends React.Component {
 
 function mapStateToProps(state) {
 	return {
-	  authenticateState: state.inititateState.authenticateState,
-	  email: state.inititateState.email,
-	  userId: state.inititateState.userId
+		authenticateState: state.inititateState.authenticateState,
+		email: state.inititateState.email,
+		userId: state.inititateState.userId
 	}
-  }
-  
-  export default withRouter(connect(mapStateToProps)(Productdetail));
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+	fetchProductDetailAction
+}, dispatch)
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Productdetail));
 

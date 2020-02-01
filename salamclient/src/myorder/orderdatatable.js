@@ -67,7 +67,7 @@ class Orderdatatable extends Component {
           "amount": '$' + e.totalOrderCost,
           "shippingamount": '$' + e.shippingCharges,
           "total": '$' + (parseFloat(e.totalOrderCost) + parseFloat(e.shippingCharges)),
-          "view": <a href="/#" onClick={() => this.props.history.push(`orderdetail?orderId=${e._id}`)}><i class="fa fa-eye"></i></a>
+          "view": <a key={`view_key_${i}`} href="/#" onClick={() => this.props.history.push(`orderdetail?orderId=${e._id}`)}><i className="fa fa-eye"></i></a>
         }
         body.push(obj);
         return i;
@@ -93,6 +93,7 @@ class Orderdatatable extends Component {
     };
     return (
       <Datatable
+        key={"order_table_in"}
         tableHeader={header}
         tableBody={body}
         keyName="userTable"

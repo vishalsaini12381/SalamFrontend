@@ -1,15 +1,14 @@
 import React from 'react';
-import axios from 'axios';
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Carousel from 'react-multi-carousel';
 import { addToCartAction } from '../action/cart.action';
 import { addToWishlistAction } from '../action/wishlist.action'
+import { fetchProductListAction } from '../action/product.action'
 import "react-multi-carousel/lib/styles.css";
 import './newproduct.css';
 import './categories.css';
-const URL = process.env.REACT_APP_LOCAL;
 
 class Categories extends React.Component {
   constructor(props) {
@@ -18,20 +17,15 @@ class Categories extends React.Component {
       productList: [],
       visible: false
     }
-    this.allProducts = this.allProducts.bind(this);
   }
 
-  allProducts() {
-    this.setState({ visible: true });
-    axios.post(URL + '/api/user/fetchHomeProduct').then((response) => {
-      this.setState({ visible: false });
-      this.setState({
-        productList: response.data.productData,
-      })
-    })
+
+  componentDidMount() {
+    this.props.fetchProductListAction(this.props.userId)
   }
 
-  addToCart = (productId, userId, price, discount, action) => {
+  addToCart = (event, productId, userId, price, discount, action) => {
+    event.preventDefault();
     const data = {
       userId: userId,
       productId: productId,
@@ -51,10 +45,34 @@ class Categories extends React.Component {
     this.props.addToWishlistAction(data)
   }
 
-  componentDidMount() {
-    this.allProducts();
+  renderProductItem = () => {
+    return this.props.productList.map((e, i) => {
+      return (
+        <div className="mutlislider" key={`productIndex_${i}`}>
+          <div className="productimage">
+            <a href={"Productdetail?product=" + e._id}><img src={e.file1} alt="product 1" /></a>
+            {
+              e.quantity > 0 ?
+                <div className="viewproduct">
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <a href="/#" onClick={(event) => this.addToCart(event, e._id, this.props.userId)}><i className="fa fa-shopping-cart"></i> Add to Cart</a>
+                    <a href="/#" onClick={() => this.addToWishlist(e._id, this.props.userId)}><i className="fa fa-heart"></i> Add to Wishlist</a>
+                  </div>
+                </div> :
+                <div  className="viewproduct" style={{backgroundColor: '#000000d1'}}> Out of Stock </div>
+            }
+          </div>
+          <div className="Product-Info">
+            <div className="Product-Info--Name" title={e.productName}>{e.productName}</div>
+            <div className="Product-Info--Price">
+              <div className="Product-Info--CurrentPrice">${e.productPrice}</div>
+              <div className="Product-Info--PreviousPrice">${((e.productPrice) - (e.productPrice) * (e.discount) / 100)}</div>
+            </div>
+          </div>
+        </div>
+      )
+    })
   }
-
   render() {
 
     const responsive = {
@@ -76,9 +94,7 @@ class Categories extends React.Component {
       },
     };
 
-    const { visible } = this.state
-
-    if (this.state.productList.length > 0 && !visible)
+    if (this.props.productList.length > 0 && !this.props.showLoader)
       return (
         <div className="container-fluid newproduct-fluid" >
           <div className="container">
@@ -86,34 +102,11 @@ class Categories extends React.Component {
               <h2>New  Products</h2>
             </div>
             <Carousel responsive={responsive}>
-              {
-                this.state.productList.map((e, i) => {
-                  return (
-                    <div className="mutlislider" key={`productIndex_${i}`}>
-                      <div className="productimage">
-                        <a href={"Productdetail?product=" + e._id}><img src={e.file1} alt="product 1" /></a>
-                        <div className="viewproduct">
-                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <a href="/#" onClick={() => this.addToCart(e._id, this.props.userId)}><i className="fa fa-shopping-cart"></i> Add to Cart</a>
-                            <a href="/#" onClick={() => this.addToWishlist(e._id, this.props.userId)}><i className="fa fa-heart"></i> Add to Wishlist</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="Product-Info">
-                        <div className="Product-Info--Name" title={e.productName}>{e.productName}</div>
-                        <div className="Product-Info--Price">
-                          <div className="Product-Info--CurrentPrice">${e.productPrice}</div>
-                          <div className="Product-Info--PreviousPrice">${((e.productPrice) - (e.productPrice) * (e.discount) / 100)}</div>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })
-              }
+              {this.renderProductItem()}
             </Carousel>
           </div>
         </div>)
-    else if (this.state.productList.length === 0 && visible)
+    else if (this.props.productList.length === 0 && this.props.showLoader)
       return (
         <div className="container-fluid newproduct-fluid" ><div className="container">
           <div className="headingpart">
@@ -127,8 +120,9 @@ class Categories extends React.Component {
                     <a href="/#">
                       <img alt="add_product" style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
                       <div className="viewproduct">
-                        <i className="fa fa-shopping-cart"></i> Add to Cart
-                                          </div>
+                        <i className="fa fa-shopping-cart"></i>
+                        Add to cart
+                      </div>
                     </a>
                   </div>
                   <h3>----</h3>
@@ -197,17 +191,21 @@ class Categories extends React.Component {
 
 
 function mapStateToProps(state) {
+
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,
-    userId: state.inititateState.userId
+    userId: state.inititateState.userId,
+    productList: state.product.productList,
+    showLoader: state.product.showLoader
   }
 }
 
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   addToCartAction,
-  addToWishlistAction
+  addToWishlistAction,
+  fetchProductListAction
 }, dispatch)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Categories));

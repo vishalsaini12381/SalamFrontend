@@ -124,13 +124,13 @@ class Profiledetail extends React.Component {
               <div className="row">
                 <div className="col-sm-6">
                   <div className="form-group">
-                    <label for="from">First Name</label>
+                    <label htmlFor="from">First Name</label>
                     <input type="text" className="form-control" name="firstName" value={state.firstName.value} onChange={this.handleChange} placeholder="Akram" />
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
-                    <label for="from">Last Name</label>
+                    <label htmlFor="from">Last Name</label>
                     <input type="text" className="form-control" name="lastName" value={state.lastName.value} onChange={this.handleChange} placeholder="" />
                     {/* <div style={{ fontSize: 13, color: "red" }}>
                                {state.lastName.message}
@@ -139,13 +139,13 @@ class Profiledetail extends React.Component {
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
-                    <label for="from">Email Id</label>
+                    <label htmlFor="from">Email Id</label>
                     <input type="text" className="form-control" value={this.props.email} disabled />
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
-                    <label for="from">Mobile No.</label>
+                    <label htmlFor="from">Mobile No.</label>
                     <input type="text" className="form-control" name="mobile" value={state.mobile.value} onChange={this.handleChange} placeholder="" />
                     {/* <div style={{ fontSize: 13, color: "red" }}>
                                {state.mobile.message}
@@ -154,7 +154,7 @@ class Profiledetail extends React.Component {
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
-                    <label for="to">Date of Birth</label>
+                    <label htmlFor="to">Date of Birth</label>
                     <input type="date" className="form-control" id="dateofbirth" name='dob' value={state.dob.value} onChange={this.handleChange} max={this.maxDateForDOBInput()} />
                     {/* <div style={{ fontSize: 13, color: "red" }}>
                                {state.dob.message}
@@ -163,9 +163,9 @@ class Profiledetail extends React.Component {
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
-                    <label for="status">Gender</label>
-                    <select className="form-control" name="gender" value={state.gender.value} onChange={this.handleChange} >
-                      <option value="" hidden selected>Select</option>
+                    <label htmlFor="status">Gender</label>
+                    <select className="form-control" name="gender" defaultValue="" value={state.gender.value} onChange={this.handleChange} >
+                      <option value="" hidden>Select</option>
                       <option>Male</option>
                       <option>Female</option>
                     </select>
@@ -188,31 +188,31 @@ class Profiledetail extends React.Component {
               <div className="row">
                 <div className="col-sm-12">
                   <div className="form-group">
-                    <label for="from">Street Address</label>
+                    <label htmlFor="from">Street Address</label>
                     <input type="text" className="form-control" name="streetAddress" value={state.streetAddress.value} onChange={this.handleChange} placeholder="Enter Street" />
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
-                    <label for="from">City</label>
+                    <label htmlFor="from">City</label>
                     <input type="text" className="form-control" placeholder="Enter city" name="city" value={state.city.value} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
-                    <label for="from">State</label>
+                    <label htmlFor="from">State</label>
                     <input type="text" className="form-control" placeholder="Enter state" name="state" value={state.state.value} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
-                    <label for="from">Zip Code</label>
+                    <label htmlFor="from">Zip Code</label>
                     <input type="text" className="form-control" placeholder="Enter pincode" name="zipcode" value={state.zipcode.value} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="form-group">
-                    <label for="status">Country</label>
+                    <label htmlFor="status">Country</label>
                     <input type="text" className="form-control" placeholder="Enter country" name="country" value={state.country.value} onChange={this.handleChange} />
                   </div>
                   <button type='submit' className="btn btn-primary" style={{ marginLeft: 310 }} onClick={this.submit}  >submit</button>

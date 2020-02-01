@@ -12,7 +12,7 @@ class Home extends React.Component {
 			<div>
 				<ToastContainer/>
 				<Header />
-				<Slider />
+				{/* <Slider /> */}
 				<Categories />
 				<Favseller />
 				<Footer />

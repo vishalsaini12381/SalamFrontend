@@ -20,9 +20,6 @@ class Search extends React.Component {
     };
   }
 
-  // componentWillMount() {
-  //   this.fetchBusinessCategory();
-  // }
   componentDidMount() {
     const props = this.props;
     this.setState({
@@ -164,7 +161,7 @@ class Search extends React.Component {
                         })
                       }
                     </select>
-                    {/* <input type="text" placeholder="Search Products " value="" maxlength="70" className="" name="search" id="search"/> */}
+                    {/* <input type="text" placeholder="Search Products " value="" maxLength="70" className="" name="search" id="search"/> */}
                     <SearchField
                       placeholder="Search Products..."
                       onSearchClick={this.searchJob}

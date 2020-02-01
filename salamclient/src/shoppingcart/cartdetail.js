@@ -1,10 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
-import './cartdetail.css';
-import './checkout.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addToCartAction, fetchMyCartAction } from '../action/cart.action';
+import './cartdetail.css';
+import './checkout.css';
 
 class Cartdetail extends React.Component {
   constructor(props) {
@@ -44,14 +44,14 @@ class Cartdetail extends React.Component {
     this.props.addToCartAction(data)
   }
 
-  componentWillReceiveProps(nextProps){
-    
-    if(nextProps.cartDetail !== undefined && nextProps.cartDetail.myCart !== undefined){
+  componentWillReceiveProps(nextProps) {
+
+    if (nextProps.cartDetail !== undefined && nextProps.cartDetail.myCart !== undefined) {
       this.setState({
         ...nextProps.cartDetail
       })
-    }else if(nextProps.cartDetail.myCart === undefined){
-      window.location = '/';
+    } else if (nextProps.cartDetail.myCart === undefined) {
+      this.props.history.replace('/');
     }
   }
 
@@ -61,6 +61,63 @@ class Cartdetail extends React.Component {
     return (Math.round(num * 100) / 100).toFixed(2);
   }
 
+  renderCartTable = () => {
+    return this.state.myCart.map((e, i) => {
+      // this.state.subTotal = parseFloat(this.state.subTotal) + parseFloat(e.total);
+      // this.state.totalProduct = parseInt(this.state.totalProduct) + 1;
+      if (e.productId !== null) {
+        return (
+          <tr key={`product_number_${i}`}>
+            <td className="image"><a className="product-image" title="Sample Product" href="Productdetail?"><img width="75" alt="Sample Product" src={e.productId.file1} /></a></td>
+            <td><h3 className="product-name">{e.productId.productName}</h3>
+              <h4>Brand: <span>{e.productId.brandName}</span></h4>
+            </td>
+            <td>
+              <div className="price">
+                <label htmlFor="price">Price</label>
+                <h4>${parseFloat(e.amount).toFixed(2)}</h4>
+                <span>{`Discount(${e.discount}%) : $${e.discountValue}`} </span><br />
+                <span>{`Actual Price : $${e.price}`}</span>
+              </div>
+            </td>
+            <td>
+              <div className="add-to-box pro-quantity">
+                <div className="add-to-cart">
+                  <label htmlFor="qty">Qty:</label>
+                  <div className="pull-left">
+                    <div className="custom pull-left">
+                      {
+                        e.quantity === 1 ?
+                          <button className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
+                          :
+                          <button onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 2)} className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
+                      }
+                      <input readOnly type="text" className="input-text qty" title="Qty" value={e.quantity} maxLength="12" id="qty" name="qty" />
+                      <button onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 1)} className="increase items-count" type="button"><i className="fa fa-plus">&nbsp;</i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div className="price">
+                <label htmlFor="price">Total</label>
+                <h4>${parseFloat(e.total).toFixed(2)}</h4>
+              </div>
+            </td>
+            <td>
+              <div className="delete">
+                <a href='/#' onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 3)}> <i className="fa fa-close"></i></a>
+              </div>
+            </td>
+          </tr>
+        )
+      }
+      else {
+        return <tr><td>Product doesn't exist</td></tr>
+      }
+    })
+  }
 
   render() {
     return (
@@ -79,59 +136,7 @@ class Cartdetail extends React.Component {
             <div className="productcart-fluid">
               <table className="table table-striped">
                 <tbody>
-                  {
-                    this.state.myCart.map((e, i) => {
-                      // this.state.subTotal = parseFloat(this.state.subTotal) + parseFloat(e.total);
-                      // this.state.totalProduct = parseInt(this.state.totalProduct) + 1;
-                      return (
-
-                        <tr>
-                          <td class="image"><a class="product-image" title="Sample Product" href="Productdetail?"><img width="75" alt="Sample Product" src={e.productId.file1} /></a></td>
-                          <td><h3 className="product-name">{e.productId.productName}</h3>
-                            <h4>Brand: <span>{e.productId.brandName}</span></h4>
-                          </td>
-                          <td>
-                            <div className="price">
-                              <label for="price">Price</label>
-                              <h4>${parseFloat(e.amount).toFixed(2)}</h4>
-                              <span>{`Discount(${e.discount}%) : $${e.discountValue}`} </span><br />
-                              <span>{`Actual Price : $${e.price}`}</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div className="add-to-box pro-quantity">
-                              <div className="add-to-cart">
-                                <label htmlFor="qty">Qty:</label>
-                                <div className="pull-left">
-                                  <div className="custom pull-left">
-                                    {
-                                      e.quantity === 1 ?
-                                        <button className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
-                                        :
-                                        <button onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 2)} className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
-                                    }
-                                    <input readOnly type="text" className="input-text qty" title="Qty" value={e.quantity} maxLength="12" id="qty" name="qty" />
-                                    <button onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 1)} className="increase items-count" type="button"><i className="fa fa-plus">&nbsp;</i></button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div className="price">
-                              <label for="price">Total</label>
-                              <h4>${parseFloat(e.total).toFixed(2)}</h4>
-                            </div>
-                          </td>
-                          <td>
-                            <div className="delete">
-                              <a href='/#' onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 3)}> <i className="fa fa-close"></i></a>
-                            </div>
-                          </td>
-                        </tr>
-                      )
-                    })
-                  }
+                  {this.renderCartTable()}
                 </tbody>
               </table>
             </div>
@@ -139,7 +144,7 @@ class Cartdetail extends React.Component {
               <div className="row">
                 <div className="col-sm-6">
                   <div className="leftpart">
-                    <a href="/"><i class="fa fa-arrow-left"></i> Continue Shopping</a>
+                    <a href="/"><i className="fa fa-arrow-left"></i> Continue Shopping</a>
                   </div>
                 </div>
                 <div className="col-sm-6">
@@ -157,7 +162,7 @@ class Cartdetail extends React.Component {
             <div className="block-title">Price Detail</div>
             <div className="block-content">
               <ul>
-                <li><a  href='/#'>Price({this.state.totalCartItem} Item)</a><span>${this.round2Decimal(this.state.subTotalCartAmount)}</span></li>
+                <li><a href='/#'>Price({this.state.totalCartItem} Item)</a><span>${this.round2Decimal(this.state.subTotalCartAmount)}</span></li>
                 <li><a href='/#'>Delivery Charge</a><span>$15</span></li>
                 <li><a href='/#'>Subtotal</a><span>$
               {this.round2Decimal(this.state.totalCartAmount)}

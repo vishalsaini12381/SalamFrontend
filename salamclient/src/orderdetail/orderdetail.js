@@ -125,7 +125,7 @@ class Orderdetail extends React.Component {
                                 <label for="qty">Qty:</label>
                                 <div className="pull-left">
                                   <div className="custom pull-left">
-                                    <input type="text" className="input-text qty" style={{ background: '#e9edf2', color: 'black', cursor: 'no-drop' }} title="Qty" value={item.totalUnits} readOnly maxlength="12" id="qty" name="qty" />
+                                    <input type="text" className="input-text qty" style={{ background: '#e9edf2', color: 'black', cursor: 'no-drop' }} title="Qty" value={item.totalUnits} readOnly maxLength="12" id="qty" name="qty" />
                                   </div>
                                 </div>
                               </div>

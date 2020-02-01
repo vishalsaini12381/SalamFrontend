@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import swal from 'sweetalert';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,7 +21,7 @@ class Description extends React.Component {
     super(props);
     this.state = {
       productDetail: [],
-      isCart: 0,
+      cartQuantity: 0,
       isWishlist: 0,
     }
   }
@@ -31,7 +31,7 @@ class Description extends React.Component {
     if (this.props.productData !== undefined) {
       this.setState({
         productDetail: this.props.productData.product,
-        isCart: this.props.productData.isCart,
+        cartQuantity: this.props.productData.cartQuantity,
         isWishlist: this.props.productData.isWishlist,
       })
     }
@@ -42,7 +42,7 @@ class Description extends React.Component {
     if (nextProps.productData !== undefined) {
       this.setState({
         productDetail: nextProps.productData.product,
-        isCart: nextProps.productData.isCart,
+        cartQuantity: this.props.productData.cartQuantity,
         isWishlist: nextProps.productData.isWishlist,
       })
     }
@@ -94,6 +94,7 @@ class Description extends React.Component {
     })
     return objectSpec;
   }
+
   renderSpecification = (specification = []) => {
     let itemOfRender = []
     if (specification.length > 0) {
@@ -102,8 +103,42 @@ class Description extends React.Component {
         itemOfRender.push(<div><span style={{ textTransform: "capitalize" }}>{key} : {newSpecificationObject[key]}</span><br></br></div>)
       })
     }
-    return itemOfRender
+    return itemOfRender;
   }
+
+  renderProductCartBox = () => {
+    if (this.props.userId && this.state.cartQuantity === 1) {
+      return (
+        <li>
+          <div className="custom pull-left">
+            <button type="button" className="reduced items-count"
+              style={this.state.cartQuantity === 1 ? divStyleDisabled : divStyle}
+              onClick={() => this.addToCart(this.state.productDetail['_id'],
+                this.props.userId, this.state.productDetail['productPrice'],
+                this.state.productDetail['discount'], 2)}
+              disabled={this.state.cartQuantity !== 1}>
+              <i className="fa fa-minus">&nbsp;</i>
+            </button>
+            <input type="text" className="input-text qty" title="Qty" readOnly value={this.state.cartQuantity} maxLength="12" id="qty" name="qty" />
+            <button style={divStyle} onClick={() => this.addToCart(this.state.productDetail['_id'], this.props.userId, this.state.productDetail['productPrice'], this.state.productDetail['discount'], 1)} className="increase items-count" type="button"><i className="fa fa-plus">&nbsp;</i></button>
+          </div>
+        </li>);
+    } else if (this.state.cartQuantity == 0) {
+      return (
+        <li>
+          <a href='/#' className="link-wishlist" style={divStyle} onClick={() => this.addToCart(this.state.productDetail['_id'], this.props.userId, this.state.productDetail['productPrice'], this.state.productDetail['discount'], 1)}>
+            <span>Add to Cart</span>
+          </a>
+        </li>);
+    } else {
+      return (
+        <li> <a href='/#' className="link-wishlist" style={divStyle} onClick={() => this.onClickDiv(this.state.productDetail['_id'])}>
+          <span>Add to Cart</span>
+        </a>
+        </li>);
+    }
+  }
+
   render() {
     return (
       <div className="product-shop col-lg-7 col-sm-7 col-xs-12">
@@ -150,24 +185,7 @@ class Description extends React.Component {
             </div>
             <div className="email-addto-box adtocart">
               <ul className="add-to-links">
-                {
-                  this.props.userId ?
-                    this.state.isCart ?
-                      <div className="custom pull-left">
-                        {
-                          this.state.isCart ===1 ?
-                            <button style={divStyleDisabled} className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
-                            :
-                            <button style={divStyle} onClick={() => this.addToCart(this.state.productDetail['_id'], this.props.userId, this.state.productDetail['productPrice'], this.state.productDetail['discount'], 2)} className="reduced items-count" type="button"><i className="fa fa-minus">&nbsp;</i></button>
-                        }
-                        <input type="text" className="input-text qty" title="Qty" value={this.state.isCart} maxlength="12" id="qty" name="qty" />
-                        <button style={divStyle} onClick={() => this.addToCart(this.state.productDetail['_id'], this.props.userId, this.state.productDetail['productPrice'], this.state.productDetail['discount'], 1)} className="increase items-count" type="button"><i className="fa fa-plus">&nbsp;</i></button>
-                      </div>
-                      :
-                      <li> <a href='/#' className="link-wishlist" style={divStyle} onClick={() => this.addToCart(this.state.productDetail['_id'], this.props.userId, this.state.productDetail['productPrice'], this.state.productDetail['discount'], 1)}><span>Add to Cart</span></a></li>
-                    :
-                    <li> <a href='/#' className="link-wishlist" style={divStyle} onClick={() => this.onClickDiv(this.state.productDetail['_id'])}><span>Add to Cart</span></a></li>
-                }
+                {this.renderProductCartBox()}
                 {
                   this.props.userId ?
                     this.state.isWishlist === 1 ?
@@ -205,7 +223,7 @@ function mapStateToProps(state) {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,
     userId: state.inititateState.userId,
-    wishlist : state.wishlist
+    wishlist: state.wishlist
   }
 }
 

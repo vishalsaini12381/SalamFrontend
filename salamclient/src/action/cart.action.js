@@ -10,7 +10,7 @@ export const CartFilters = {
     FETCH_CART_FAILED: 'FETCH_CART_FAILED',
 }
 
-const updateCartCount = data => ({
+export const updateCartCount = data => ({
     type: CartFilters.CART_UPDATE_SUCCESS,
     payload: data
 })

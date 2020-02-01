@@ -1,13 +1,10 @@
 import React from 'react';
-import './loginpage.css';
-import validator from 'validator';
-import { withRouter } from 'react-router-dom'
-import axios from 'axios';
-import swal from 'sweetalert';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import action from '../action/action';
 import { connect } from 'react-redux';
-const URL = process.env.REACT_APP_LOCAL;
+import validator from 'validator';
+import './loginpage.css';
+import { userLoginAction } from '../action/user.action';
 
 class Loginpage extends React.Component {
   constructor(props) {
@@ -18,11 +15,9 @@ class Loginpage extends React.Component {
       type: "User",
       userId: '',
     }
-    this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
-    this.loginUser = this.loginUser.bind(this);
   }
 
-  handleChangeFirstName(event) {
+  handleChangeFirstName = (event) => {
     const { name, value } = event.target;
     let state = this.state;
     state[name].message = '';
@@ -30,9 +25,8 @@ class Loginpage extends React.Component {
     this.setState(state);
   }
 
-  valid() {
+  valid = () => {
     let state = this.state;
-
     if (validator.isEmpty(state.mail.value)) {
       state.mail.isValidate = false;
       state.mail.message = 'Please Fill The E-mail';
@@ -48,42 +42,22 @@ class Loginpage extends React.Component {
     return true;
   }
 
-  loginUser(event) {
+  loginUser = (event) => {
     event.preventDefault();
     const isValidate = this.valid();
     if (isValidate) {
-      let obj = {}
-      obj.type = this.state.type;
-      //obj.userId = this.state.userId;
-      obj.email = this.state['mail'].value;
-      obj.password = this.state['pass'].value;
-      axios.post(URL + '/api/user/Login', obj).then((response) => {
-        if (response.data.status === true) {
-          swal({
-            title: "Success!",
-            text: response.data.message,
-            icon: "success",
-            dangerMode: false,
-            closeOnClickOutside: false,
-          }).then((d) => {
-            if (d) {
-              return window.location = "/"
-            }
-          })
-          if (response) {
-            this.props.authenticate({
-              type: 'authenticate',
-              payload: response.data
-            })
-          }
-        } else {
-          swal("Error",
-            `${response.data.message}`,
-            "error",
-          ).then((d) => {
-          })
-        }
-      })
+      let data = {
+        type: this.state.type,
+        email: this.state['mail'].value,
+        password : this.state['pass'].value
+      }
+      this.props.userLoginAction(data);
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(this.props.isLoggedIn){
+      this.props.history.push('/');     
     }
   }
 
@@ -138,8 +112,6 @@ class Loginpage extends React.Component {
           </div>
         </div>
       </div>
-
-
     )
   }
 }
@@ -147,14 +119,13 @@ class Loginpage extends React.Component {
 function mapStateToProps(state) {
   return {
     authenticateState: state.inititateState.authenticateState,
-    // type: state.inititateState.type
+    isLoggedIn : state.inititateState.isLoggedIn
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    authenticate: bindActionCreators(action.authenticate, dispatch)
-  }
-}
+const mapDispatchToProps = dispatch => bindActionCreators({
+  userLoginAction
+}, dispatch)
+
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Loginpage));
