@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addToCartAction, fetchMyCartAction } from '../action/cart.action';
+import { addToCartAction, fetchMyCartAction, removeProductFromCartAction } from '../action/cart.action';
 import './cartdetail.css';
 import './checkout.css';
 
@@ -68,7 +68,7 @@ class Cartdetail extends React.Component {
       if (e.productId !== null) {
         return (
           <tr key={`product_number_${i}`}>
-            <td className="image"><a className="product-image" title="Sample Product" href="Productdetail?"><img width="75" alt="Sample Product" src={e.productId.file1} /></a></td>
+            <td className="image"><a className="product-image" title="Sample Product" ><img width="75" alt="Sample Product" src={e.productId.file1} /></a></td>
             <td><h3 className="product-name">{e.productId.productName}</h3>
               <h4>Brand: <span>{e.productId.brandName}</span></h4>
             </td>
@@ -107,7 +107,7 @@ class Cartdetail extends React.Component {
             </td>
             <td>
               <div className="delete">
-                <a href='/#' onClick={() => this.addToCart(e.productId._id, this.props.userId, e.productId.productPrice, e.productId.discount, 3)}> <i className="fa fa-close"></i></a>
+                <a href='javascript:;' onClick={() => this.props.removeProductFromCartAction({productId : e.productId._id, userId: this.props.userId, cartTotal : e.quantity })}> <i className="fa fa-close"></i></a>
               </div>
             </td>
           </tr>
@@ -128,7 +128,7 @@ class Cartdetail extends React.Component {
             <div className="breadcrumbs">
               <div className="row">
                 <ul>
-                  <li className="home"> <a href="/#" title="Go to Home Page">Home</a><span>/</span></li>
+                  <li className="home"> <a href="javascript:;" title="Go to Home Page">Home</a><span>/</span></li>
                   <li className="category13"> My Cart</li>
                 </ul>
               </div>
@@ -162,13 +162,13 @@ class Cartdetail extends React.Component {
             <div className="block-title">Price Detail</div>
             <div className="block-content">
               <ul>
-                <li><a href='/#'>Price({this.state.totalCartItem} Item)</a><span>${this.round2Decimal(this.state.subTotalCartAmount)}</span></li>
-                <li><a href='/#'>Delivery Charge</a><span>$15</span></li>
-                <li><a href='/#'>Subtotal</a><span>$
+                <li><a href='javascript:;'>Price({this.state.totalCartItem} Item)</a><span>${this.round2Decimal(this.state.subTotalCartAmount)}</span></li>
+                <li><a href='javascript:;'>Delivery Charge</a><span>$15</span></li>
+                <li><a href='javascript:;'>Subtotal</a><span>$
               {this.round2Decimal(this.state.totalCartAmount)}
                 </span></li>
               </ul>
-              <div className="checkouts"><a onClick={() => this.props.history.push('Deliveryaddress')} href="/#">Checkout</a></div>
+              <div className="checkouts"><a onClick={() => this.props.history.push('Deliveryaddress')} href="javascript:;">Checkout</a></div>
             </div>
           </div>
         </aside>
@@ -190,7 +190,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   addToCartAction,
-  fetchMyCartAction
+  fetchMyCartAction,
+  removeProductFromCartAction
 }, dispatch)
 
 

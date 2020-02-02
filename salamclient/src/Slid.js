@@ -81,7 +81,7 @@ class Slid extends React.Component {
                         <img alt="slider_image" style={{ width: '198px', height: '249px' }} src="./images/categories/2.png" />
                       </div>
                       <div className="categoryname">
-                        <a title=" Sample Product" href="/#"></a>
+                        <a title=" Sample Product" href="javascript:;"></a>
                       </div>
                     </div>
                   </Carousel>

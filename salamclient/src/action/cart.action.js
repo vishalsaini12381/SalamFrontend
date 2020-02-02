@@ -1,5 +1,5 @@
-import { addToCartAPI, fetchMyCartAPI } from '../api/cart.api'
-
+import { addToCartAPI, removeProductFromCartAPI, fetchMyCartAPI } from '../api/cart.api'
+import { updateAddCartForProduct } from './product.action'
 export const CartFilters = {
     USER_REQUIRED: 'USER_REQUIRED',
     CART_UPDATE_PENDING: 'CART_UPDATE_PENDING',
@@ -26,10 +26,37 @@ export const addToCartAction = (data) => {
 
         addToCartAPI('user/addToCart', data)
             .then(response => {
-                dispatch(updateCartCount(response.data))  
+                dispatch(updateCartCount(response.data))
+                dispatch(updateAddCartForProduct(response.data))
             })
             .catch(error => {
-                console.log('------------->>')
+            })
+    }
+}
+
+export const removeProductFromCartAction = (data) => {
+    return dispatch => {
+        removeProductFromCartAPI(data)
+            .then(response => {
+                let subTotalCartAmount = 0;
+                let totalCartItem = 0;
+                if (Array.isArray(response.data.product)) {
+                    response.data.product.map(item => {
+                        subTotalCartAmount += parseFloat(item.total)
+                        totalCartItem += parseInt(item.quantity)
+                        return item;
+                    })
+                }
+                dispatch(fetchCartCompleted({
+                    myCart: response.data.product,
+                    subTotalCartAmount,
+                    totalCartAmount: subTotalCartAmount + 15,
+                    totalCartItem
+                }));
+                dispatch(updateCartCount(response.data))
+            })
+            .catch(error => {
+                dispatch(fetchCartFailed(error))
             })
     }
 }

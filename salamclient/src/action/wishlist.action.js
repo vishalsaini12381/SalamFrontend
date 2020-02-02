@@ -1,5 +1,5 @@
 import { addToWishlistAPI } from '../api/wishlist.api'
-
+import { updateWishlistForProduct } from './product.action'
 export const WishlistFilters = {
     USER_REQUIRED: 'USER_REQUIRED',
     WISHLIST_UPDATE_PENDING: 'WISHLIST_UPDATE_PENDING',
@@ -32,6 +32,7 @@ export const addToWishlistAction = (data) => {
         dispatch(updateWishlistPending())
         addToWishlistAPI('user/addToWishlist', data)
             .then(response => {
+                dispatch(updateWishlistForProduct(response.data))
                 dispatch(updateWishlistCompleted(response.data))
             })
             .catch(error => {

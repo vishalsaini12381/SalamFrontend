@@ -124,7 +124,7 @@ class Mywishlistdetail extends React.Component {
                       return (
                         <tr>
                           <td class="image">
-                            <a href="/#" class="product-image" title="Sample Product">
+                            <a href="javascript:;" class="product-image" title="Sample Product">
                               <img width="75" alt="Sample Product" src={e.productId.file1} /></a></td>
                           <td><h3 className="product-name">{e.productId.productName}</h3>
                             <h4>Brand: <span>{e.productId.brandName}</span></h4></td>
@@ -148,12 +148,12 @@ class Mywishlistdetail extends React.Component {
                           </td>
                           <td>
                             <div className="cart-add">
-                              <a href="/#" style={divStyle} onClick={() => this.addToCart(e.productId._id, this.props.userId)}><i class="fa fa-shopping-bag"></i></a>
+                              <a href="javascript:;" style={divStyle} onClick={() => this.addToCart(e.productId._id, this.props.userId)}><i class="fa fa-shopping-bag"></i></a>
                             </div>
                           </td>
                           <td>
                             <div className="delete">
-                              <a href="/#" style={divStyle} onClick={() => this.addToWishlist(e.productId._id, this.props.userId)}> <i className="fa fa-close"></i></a>
+                              <a href="javascript:;" style={divStyle} onClick={() => this.addToWishlist(e.productId._id, this.props.userId)}> <i className="fa fa-close"></i></a>
                             </div>
                           </td>
                         </tr>

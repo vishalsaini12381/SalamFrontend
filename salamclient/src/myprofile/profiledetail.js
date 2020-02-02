@@ -109,12 +109,12 @@ class Profiledetail extends React.Component {
     return (
       <section className="col-main col-sm-9  wow bounceInUp animated profile-fluid">
         <div className="category-title">
-          {/* <h1>My Profile<span className="editprofile"><a href="/#">Edit Profile</a></span></h1> */}
+          {/* <h1>My Profile<span className="editprofile"><a href="javascript:;">Edit Profile</a></span></h1> */}
           <div className="breadcrumbs">
             <div className="row">
               <ul>
                 <li className="home"> <a href="/" title="Go to Home Page">Home</a><span>/</span></li>
-                <li className=""> <a href="/#" title="Go to Home Page">My Account</a><span>/</span></li>
+                <li className=""> <a href="javascript:;" title="Go to Home Page">My Account</a><span>/</span></li>
                 <li className="category13"> My Profile</li>
               </ul>
             </div>

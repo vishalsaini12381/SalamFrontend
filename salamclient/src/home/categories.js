@@ -55,8 +55,8 @@ class Categories extends React.Component {
               e.quantity > 0 ?
                 <div className="viewproduct">
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <a href="/#" onClick={(event) => this.addToCart(event, e._id, this.props.userId)}><i className="fa fa-shopping-cart"></i> Add to Cart</a>
-                    <a href="/#" onClick={() => this.addToWishlist(e._id, this.props.userId)}><i className="fa fa-heart"></i> Add to Wishlist</a>
+                    <a href="javascript:;" onClick={(event) => this.addToCart(event, e._id, this.props.userId)}><i className="fa fa-shopping-cart"></i> Add to Cart</a>
+                    <a href="javascript:;" onClick={() => this.addToWishlist(e._id, this.props.userId)}><i className="fa fa-heart"></i> Add to Wishlist</a>
                   </div>
                 </div> :
                 <div  className="viewproduct" style={{backgroundColor: '#000000d1'}}> Out of Stock </div>
@@ -117,7 +117,7 @@ class Categories extends React.Component {
               <li data-index="0" aria-hidden="false" className="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
                 <div className="mutlislider">
                   <div className="productimage">
-                    <a href="/#">
+                    <a href="javascript:;">
                       <img alt="add_product" style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
                       <div className="viewproduct">
                         <i className="fa fa-shopping-cart"></i>
@@ -131,7 +131,7 @@ class Categories extends React.Component {
               <li data-index="0" aria-hidden="false" className="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
                 <div className="mutlislider">
                   <div className="productimage">
-                    <a href="/#">
+                    <a href="javascript:;">
                       <img alt="add_product1" style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
                       <div className="viewproduct">
                         <i className="fa fa-shopping-cart"></i> Add to Cart
@@ -144,7 +144,7 @@ class Categories extends React.Component {
               <li data-index="0" aria-hidden="false" className="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
                 <div className="mutlislider">
                   <div className="productimage">
-                    <a href="/#">
+                    <a href="javascript:;">
                       <img alt="add_product2" style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
                       <div className="viewproduct">
                         <i className="fa fa-shopping-cart"></i> Add to Cart
@@ -157,7 +157,7 @@ class Categories extends React.Component {
               <li data-index="0" aria-hidden="false" className="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
                 <div className="mutlislider">
                   <div className="productimage">
-                    <a href="/#">
+                    <a href="javascript:;">
                       <img alt="add_product3" style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
                       <div className="viewproduct">
                         <i className="fa fa-shopping-cart"></i> Add to Cart
@@ -170,7 +170,7 @@ class Categories extends React.Component {
               <li data-index="0" aria-hidden="false" className="react-multi-carousel-item react-multi-carousel-item--active " style={{ flex: "1 1 auto", position: "relative", width: "228px" }}>
                 <div className="mutlislider">
                   <div className="productimage">
-                    <a href="/#">
+                    <a href="javascript:;">
                       <img alt="add_product3" style={{ border: "1px solid" }} src="https://i.stack.imgur.com/h6viz.gif" />
                       <div className="viewproduct">
                         <i className="fa fa-shopping-cart"></i> Add to Cart

@@ -11,7 +11,9 @@ const initialState = {
     showLoader: false,
     productDetail: {},
     subCategory: '',
-    similarProduct: []
+    similarProduct: [],
+    cartQuantity: 0,
+    isWishlist: 0
 }
 
 export function productReducer(state = initialState, action) {
@@ -25,6 +27,9 @@ export function productReducer(state = initialState, action) {
                 showLoader: true
             }
         case ProductFilters.FETCH_PRODUCT_LIST_SUCCESS:
+            if (action.payload.productList && action.payload.productList.length === 0) {
+                toast.warn('Product not available');
+            }
             return {
                 ...state,
                 pending: false,
@@ -47,7 +52,9 @@ export function productReducer(state = initialState, action) {
                 productDetail: {},
                 subCategory: '',
                 similarProduct: [],
-                showLoader: true
+                showLoader: true,
+                cartQuantity: 0,
+                isWishlist: 0
             }
         case ProductFilters.FETCH_PRODUCT_DETAIL_SUCCESS:
             return {
@@ -56,6 +63,8 @@ export function productReducer(state = initialState, action) {
                 productDetail: action.payload.productData,
                 subCategory: action.payload.subCategory,
                 similarProduct: action.payload.similarProduct,
+                cartQuantity: action.payload.cartQuantity,
+                isWishlist: action.payload.isWishlist,
                 showLoader: false
             }
         case ProductFilters.FETCH_PRODUCT_DETAIL_FAILED:
@@ -68,6 +77,16 @@ export function productReducer(state = initialState, action) {
                 subCategory: '',
                 similarProduct: [],
                 showLoader: false,
+            }
+        case ProductFilters.UPDATE_WISHLIST_PRODUCT:
+            return {
+                ...state,
+                isWishlist: action.payload.isWishlist
+            }
+        case ProductFilters.UPDATE_CART_PRODUCT:
+            return {
+                ...state,
+                cartQuantity: action.payload.cartQuantity
             }
         default:
             return state;

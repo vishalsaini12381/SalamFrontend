@@ -96,14 +96,14 @@ class Checkout extends React.Component {
           <div className="block-title">Price Detail</div>
           <div className="block-content">
             <ul>
-              <li><a href="/#">Price({this.state.totalProduct} Item)</a><span>${this.state.subTotal}</span></li>
-              <li><a href="/#">Delivery Charge</a><span>$15</span></li>
+              <li><a href="javascript:;">Price({this.state.totalProduct} Item)</a><span>${this.state.subTotal}</span></li>
+              <li><a href="javascript:;">Delivery Charge</a><span>$15</span></li>
 
-              <li><a href="/#">Subtotal</a><span>$
+              <li><a href="javascript:;">Subtotal</a><span>$
               
               </span></li>
             </ul>
-            <div className="checkouts"><a href="/#" style={divStyle} onClick={() => this.goToPayment()}>Checkout</a></div>
+            <div className="checkouts"><a href="javascript:;" style={divStyle} onClick={() => this.goToPayment()}>Checkout</a></div>
           </div>
         </div>
       </aside>

@@ -56,8 +56,8 @@ class Orderlist extends React.Component{
                  <div className="breadcrumbs">
 			                <div className="row">
             			        <ul>
-            			          <li className="home"> <a href="/#" title="Go to Home Page">Home</a><span>/</span></li>
-            			          <li className=""> <a href="/#" title="Go to Home Page">My Account</a><span>/</span></li>
+            			          <li className="home"> <a href="javascript:;" title="Go to Home Page">Home</a><span>/</span></li>
+            			          <li className=""> <a href="javascript:;" title="Go to Home Page">My Account</a><span>/</span></li>
             			          <li className="category13"> My Order</li>
             			        </ul>
 			                </div>
@@ -139,7 +139,7 @@ class Orderlist extends React.Component{
                               </td>
                                 <td>
                                     <div className="delete">
-                                        <a href="/#"> <i className="fa fa-eye"></i></a>
+                                        <a href="javascript:;"> <i className="fa fa-eye"></i></a>
                                     </div>
                               </td>
                             </tr>

@@ -344,7 +344,7 @@ class Loginsignup extends React.Component {
                                 </div>
                               </form>
                               <div className="forgompass">
-                                <a className="btn-two" href="/#">Forgot Password?</a>
+                                <a className="btn-two" href="javascript:;">Forgot Password?</a>
                               </div>
                             </div>
                           </div>
@@ -352,7 +352,7 @@ class Loginsignup extends React.Component {
                         <div className="Forget two">
                           <div className="heafingpoint">
                             <div className="formdesign">
-                              <a className="arrow btn-one" href="/#"> <i className="fa fa-arrow-left"></i> </a>
+                              <a className="arrow btn-one" href="javascript:;"> <i className="fa fa-arrow-left"></i> </a>
                               <form className="form-inline my-arrow" onSubmit={this.forgetPassword} >
                                 <div className="row">
                                   <div className="col-sm-12">

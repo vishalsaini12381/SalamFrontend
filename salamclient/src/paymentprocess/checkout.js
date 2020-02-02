@@ -8,9 +8,9 @@ function Checkout({ totalProduct, payableAmount, cartAmount }) {
         <div className="block-title">Price Detail</div>
         <div className="block-content">
           <ul>
-            <li><a href="/#">Price({totalProduct} Item)</a><span>${cartAmount}</span></li>
-            <li><a href="/#">Delivery Charge</a><span>$15</span></li>
-            <li><a href="/#">Subtotal</a><span id="spanAmountDataId">${payableAmount}
+            <li><a href="javascript:;">Price({totalProduct} Item)</a><span>${cartAmount}</span></li>
+            <li><a href="javascript:;">Delivery Charge</a><span>$15</span></li>
+            <li><a href="javascript:;">Subtotal</a><span id="spanAmountDataId">${payableAmount}
             </span></li>
           </ul>
         </div>

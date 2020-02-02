@@ -29,17 +29,17 @@ class Sidebar extends React.Component {
           <div className="block-title">My Account</div>
           <div className="block-content">
             <ul>
-              <li className="current"><a href="/#">My Profile </a></li>
+              <li className="current"><a href="javascript:;">My Profile </a></li>
               <li><a href="myOrders">My Order</a></li>
-              <li><a href="/#" onClick={() => this.props.history.push("mywallet")}>My Wallet</a></li>
-              <li><a href="/#" onClick={() => this.props.history.push("Mywishlist")}>My Wishlist</a></li>
-              <li><a href="/#">Setting</a></li>
-              <li><a href="/#">Sell With Us</a></li>
-              <li><a href="/#">About Us</a></li>
-              <li><a href="/#">Help & Support</a></li>
-              <li><a href="/#">Privacy Policy</a></li>
-              <li><a href="/#">Term & Condition</a></li>
-              <li><a href="/#" onClick={this.logout.bind(this)}>Log Out</a></li>
+              <li><a href="javascript:;" onClick={() => this.props.history.push("mywallet")}>My Wallet</a></li>
+              <li><a href="javascript:;" onClick={() => this.props.history.push("Mywishlist")}>My Wishlist</a></li>
+              <li><a href="javascript:;">Setting</a></li>
+              <li><a href="javascript:;">Sell With Us</a></li>
+              <li><a href="javascript:;">About Us</a></li>
+              <li><a href="javascript:;">Help & Support</a></li>
+              <li><a href="javascript:;">Privacy Policy</a></li>
+              <li><a href="javascript:;">Term & Condition</a></li>
+              <li><a href="javascript:;" onClick={this.logout.bind(this)}>Log Out</a></li>
             </ul>
           </div>
         </div>

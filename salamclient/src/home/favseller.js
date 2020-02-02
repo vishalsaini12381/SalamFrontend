@@ -76,7 +76,7 @@ class Favseller extends React.Component {
                                 <img alt="Favorite_seller" style={{ width: '198px', height: '249px' }} src={item.image !== null ? item.image : require('./vendor_profile.jpg')} />
                               </div>
                               <div className="categoryname">
-                                <a href="/#">{item.name}</a>
+                                <a href="javascript:;">{item.name}</a>
                               </div>
                             </div>
                           </React.Fragment>

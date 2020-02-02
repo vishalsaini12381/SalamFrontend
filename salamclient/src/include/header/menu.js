@@ -70,7 +70,7 @@ class Menu extends React.Component {
                 this.state.businesscategoryList.map((e, i) => {
                   return (
                     <React.Fragment key={i}>
-                      <li className="level0 nav-5 level-top first"><a href="/#"><span>{e.business_name}</span> </a>
+                      <li className="level0 nav-5 level-top first"><a href="javascript:;"><span>{e.business_name}</span> </a>
                         <div className="level0-wrapper dropdown-6col">
                           <div className="level0-wrapper2">
                             <div className="nav-block nav-block-center">
@@ -79,7 +79,7 @@ class Menu extends React.Component {
                                   e['categories'].map((f, d) => {
                                     return (
                                       <React.Fragment key={`categories_el_${d}`}>
-                                        <li className="level3 nav-6-1 parent item"> <a href="/#"><span>{f.categories}</span></a>
+                                        <li className="level3 nav-6-1 parent item"> <a href="javascript:;"><span>{f.categories}</span></a>
                                           <ul className="level1">
                                             {
                                               f['subcategorie'].map((g, c) => {
