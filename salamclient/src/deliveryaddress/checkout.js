@@ -37,8 +37,8 @@ class Checkout extends React.Component {
           let totalProduct = 0;
           if (Array.isArray(response.data.product)) {
             response.data.product.map((e, i) => {
-              subTotal += parseFloat(this.state.subTotal) + parseFloat(e.total);
-              totalProduct += parseInt(this.state.totalProduct) + 1;
+              subTotal += parseFloat(e.total);
+              totalProduct += parseInt(e.quantity);
               return i;
             })
           }
@@ -99,7 +99,7 @@ class Checkout extends React.Component {
               <li><a href="javascript:;">Price({this.state.totalProduct} Item)</a><span>${this.state.subTotal}</span></li>
               <li><a href="javascript:;">Delivery Charge</a><span>$15</span></li>
 
-              <li><a href="javascript:;">Subtotal</a><span>$
+              <li><a href="javascript:;">Subtotal :</a><span>${this.state.total}
               
               </span></li>
             </ul>

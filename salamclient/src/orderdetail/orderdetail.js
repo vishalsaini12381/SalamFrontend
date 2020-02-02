@@ -44,7 +44,8 @@ class Orderdetail extends React.Component {
           orderItems: response.data.product.orderItems,
           totalOrderCost: response.data.product.totalOrderCost,
           shippingCharges: response.data.product.shippingCharges,
-          orderDetail: response.data.product
+          orderDetail: response.data.product,
+          addressDetail : response.data.product.addressId
         })
       }
     })

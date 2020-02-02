@@ -200,6 +200,17 @@ class Editproductpage extends React.Component {
     }
   }
 
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    let state = this.state;
+    state[name].message = '';
+    if (name === 'isRefundable')
+      state[name].value = !value;
+    else
+      state[name].value = value
+    this.setState(state);
+  }
+
   validate() {
     let state = this.state;
 
@@ -487,7 +498,8 @@ class Editproductpage extends React.Component {
                     <div className="col-md-12 col-lg-12" style={{ paddingTop: '120px' }}>
                       <div className="form-group">
                         <label className="form-label">About Product </label>
-                        <textarea className="form-control" name="aboutProduct" value={state.aboutProduct.value} onChange={this.handleChange} rows="6" placeholder="text here.."></textarea>
+                        <textarea className="form-control" name="aboutProduct" value={state.aboutProduct.value}
+                          onChange={this.handleChange} rows="6" placeholder="text here.."></textarea>
                         {/* <div style = {{fontSize:13, color:"red"}}>
                             {state.aboutProduct.message} 
                           </div> */}
