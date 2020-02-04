@@ -30,12 +30,11 @@ export function userReducer(state = initialState, action) {
                 isLoggedIn: true
             }
         case UserFilters.USER_LOGIN_FAILED:
-            toast.error(action.error);
+            toast.error(action.message);
             return {
                 ...state,
-                error:action.error,
+                error: true,
                 pending: false,
-                isLogin: false,
                 isLoggedIn: false
             }
         default:

@@ -15,9 +15,9 @@ export const userLoginCompleted = data => ({
     payload: data
 })
 
-export const userLoginFailed = (error) => ({
+export const userLoginFailed = (message) => ({
     type: UserFilters.USER_LOGIN_FAILED,
-    error
+    message
 })
 
 
@@ -26,10 +26,15 @@ export const userLoginAction = (data) => {
         dispatch(userLoginPending())
         userLoginAPI('user/Login', data)
             .then(response => {
-                dispatch(userLoginCompleted(response.data))
+                console.log("object",response)
+                if(response.data.status){
+                    dispatch(userLoginCompleted(response.data))
+                }else{
+                    dispatch(userLoginFailed(response.data.message))
+                }
             })
             .catch(error => {
-                dispatch(userLoginFailed(error))
+                dispatch(userLoginFailed('error'))
             })
     }
 }
