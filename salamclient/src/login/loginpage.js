@@ -56,7 +56,7 @@ class Loginpage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(this.props.isLoggedIn){
+    if(nextProps.isLoggedIn){
       this.props.history.push('/');     
     }
   }

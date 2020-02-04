@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import './detail.css';
 import Productslider from './productslider.js';
 import Description from './description.js';
+import Loader from 'react-loader-spinner';
 
 function Detail() {
   const subCategory = useSelector(store => store.product.subCategory);
@@ -20,10 +21,11 @@ function Detail() {
           </div>
           <div className="row">
             <div className="product-view productdetail-fluid">
-              <div className="product-essential">
-                  <Productslider/>
-                  <Description/>
-                </div>
+              {subCategory.length > 0 ?
+                <div className="product-essential">
+                  <Productslider />
+                  <Description />
+                </div> : <Loader type="Bars" color="#2480fe" height={80} width={80} />}
             </div>
           </div>
         </div>

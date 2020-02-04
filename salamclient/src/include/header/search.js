@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SearchField from 'react-search-field';
 import axios from 'axios';
 import './search.css';
-import Loader from 'react-loader-spinner'
+import Loader from 'react-loader-spinner';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

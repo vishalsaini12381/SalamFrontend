@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import swal from 'sweetalert';
 import { addToCartAction } from '../action/cart.action'
 import { addToWishlistAction } from '../action/wishlist.action'
+
 import 'react-toastify/dist/ReactToastify.css';
 import './description.css';
 
