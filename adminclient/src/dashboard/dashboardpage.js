@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import AuthService from '../Authentication/AuthService';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -13,29 +12,12 @@ class Dashboardpage extends React.Component {
     this.state = {
       vendorList: [],
       type: 'Vendor',
+      customerList: [],
+      totalCustomer: 0
     }
     this.vendorFetch = this.vendorFetch.bind(this);
     this.Auth = new AuthService();
   }
-
-
-  componentDidMount() {
-    this.vendorFetch();
-  }
-
-  vendorFetch() {
-    let obj = {};
-    obj.type = this.state.type;
-    console.log('iiiiiiiiiiiiiiiiiiiiiii', obj);
-    axios.post(URL + '/api/admin/vendorList', obj).then((response) => {
-      // console.log('BBBBBBBBBBBBBBBBBB',response.data.data.reverse().length = 5);
-      this.setState({
-        vendorList: response.data.data.reverse()
-      })
-    })
-  }
-
-
 
   async componentWillMount() {
     // console.log('Authorization',this.Auth.loggedIn());
@@ -45,6 +27,60 @@ class Dashboardpage extends React.Component {
     } else {
       return this.props.history.replace('/');
     }
+  }
+
+  componentDidMount() {
+    this.vendorFetch();
+  }
+
+  vendorFetch() {
+    let obj = {};
+    obj.type = this.state.type;
+    axios.post(URL + '/api/admin/vendorList', obj)
+      .then((response) => {
+        this.setState({
+          vendorList: response.data.data.reverse()
+        }, () => {
+          this.fetchRecentCustomer();
+        })
+      })
+      .catch(error => {
+        this.fetchRecentCustomer();
+      })
+  }
+
+  fetchRecentCustomer = () => {
+    axios.get(URL + '/api/admin/recent-customer')
+      .then((response) => {
+        this.setState({
+          customerList: response.data.customerList,
+          totalCustomer: response.data.totalCustomer
+        })
+      })
+      .catch(error => {
+        console.log("---------->>", error)
+      })
+  }
+
+  renderCustomerList = () => {
+    return this.state.customerList
+      .map(customerItem => {
+        return (
+          <tr>
+            <td>{customerItem._id}</td>
+            <td>{customerItem.firstName} {customerItem.lastName}</td>
+            <td>{customerItem.email}</td>
+            <td>{customerItem.mobile}</td>
+            <td>{`${customerItem.streetAddress},${customerItem.city}`}</td>
+            <td>
+              <div className="actiontrans">
+                <a href="/userdetail">View Detail</a>
+              </div>
+            </td>
+          </tr>
+        )
+      })
+
   }
 
   render() {
@@ -163,50 +199,9 @@ class Dashboardpage extends React.Component {
                         <th className="wd-25p">Action</th>
                       </tr>
                     </thead>
-                    {/* <tbody>
-                      <tr>
-                        <td>#U1001</td>
-                        <td>Jamil Khan</td>
-                        <td>Male</td>
-                        <td>jamil@gmail.com</td>
-                        <td>+971 1234 6547</td>
-                        <td>MBV 1014 Dubai</td>
-                        <td>Active</td>
-                        <td>
-                          <div className="actiontrans">
-                            <a href="/userdetail">View Detail</a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>#U1002</td>
-                        <td>Rashid Khan</td>
-                        <td>Male</td>
-                        <td>rashid@gmail.com</td>
-                        <td>+971 1234 6547</td>
-                        <td>MBV 1014 Dubai</td>
-                        <td>Active</td>
-                        <td>
-                          <div className="actiontrans">
-                            <a href="/userdetail">View Detail</a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>#U1003</td>
-                        <td>Nisha Khan</td>
-                        <td>Female</td>
-                        <td>nisha@gmail.com</td>
-                        <td>+971 1234 6547</td>
-                        <td>MBV 1014 Dubai</td>
-                        <td>Active</td>
-                        <td>
-                          <div className="actiontrans">
-                            <a href="/userdetail">View Detail</a>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody> */}
+                    <tbody>
+                      {this.renderCustomerList()}
+                    </tbody>
                   </table>
                 </div>
               </div>
@@ -248,7 +243,7 @@ class Dashboardpage extends React.Component {
                         <td>MBV 1014 Dubai</td> */}
                                 <td>
                                   <div className="actiontrans">
-                                    <a onClick={()=>this.props.history.push(`vendordetail?vendorId=${e._id}`)}>View Detail</a>
+                                    <a onClick={() => this.props.history.push(`vendordetail?vendorId=${e._id}`)}>View Detail</a>
                                   </div>
                                 </td>
                               </tr>
@@ -260,19 +255,14 @@ class Dashboardpage extends React.Component {
                   </table>
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
       </div>
-
-
     )
   }
 }
 function mapStateToProps(state) {
-  // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>',state);
   return {
     authenticateState: state.inititateState.authenticateState,
   }

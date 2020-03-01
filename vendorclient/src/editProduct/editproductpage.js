@@ -10,7 +10,10 @@ import swal from 'sweetalert';
 import './editproductpage.css';
 import { access } from 'fs';
 import action from '../action/action';
+import Loader from '../common/Loader';
+
 const URL = process.env.REACT_APP_LOCAL;
+
 class Editproductpage extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +35,8 @@ class Editproductpage extends React.Component {
       productId: '',
       businessList: [],
       categoryList: [],
-      subCategoryList: []
+      subCategoryList: [],
+      loading: false
     }
     // this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
@@ -57,6 +61,11 @@ class Editproductpage extends React.Component {
     }
   }
   getProductDetail = () => {
+
+    this.setState({
+      loading: true
+    })
+
     axios.post(URL + '/api/vendor/fetchProductList', {
       productId: this.state.productId
     }).then((response) => {
@@ -67,7 +76,6 @@ class Editproductpage extends React.Component {
           file2: product.file2,
           file3: product.file3,
           file4: product.file4,
-          productId: product._id,
           productName: { value: product.productName, isValidate: true, message: '' },
           productPrice: { value: product.productPrice, isValidate: true, message: '' },
           discount: { value: product.discount, isValidate: true, message: '' },
@@ -75,23 +83,25 @@ class Editproductpage extends React.Component {
           category: { value: product.category, isValidate: true, message: '' },
           subCategory: { value: product.subCategory, isValidate: true, message: '' },
           brandName: { value: product.brandName, isValidate: true, message: '' },
-          quantity: { value: product.quantity, isValidate: true, message: '' },
+          quantity: { value: product.quantity+"", isValidate: true, message: '' },
           aboutProduct: { value: product.aboutProduct, isValidate: true, message: '' },
           categoryList: [{ category: product.category }],
-          subCategoryList: [{ subcategory: product.subCategory }]
+          subCategoryList: [{ subcategory: product.subCategory }],
+          loading: false
         }, () => {
           this.fetchBusinessCategory()
         })
       }
     }).catch(error => {
-      console.log("object", error)
+      this.setState({
+        loading: false
+      })
     })
 
   }
 
   fetchBusinessCategory = () => {
     axios.post(URL + '/api/vendor/fetchBusiness').then((response) => {
-      console.log('BusinessResponse', response.data.doc);
       this.setState({
         businessList: response.data.doc
       })
@@ -142,7 +152,6 @@ class Editproductpage extends React.Component {
     obj.subCategoryId = e.target.value;
 
     axios.post(URL + '/api/vendor/fetchSpecification', obj).then((response) => {
-      console.log('response', response.data.doc);
       if (response.data.status) {
         this.setState({
           specificationList: response.data.doc
@@ -264,22 +273,23 @@ class Editproductpage extends React.Component {
         return false;
       }
       // return false;
-
-    } else {
-      state.aboutProduct.isValidate = false;
-      state.aboutProduct.message = 'Job Description cannot be blank'
-      this.setState(state);
-      return false;
-    }
+    } 
+    // else {
+    //   state.aboutProduct.isValidate = false;
+    //   state.aboutProduct.message = 'Job Description cannot be blank'
+    //   this.setState(state);
+    //   return false;
+    // }
     return true;
   }
 
   submit(event) {
+
     event.preventDefault();
     let isValid = this.validate();
     if (isValid) {
       let obj = {};
-      obj.productId = this.props.productId;
+      obj.productId = this.state.productId;
       obj.businesscategory = this.state['businesscategory'].value;
       obj.category = this.state['category'].value;
       obj.subCategory = this.state['subCategory'].value;
@@ -294,9 +304,8 @@ class Editproductpage extends React.Component {
       obj.file3 = this.state.file3;
       obj.file4 = this.state.file4;
 
-      console.log('objjjjjjjjjjjjjjjjj', obj);
+      
       axios.post(URL + '/api/vendor/editProduct', obj).then((response) => {
-        console.log('++++++++++++++++++++++++++++++', response);
         if (response.data.status === true) {
           swal("Successful",
             `${response.data.message}`,
@@ -306,7 +315,6 @@ class Editproductpage extends React.Component {
               }
             })
           if (response) {
-            console.log('this.props.product', this.props.product);
             this.props.product({
               type: 'product',
               payload: response.data
@@ -328,11 +336,14 @@ class Editproductpage extends React.Component {
 
   render() {
     const state = this.state;
+    
+    if(state.loading)
+    return <Loader/>
+
     return (
       <div className="my-3 my-md-5">
         <div className="container">
           <div className="page-header">
-            {/* <h4 className="page-title">Edit New Product</h4> */}
             <ol className="breadcrumb">
               <li className="breadcrumb-item"><a href="/Dashboard">Home</a></li>
               <li className="breadcrumb-item active" aria-current="page">Edit Product</li>
@@ -495,19 +506,19 @@ class Editproductpage extends React.Component {
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-12 col-lg-12" style={{ paddingTop: '120px' }}>
+                    <div className="col-md-12 col-lg-12" style={{ paddingTop: '150px' }}>
                       <div className="form-group">
                         <label className="form-label">About Product </label>
                         <textarea className="form-control" name="aboutProduct" value={state.aboutProduct.value}
                           onChange={this.handleChange} rows="6" placeholder="text here.."></textarea>
-                        {/* <div style = {{fontSize:13, color:"red"}}>
+                        <div style = {{fontSize:13, color:"red"}}>
                             {state.aboutProduct.message} 
-                          </div> */}
+                          </div>
                       </div>
                     </div>
 
                     <div className="col-md-12 col-lg-12">
-                      <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                      <button type="submit" className="btn btn-primary pull-right">Submit</button>
                     </div>
                   </div>
                 </div>

@@ -48,9 +48,7 @@ class Header extends React.Component{
 		})
 	}
 
-	render(){
-		console.log('????????????????',this.state.status);	
-		// var a = 
+	render(){ 
 		return(
 		<div className="header-salam" >
 				<div className="header py-1">
@@ -140,7 +138,6 @@ class Header extends React.Component{
 }
 
 function mapStateToProps(state){
-	console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>',state);
 	return{
 	authenticateState : state.inititateState.authenticateState,
 	userId : state.inititateState.userId,

@@ -169,10 +169,11 @@ class Paymentdetail extends React.Component {
     let params = new URLSearchParams(search);
     let addressId = params.get('data');
 
-
     this.setState({
       isLoading: true
     })
+
+    console.log("Address",addressId)
     axios
       .post(URL + "/api/user/payment", { ...data, addressId })
       .then(response => {
@@ -211,62 +212,6 @@ class Paymentdetail extends React.Component {
                   <span className="checkmark"></span>
                 </label>
               </li>
-              {/* <li>
-                        <label className="radiocontainer"><img src="./images/paypal.png" alt="paypal" />
-                          <input type="radio"  name="radio"/>
-                          <span className="checkmark"></span>
-                        </label>
-                    </li>
-                    <li>
-                        <label className="radiocontainer">Card Payment
-                          <input type="radio" checked="checked"  name="radio"/>
-                          <span className="checkmark"></span>
-                        </label>
-                        <div className="cardform">
-                            <div className="row">
-                              <div className="col-sm-6">
-                                <div className="form-group">
-                                  <label for="from">Card Number</label>
-                                  <input type="text" className="form-control" placeholder="********** 2154" />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-sm-6">
-                                <div className="form-group">
-                                  <label for="from">Card Holder Name</label>
-                                  <input type="text" className="form-control" placeholder="John Smith" />
-                                </div>
-                              </div>
-                              <div className="col-sm-2">
-                            <div className="form-group">
-                                <label for="status">Exp Date</label>
-                                      <select className="form-control" >
-                                        <option>MM</option>
-                                        <option>01</option>
-                                        <option>02</option>
-                                        <option>03</option>
-                                </select>
-                            </div>
-                              </div>
-                              <div className="col-sm-2">
-                                <div className="form-group mm22">
-                                      <select className="form-control" >
-                                        <option>YY</option>
-                                        <option>2019</option>
-                                        <option>2020</option>
-                                     </select>
-                                </div>
-                              </div>
-                              <div className="col-sm-2">
-                                <div className="form-group">
-                                  <label for="from">CVV</label>
-                                  <input type="text" className="form-control" placeholder="***" />
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </li> */}
               <li>
                 <label className="radiocontainer">Cash On Delivery
                           <input type="radio" onClick={() => this.changePaymentType('1')} value="1" name="payment" />

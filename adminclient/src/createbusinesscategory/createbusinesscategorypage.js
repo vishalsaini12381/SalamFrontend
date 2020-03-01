@@ -80,7 +80,6 @@ class Createcategorypage extends React.Component{
 	}
 
 	render(){
-    console.log('????????????????????/',this.state.businesscategory);
     const state = this.state;
 		return(
         <div className="my-3 my-md-5">
