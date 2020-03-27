@@ -1,11 +1,13 @@
 import moment from 'moment'; // Example for onSort prop
 import React, { Component } from 'react'; // Import React
+import validator from 'validator';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 import { render } from 'react-dom'; // Import render method
 import Datatable from 'react-bs-datatable'; // Import this package
 import swal from 'sweetalert';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
+import EditBrand from './EditBrand';
 import './datatable.css';
 const URL = process.env.REACT_APP_LOCAL;
 
@@ -17,17 +19,19 @@ class BrandDataTable extends Component {
       modal: false,
       brandId: '',
       brandName: '',
+      brandImage: '',
+      message: '',
+      brand_data: {}
     }
     this.fetchBrand = this.fetchBrand.bind(this);
     this.toggle = this.toggle.bind(this);
     this.handleChangeBrand = this.handleChangeBrand.bind(this);
   }
-  
 
-
-  toggle() {
+  toggle(brand_data) {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      brand_data
     })
   }
 
@@ -43,53 +47,63 @@ class BrandDataTable extends Component {
 
   fetchBrand() {
     axios.post(URL + '/api/admin/fetchBrands').then((resp) => {
-      // console.log('OOOOOOOOOOOOOOOO',resp.data.doc);
       this.setState({
         brandList: resp.data.doc,
+        modal: false
       })
     })
   }
 
-  editBrands(e) {
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@', e);
-    let that = this
-    axios.get(URL + '/api/admin/editBrands/' + e)
-      .then(response => {
-        // console.log('???????????????/',response.data.businesscategory);
-        this.setState({
-          brandId: e,
-          brandName: response.data.brandName,
-        });
-      })
+  // editBrands(e) {
+  //   let that = this
+  //   axios.get(URL + '/api/admin/editBrands/' + e)
+  //     .then(response => {
+  //       this.setState({
+  //         brandId: e,
+  //         brandName: response.data.brandName,
+  //       });
+  //     })
 
-    that.toggle()
+  //   that.toggle()
+  // }
+
+  validate({ brandName, brandImage }) {
+    let state = this.state;
+    if (validator.isEmpty(brandName)) {
+      state.message = "Brands Can Not Be Blank";
+      return false;
+    }
+
+    if (brandImage === null || validator.isEmpty(brandImage)) {
+      state.message = "Brands Image cannot be empty";
+      return false;
+    }
+
+    return true;
   }
 
-  updateBrands(e, id) {
-    let that = this;
-    e.preventDefault();
-    // console.log(';;;;;;;;;;;;;;;;;;;;;;;;;;',this.state);
-    const obj = {
-      brandId: this.state.brandId,
-      brandName: this.state.brandName,
-      checked: this.state.checked,
-    };
-
-    if (this.state.brandName.length > 0) {
-      axios.post(URL + '/api/admin/updateBrands/' + this.state.brandId, obj)
-        .then(function (response) {
-          // console.log('response',response);
+  updateBrands = ({ brandId, brandName, brandImage }) => {
+    if (this.validate({ brandName, brandImage })) {
+      const obj = {
+        brandId,
+        brandName,
+        file: brandImage
+      };
+      axios.post(URL + '/api/admin/updateBrands/' + brandId, obj)
+        .then(response => {
+          console.log('response', response);
           if (response.data.status === true) {
             alert(response.data.message);
-            window.location = '/createBrand';
+            this.fetchBrand()
           }
           else {
             alert(response.data.message);
           }
         });
-    }else{
-      swal('Error','Brand name cannot be blank','error')
+    } else {
+      swal('Error', `${this.state.message}`, 'error')
     }
+
   }
 
   deleteBrand(e) {
@@ -118,46 +132,33 @@ class BrandDataTable extends Component {
     });
   }
 
+  removeImage = () => {
+    this.setState({
+      brandImage: ''
+    })
+  }
 
   render() {
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!', this.state.brandList);
     const header = [
       { title: 'Brand', prop: 'brand', sortable: true, filterable: true },
-      // { title: 'Image', prop: 'image', sortable: true, filterable: true },
-      // { title: 'Status', prop: 'status', sortable: true ,filterable: true},
       { title: 'Action', prop: 'action', sortable: true, filterable: true },
     ];
 
     let state = this.state;
     const body = [];
     state.brandList.map((e, i) => {
-      // console.log('YYYYYYYYYYYYYYYYY',e.file);
       body.push({
         'brand': e.brandName,
-        //  'image' : <Link to = "#"> <i className="fa fa-eye "></i></Link>,
         'action': <div className="actiontrans" >
-          {/* <Link to = "#"> <i className="fa fa-eye "></i></Link> */}
-          <Link to="#" onClick={this.toggle} onClick={this.editBrands.bind(this, e._id)} > <i className="fa fa-edit"></i></Link>
-          <Modal isOpen={this.state.modal} toggle={this.toggle} >
-            <ModalHeader toggle={this.toggle}></ModalHeader>
-            <ModalBody>
-              <div className="form-group">
-                <label>Business Category  </label>
-                <input type="text" className="form-control" name="brandName" value={this.state.brandName} onChange={this.handleChangeBrand} />
-              </div>
-              <div className="form-group">
-
-                <button onClick={this.updateBrands.bind(this)}>Update</button>
-              </div>
-              <div style={{ marginTop: 10 }}>
-
-              </div>
-            </ModalBody>
-            <ModalFooter>
-
-            </ModalFooter>
-          </Modal>
-          <Link to="#" onClick={this.deleteBrand.bind(this, e._id)}  > <i className="fa fa-trash"></i></Link>
+          <Link to="#" onClick={() => this.toggle(e)}>
+            <i className="fa fa-edit"></i>
+          </Link>
+          <Link to="#" onClick={this.deleteBrand.bind(this, e._id)}>
+            <i className="fa fa-trash"></i>
+          </Link>
+          <div style={{'display': 'inline-block','marginLeft': '18px'}}>
+            <img src={e.file} alt="Brand--Thumbnail" style={{ width: '20px', height: '20px' }} />
+          </div>
         </div>
       });
     })
@@ -194,6 +195,7 @@ class BrandDataTable extends Component {
           onSort={onSortFunction}
           labels={customLabels}
         />
+        {this.state.modal ? <EditBrand modal={this.state.modal} updateBrands={this.updateBrands} toggle={this.toggle} brand_data={this.state.brand_data} /> : null}
       </div>
     )
   }

@@ -82,3 +82,14 @@
  .salam_datatabl  .btn-group-page-nav{
     border: 1px solid #dadada;
 }
+
+.Brand-Image--container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Brand-Image{
+    width: 125px;
+    height: 125px;
+}

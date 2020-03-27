@@ -18,12 +18,14 @@ class Brand extends React.Component {
   }
 
   renderBrands = () => {
-    return this.state.brandList.map((item, index) => {
+    let brandList = [];
+    this.state.brandList.map((item, index) => {
       if (item.file !== null)
-        return <div key={`brands-${index}`} className="item"><a href="#x"><img src={item.file} alt="brand_photo" /></a></div>
-      else
-        return <div key={`brands-${index}`} className="brand-name-container"><span> {item.brandName}</span></div>
+        brandList.push(<div key={`brands-${index}`} className="item" style={{ marginLeft: '10px', marginRight: '10px' }}><a href="#x"><img style={{ width: '100px', height: '100px' }} src={item.file} alt="brand_photo" /></a></div>)
+      // else
+      //   return <div key={`brands-${index}`} className="brand-name-container"><span> {item.brandName}</span></div>
     })
+    return brandList;
   }
   render() {
     return (
@@ -31,9 +33,15 @@ class Brand extends React.Component {
         <div className="container">
           <div className="slider-items-products">
             <div id="brand-logo-slider" className="product-flexslider hidden-buttons">
-              <div className="brand-item" style={{ opacity: '1' }}>
+              <div className="brand-item"
+                style={{
+                  opacity: '1', 'display': 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  alignContent: 'space-between'
+                }}>
                 {this.renderBrands()}
-                </div>
+              </div>
             </div>
           </div>
         </div>
