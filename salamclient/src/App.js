@@ -21,7 +21,12 @@ import Login from './login';
 import Sidebar from './productlist/sidebar';
 import Mywishlist from './mywishlist';
 import MyWallet from './MyWallet'
-// import { create } from 'domain';
+import PrivacyPolicy from './containers/PrivacyPolicy/index';
+import ReturnPolicy from './containers/returnPolicy';
+import Security from './containers/Security';
+import SiteMap from './containers/SiteMap';
+import TermOfUse from './containers/TermOfUse';
+import Dashboard from './containers/Dashboard';
 
 const persistedState = loadState();
 const store = createStore(
@@ -58,7 +63,12 @@ class Apps extends React.Component {
 					<Route path="/Login" component={Login} />
 					<Route path="/mywallet" component={MyWallet} />
 					<Route path="/Sidebar" component={Sidebar} />
-
+					<Route path="/privacy-policy" component={PrivacyPolicy} />
+					<Route path="/return-policy" component={ReturnPolicy} />
+					<Route path="/security" component={Security} />
+					<Route path="/sitemap" component={SiteMap} />
+					<Route path="/term-of-use" component={TermOfUse} />
+					<Route path="/dashboard" component={Dashboard}></Route>
 				</Router>
 			</Provider>
 

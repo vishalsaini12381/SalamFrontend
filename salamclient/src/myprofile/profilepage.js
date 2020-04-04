@@ -1,8 +1,8 @@
 import React from 'react';
-
 import './profilepage.css';
 import Sidebar from './sidebar.js';
 import Profiledetail from './profiledetail.js';
+
 class Profilepage extends React.Component {
   render() {
     return (

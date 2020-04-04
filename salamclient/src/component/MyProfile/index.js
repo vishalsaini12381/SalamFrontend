@@ -5,10 +5,10 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import swal from 'sweetalert';
 import action from '../action/action';
-import './profiledetail.css';
+import './myprofile.css';
 const URL = process.env.REACT_APP_LOCAL;
 
-class Profiledetail extends React.Component {
+class MyProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -253,4 +253,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profiledetail));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyProfile));

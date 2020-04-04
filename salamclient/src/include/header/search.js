@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SearchField from 'react-search-field';
 import axios from 'axios';
@@ -127,8 +127,9 @@ class Search extends React.Component {
                           </a>
                         </div>
                         <div className="myaccount">
-                          <a href="/Myprofile" data-toggle="modal">
-                            <span className="hidden-xs">My Account</span></a>
+                          <Link to="Myprofile" >
+                            <span className="hidden-xs">My Account</span>
+                          </Link>
                         </div>
                       </div>
                       :
