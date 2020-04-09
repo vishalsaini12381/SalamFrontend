@@ -11,7 +11,7 @@ import './createbusinesscategorypage.css';
 import './datatable.css';
 import './business.css';
 import {  Modal,ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class BusinessDataTable extends Component{ 
     constructor(props){

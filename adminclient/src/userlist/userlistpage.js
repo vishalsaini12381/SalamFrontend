@@ -15,7 +15,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import $ from 'jquery';
 import swal from 'sweetalert';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 
 class Userlistpage extends React.Component{

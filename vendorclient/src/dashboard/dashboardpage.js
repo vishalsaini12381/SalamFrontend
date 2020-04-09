@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './dashboardpage.css';
 import AuthService from '../Authentication/AuthService';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 class Dashboardpage extends React.Component {
   constructor(props) {
     super(props)

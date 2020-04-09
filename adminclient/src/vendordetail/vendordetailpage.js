@@ -10,7 +10,7 @@ import action from '../action/action';
 import swal from 'sweetalert';
 import Switch from "react-switch";
 import Loader from 'react-loader-spinner'
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Vendordetailpage extends React.Component {
   constructor(props) {

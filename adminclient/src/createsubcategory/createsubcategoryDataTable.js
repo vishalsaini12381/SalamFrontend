@@ -7,7 +7,7 @@ import Datatable from 'react-bs-datatable'; // Import this package
 import swal from 'sweetalert';
 import './datatable.css';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class SubCategoryDataTable extends Component {
   constructor(props) {

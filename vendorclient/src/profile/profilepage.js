@@ -9,7 +9,7 @@ import $ from 'jquery';
 import swal from 'sweetalert';
 import './profilepage.css';
 import AuthService from '../Authentication/AuthService';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Profilepage extends React.Component {
   constructor(props) {

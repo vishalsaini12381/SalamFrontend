@@ -7,7 +7,6 @@ export default function DefaultLayout(props) {
             <div className="page-main" >
                 <Header />
                 {props.children}
-                
             </div>
             <Footer />
         </div>

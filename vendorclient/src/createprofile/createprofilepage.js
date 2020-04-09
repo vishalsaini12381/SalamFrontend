@@ -23,7 +23,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure()
 
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 
 class Createprofilepage extends React.Component {

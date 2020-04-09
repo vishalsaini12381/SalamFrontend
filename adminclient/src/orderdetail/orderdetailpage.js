@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import $ from 'jquery';
 import swal from 'sweetalert';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Orderdetailpage extends React.Component {
   constructor(props) {

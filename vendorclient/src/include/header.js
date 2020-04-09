@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 import axios from 'axios';
 import swal from 'sweetalert';
 import './header.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 class Header extends React.Component{
 	constructor(props){
 		super(props);

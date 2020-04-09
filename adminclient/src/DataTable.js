@@ -10,7 +10,7 @@ import Datatable from 'react-bs-datatable'; // Import this package
 // import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import './datatable.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 
 

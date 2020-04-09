@@ -1,48 +1,48 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
+import chatReducer from '../component/chat/ChatReducer'
 
-function inititateState (state = {authenticateState : ''},action) {
-    console.log('FFFFFFFFFFFFFFFFFFFF',action);
-    if(action.type === 'authenticate') {
+function inititateState(state = { authenticateState: '' }, action) {
+    if (action.type === 'authenticate') {
         return {
-            authenticateState : action.payload,
-            email : action.email,
-            name  : action.name,
+            authenticateState: action.payload,
+            email: action.email,
+            name: action.name,
             mobile: action.mobile,
-            image : action.image,
-            vendorId : action.vendorId,
-            adminStatus : action.adminStatus,
-            address : action.address,
-            accountType : action.accountType,
-            city : action.city,
-            streetName : action.streetName,
-            storeEmail : action.storeEmail,
-            storeName  : action.storeName,
+            image: action.image,
+            vendorId: action.vendorId,
+            adminStatus: action.adminStatus,
+            address: action.address,
+            accountType: action.accountType,
+            city: action.city,
+            streetName: action.streetName,
+            storeEmail: action.storeEmail,
+            storeName: action.storeName,
             // featured   : action.featured,
         }
     }
     return state;
-} 
+}
 
-function productReduce (state = {productState : ''},action) {
-    if(action.type === 'product'){
-        return{
+function productReduce(state = { productState: '' }, action) {
+    if (action.type === 'product') {
+        return {
             // productState : action.payload,
-            name : action.name,
-            storeName : action.storeName,
-            productId : action.productId,
-            productName :  action.productName,
-            productPrice :  action.productPrice,
-            discount : action.discount,
-            category : action.category,
-            subCategory : action.subCategory,
-            brandName : action.brandName,
-            quantity : action.quantity,
-            aboutProduct : action.aboutProduct,
-            file : action.file,
-            file1 : action.file1,
-            file2 : action.file2,
-            file3 : action.file3,
-            file4 : action.file4,
+            name: action.name,
+            storeName: action.storeName,
+            productId: action.productId,
+            productName: action.productName,
+            productPrice: action.productPrice,
+            discount: action.discount,
+            category: action.category,
+            subCategory: action.subCategory,
+            brandName: action.brandName,
+            quantity: action.quantity,
+            aboutProduct: action.aboutProduct,
+            file: action.file,
+            file1: action.file1,
+            file2: action.file2,
+            file3: action.file3,
+            file4: action.file4,
 
             // userId : action.userId,
         }
@@ -50,7 +50,8 @@ function productReduce (state = {productState : ''},action) {
     return state;
 }
 
-export default combineReducers ({
+export default combineReducers({
     inititateState,
-    productReduce
+    productReduce,
+    chatUi: chatReducer
 })

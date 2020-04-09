@@ -4,7 +4,7 @@ import AuthService from '../Authentication/AuthService';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import './dashboardpage.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Dashboardpage extends React.Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class Dashboardpage extends React.Component {
     }
     this.vendorFetch = this.vendorFetch.bind(this);
     this.Auth = new AuthService();
+    
   }
 
   async componentWillMount() {

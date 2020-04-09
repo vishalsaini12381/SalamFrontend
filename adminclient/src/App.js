@@ -42,7 +42,8 @@ import createcategorypage from './createcategory/createcategorypage';
 import createsubcategorypage from './createsubcategory/createsubcategorypage';
 import createSpecificationpage from './specification/createSpecificationpage';
 import createbrandspage from './createbrands/createbrandspage';
-import RefundRequestPage from './refundRequests'
+import RefundRequestPage from './refundRequests';
+import SocketConnection from './component/chat/SocketConnection'
 
 const persistedStste = loadState();
 const store = createStore(
@@ -61,6 +62,7 @@ store.subscribe(() => {
 function App() {
   return (
     <Provider store={store}>
+      <SocketConnection/>
       <Router>
         <Route exact path="/" component={Login} />
         <DefaultLayout>

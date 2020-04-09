@@ -8,7 +8,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import swal from 'sweetalert';
 import SubCategoryDataTable from './createsubcategoryDataTable'
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Createsubcategorypage extends React.Component{
   constructor(props){

@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import history from '../history';
 import swal from 'sweetalert';
 import './datatable.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 
 class DataTable extends Component {

@@ -12,7 +12,7 @@ import { access } from 'fs';
 import action from '../action/action';
 import Loader from '../common/Loader';
 
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Editproductpage extends React.Component {
   constructor(props) {

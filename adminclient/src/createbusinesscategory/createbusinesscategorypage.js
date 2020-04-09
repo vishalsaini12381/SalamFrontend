@@ -9,7 +9,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import action from '../action/action';
 import BusinessDataTable from './BusinessDataTable';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Createcategorypage extends React.Component{
 

@@ -11,7 +11,7 @@ import './addnewproductpage.css';
 import { access } from 'fs';
 import action from '../action/action';
 import AuthService from '../Authentication/AuthService';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Addnewproductpage extends React.Component {
   constructor(props) {

@@ -5,7 +5,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import './login.css';
 import AuthService from './Authentication/AuthService';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Login extends Component{
 

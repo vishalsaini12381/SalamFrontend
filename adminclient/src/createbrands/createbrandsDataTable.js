@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 
 import EditBrand from './EditBrand';
 import './datatable.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class BrandDataTable extends Component {
   constructor(props) {
