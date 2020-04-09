@@ -6,7 +6,7 @@ import swal from 'sweetalert';
 import axios from 'axios';
 import StripeBtn from "../stripeBtn";
 import Loading from './Loading'
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Paymentdetail extends React.Component {
   constructor(props) {

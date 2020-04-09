@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import action from '../../action/action';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 
 class Loginsignup extends React.Component {

@@ -3,10 +3,10 @@ import './sidebar.css';
 import axios from 'axios';
 import swal from 'sweetalert';
 import { withRouter, Link } from 'react-router-dom'
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 function Sidebar(props) {
-    console.log(process.env.REACT_APP_LOCAL)
+    console.log(process.env.REACT_APP_SERVER_URL)
     const logout = (event) => {
         event.preventDefault();
         axios.get(URL + '/api/user/Logout')

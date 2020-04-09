@@ -7,7 +7,7 @@ import ReactItemSlider from 'react-items-slider'
 import ProductCard from './ProductCard'
 import range from 'lodash/range';
 import $ from 'jquery'
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 
 class Slid extends React.Component{

@@ -2,7 +2,7 @@ import React from 'react';
 import Search from './header/search.js';
 import Menu from './header/menu.js';
 import axios from 'axios';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Header extends React.Component {
 

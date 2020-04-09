@@ -4,7 +4,7 @@ import '../src/home/categories.css';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './Slid.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Slid extends React.Component {
   constructor(props) {

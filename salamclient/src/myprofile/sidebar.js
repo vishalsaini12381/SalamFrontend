@@ -4,7 +4,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import { withRouter  } from 'react-router-dom'
 import './sidebar.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Sidebar extends React.Component {
   logout(event) {

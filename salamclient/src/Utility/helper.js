@@ -1,11 +1,11 @@
 import axios from 'axios';
-import {LOCAL_SERVER_URL } from './Constant';
+import { SERVER_URL } from './Constant';
 export const request = async (path, data, method) => {
   let token = localStorage.getItem('token')
-
+  console.log(process.env.REACT_APP_SERVER_URL)
   return axios({
     method,
-    url: `${LOCAL_SERVER_URL}${path}`,
+    url: `${process.env.REACT_APP_SERVER_URL}/api/${path}`,
     headers: {
       'Content-Type': 'application/json',
       authenticate: token

@@ -6,7 +6,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import action from '../action/action';
 import './myprofile.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class MyProfile extends React.Component {
   constructor(props) {

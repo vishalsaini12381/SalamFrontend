@@ -3,7 +3,7 @@ import axios from 'axios';
 import Carousel from "react-multi-carousel";
 import './vendorSlid.css';
 import './favseller.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Favseller extends React.Component {
 

@@ -9,7 +9,7 @@ import Similarproduct from './productdetail/similarproduct.js';
 import { ToastContainer } from 'react-toastify';
 import axios from "axios";
 import { fetchProductDetailAction } from './action/product.action'
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Productdetail extends React.Component {
 	constructor(props) {

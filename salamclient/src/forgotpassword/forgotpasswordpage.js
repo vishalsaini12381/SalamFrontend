@@ -3,7 +3,7 @@ import validator from 'validator';
 import swal from 'sweetalert';
 import axios from 'axios';
 import './forgotpasswordpage.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 class Forgotpasswordpage extends React.Component{
   constructor(props){
     super(props);

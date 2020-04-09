@@ -1,7 +1,7 @@
 import React from 'react';
 import './menu.css';
 import axios from 'axios';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Menu extends React.Component {
   constructor(props) {

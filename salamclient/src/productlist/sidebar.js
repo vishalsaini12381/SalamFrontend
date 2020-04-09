@@ -4,7 +4,7 @@ import './list.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 // import Sidebar from './sidebar';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class List extends React.Component {
   constructor(props) {

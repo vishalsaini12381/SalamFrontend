@@ -8,7 +8,7 @@ import './sidebar.css';
 import { addToCartAction } from '../action/cart.action';
 import { addToWishlistAction } from '../action/wishlist.action'
 
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class List extends React.Component {
   constructor(props) {
