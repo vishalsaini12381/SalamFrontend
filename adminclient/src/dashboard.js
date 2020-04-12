@@ -12,9 +12,6 @@ class Dashboard extends Component {
                         </div>
                         {/* <Footer /> */}
                   </div>
-
-
-
             );
       }
 }

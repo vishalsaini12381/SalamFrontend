@@ -4,6 +4,7 @@ function authenticate(resp){
         dispatch({
             type : 'authenticate',
             email : resp.payload.email,
+            userId : resp.payload.userId,
             name  : resp.payload.name,
             mobile: resp.payload.mobile,
             image : resp.payload.image, 

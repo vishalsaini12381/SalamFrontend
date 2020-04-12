@@ -64,7 +64,7 @@ class Dashboardpage extends React.Component {
   }
 
   renderRecentOrderList = () => {
-    return this.state.recentOrderList.map(order => {
+    return this.state.recentOrderList.map((order, index) => {
       let customerName = "";
       let deliveryAddress = "";
       if (Array.isArray(order.customer) && order.customer.length > 0) {
@@ -76,7 +76,7 @@ class Dashboardpage extends React.Component {
       }
 
       return (
-        <tr>
+        <tr key={index}>
           <td className="wd-15p">{order.orderItems._id}</td>
           <td className="wd-15p">{customerName}</td>
           <td className="wd-20p">{order.orderDate.slice(0, 15)}</td>

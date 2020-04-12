@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -43,7 +43,7 @@ import createsubcategorypage from './createsubcategory/createsubcategorypage';
 import createSpecificationpage from './specification/createSpecificationpage';
 import createbrandspage from './createbrands/createbrandspage';
 import RefundRequestPage from './refundRequests';
-import SocketConnection from './component/chat/SocketConnection'
+import SocketController from './component/chat/SocketController'
 
 const persistedStste = loadState();
 const store = createStore(
@@ -62,35 +62,38 @@ store.subscribe(() => {
 function App() {
   return (
     <Provider store={store}>
-      <SocketConnection/>
-      <Router>
-        <Route exact path="/" component={Login} />
-        <DefaultLayout>
-          <Route path="/Dashboard" component={Dashboardpage} />
-          <Route path="/Userlist" component={Userlistpage} />
-          <Route path="/Userdetail" component={Userdetailpage} />
-          <Route path="/Vendorlist" component={Vendorlistpage} />
-          <Route path="/Vendordetail" component={vendordetailpage} />
-          {/* <Route  path = "/Addnewvendor"component = {Addnewvendor} /> */}
-          <Route path="/Orderlist" component={orderlistpage} />
-          <Route path="/refund-requests" component={RefundRequestPage}/>
-          <Route path="/Productlist" component={Productlistpage} />
-          <Route path="/Productdetail" component={productdetailpage} />
-          <Route path="/Orderdetail" component={orderdetailpage} />
-          <Route path="/Addnewproduct" component={Addnewproductpage} />
-          <Route path="/businesscategory" component={createbusinesscategorypage} />
-          <Route path="/category" component={createcategorypage} />
-          <Route path="/subcategory" component={createsubcategorypage} />
-          <Route path="/CreateSpecificationpage" component={createSpecificationpage} />
+      <SocketController />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <DefaultLayout>
+            <Route exact  path="/Dashboard" component={Dashboardpage} />
+            <Route path="/Userlist" component={Userlistpage} />
+            <Route path="/Userdetail" component={Userdetailpage} />
+            <Route path="/Vendorlist" component={Vendorlistpage} />
+            <Route path="/Vendordetail" component={vendordetailpage} />
+            {/* <Route  path = "/Addnewvendor"component = {Addnewvendor} /> */}
+            <Route path="/Orderlist" component={orderlistpage} />
+            <Route path="/refund-requests" component={RefundRequestPage} />
+            <Route path="/Productlist" component={Productlistpage} />
+            <Route path="/Productdetail" component={productdetailpage} />
+            <Route path="/Orderdetail" component={orderdetailpage} />
+            <Route path="/Addnewproduct" component={Addnewproductpage} />
+            <Route path="/businesscategory" component={createbusinesscategorypage} />
+            <Route path="/category" component={createcategorypage} />
+            <Route path="/subcategory" component={createsubcategorypage} />
+            <Route path="/CreateSpecificationpage" component={createSpecificationpage} />
 
-        <Route path="/createBrand" component={createbrandspage} />
+            <Route path="/createBrand" component={createbrandspage} />
 
-        </DefaultLayout>
+          </DefaultLayout>
 
-        <Route path="/Table" component={Table} />
-        <Route path="/Toggle" component={Toggle} />
-        <Route path="/dataTable" component={DataTable} />
-      </Router>
+          <Route path="/Table" component={Table} />
+          <Route path="/Toggle" component={Toggle} />
+          <Route path="/dataTable" component={DataTable} />
+
+        </Switch>
+      </BrowserRouter>
     </Provider>
 
   );

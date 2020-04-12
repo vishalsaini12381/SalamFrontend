@@ -22,10 +22,3 @@ export const setMessageList = (payload) => {
     }
 }
 
-export const showChatBoxAction = (payload) =>{
-    return {
-        type: TYPES.SHOW_CHAT_BOX,
-        payload
-    }
-}
-

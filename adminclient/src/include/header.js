@@ -1,43 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import { Link, withRouter } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { userLogout } from './action'
+import { showChatBoxAction } from '../component/chat/ChatAction'
 import './header.css';
-import axios from 'axios';
-import swal from 'sweetalert';
-import Chat from '../component/chat/Chat';
-import $ from 'jquery';
+
 const URL = process.env.REACT_APP_SERVER_URL;
 
 function Header(props) {
-	const [isChatBoxVisible, setChatBoxVisiblity] = useState(false);
-	const logout = (event) => {
-		event.preventDefault();
-		axios.get(URL + '/api/admin/adminLogout').then((response) => {
-			localStorage.clear();
-			if (response.data.status) {
-				swal("Success",
-					`${response.data.message}`)
-					.then((d) => {
-						if (d) return window.location = "/"
-					})
-			}
-		});
-	}
-
-	const showChatBox = (event) => {
-		const chatModalEl = $('.modal-dialog')[0];
-		const hoveredEl = event.target;
-		if(!$.contains(chatModalEl, hoveredEl)){
-			setChatBoxVisiblity(isChatBoxVisible ? false : true);
-		}
-		// ev.stopPropagation();
-
-		
-	}
+	const dispatch = useDispatch();
 
 	return (
 		<div className="header-salam" >
-			<Chat isChatBoxVisible={isChatBoxVisible} showChatBox={showChatBox} />
 			<div className="header py-1">
 				<div className="container">
 					<div className="d-flex">
@@ -45,7 +19,7 @@ function Header(props) {
 							<img src="./images/logo/logo.png" className="header-brand-img" alt="FundMaster logo" />
 						</a>
 						<div className="d-flex order-lg-2 ml-auto">
-							<div className="Header-Comment" onClick={showChatBox}>
+							<div className="Header-Comment" onClick={() => dispatch(showChatBoxAction({ receiverId: 'all' }))}>
 								<span className="Header-Comment--Icon">
 									<img src="/images/comment.svg" alt="image" />
 								</span>
@@ -65,7 +39,7 @@ function Header(props) {
 										<i className="dropdown-icon mdi mdi-home"></i> Dashboard
 										</a>
 									<div className="dropdown-divider"></div>
-									<a className="dropdown-item" href="#" onClick={logout}>
+									<a className="dropdown-item" href="#" onClick={() => dispatch(userLogout())}>
 										<i className="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
 										</a>
 								</div>

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import AuthService from '../Authentication/AuthService';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { showChatBoxAction } from '../component/chat/ChatAction'
 import './dashboardpage.css';
 const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -17,7 +18,7 @@ class Dashboardpage extends React.Component {
     }
     this.vendorFetch = this.vendorFetch.bind(this);
     this.Auth = new AuthService();
-    
+
   }
 
   async componentWillMount() {
@@ -85,7 +86,6 @@ class Dashboardpage extends React.Component {
   }
 
   render() {
-    console.log('5555555555555555555', this.state.vendorList.length);
     return (
       <div className="my-3 my-md-5">
         <div className="container">
@@ -226,6 +226,7 @@ class Dashboardpage extends React.Component {
                         <th className="wd-20p">Mobile No</th>
                         <th className="wd-15p">Address</th>
                         <th className="wd-25p">Action</th>
+                        <th className="wd-15p">Message</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -240,11 +241,14 @@ class Dashboardpage extends React.Component {
                                 <td>{e.email}</td>
                                 <td>{e.mobile}</td>
                                 <td> {e.address} </td>
-                                {/* <td>ADF Pvt Ltd</td>
-                        <td>MBV 1014 Dubai</td> */}
                                 <td>
                                   <div className="actiontrans">
                                     <a onClick={() => this.props.history.push(`vendordetail?vendorId=${e._id}`)}>View Detail</a>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div className="actiontrans" onClick={() => this.props.showChatBox({ receiverId: e._id, name: e.name })}>
+                                    <img style={{ width: '30px', height: '30px' }} src="/images/comment_blue.svg" alt="image" />
                                   </div>
                                 </td>
                               </tr>
@@ -268,5 +272,10 @@ function mapStateToProps(state) {
     authenticateState: state.inititateState.authenticateState,
   }
 }
+function mapDispatchToProps(dispatch) {
+  return ({
+    showChatBox: (data) => { dispatch(showChatBoxAction(data)) }
+  })
+}
 
-export default withRouter(connect(mapStateToProps)(Dashboardpage));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboardpage));

@@ -5,6 +5,7 @@ function inititateState(state = { authenticateState: '' }, action) {
     if (action.type === 'authenticate') {
         return {
             authenticateState: action.payload,
+            userId: action.userId,
             email: action.email,
             name: action.name,
             mobile: action.mobile,
@@ -50,8 +51,20 @@ function productReduce(state = { productState: '' }, action) {
     return state;
 }
 
-export default combineReducers({
+const appReducer = combineReducers({
     inititateState,
     productReduce,
     chatUi: chatReducer
 })
+
+const rootReducer = (state, action) => {
+    if (action.type === 'USER_LOGOUT') {
+        localStorage.clear();
+        window.location = "/"
+        state = undefined
+    }
+
+    return appReducer(state, action)
+}
+
+export default rootReducer;

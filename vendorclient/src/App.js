@@ -22,6 +22,7 @@ import reducers from './reducer/reducer';
 // import Modal from './Modal';
 import Pass from './pass';
 import Map from './map';
+import SocketController from './component/chat/SocketController'
 
 const persistedState = loadState();
 const store = createStore(
@@ -40,6 +41,7 @@ store.subscribe(() => {
 function App() {
   return (
     <Provider store={store}>
+      <SocketController />
       <Router>
         <Route exact path="/" component={Login} />
         <Route path="/Register" component={Register} />

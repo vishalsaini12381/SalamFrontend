@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import $ from 'jquery';
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
-import { sendMessageAction, setMessageList, showChatBoxAction } from './ChatAction';
+import { sendMessageAction, setMessageList } from './ChatAction';
 import './chat.css';
 const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -11,15 +10,17 @@ function Chat(props) {
     const senderId = useSelector(state => state.inititateState.userId);
     const receiverId = useSelector(state => state.chatUi.receiverId);
     const senderName = useSelector(state => state.inititateState.name);
-    const isChatBoxVisible = useSelector(state => state.chatUi.isChatBoxVisible);
+
+    const dispatch = useDispatch();
+    const [showChatBoxClass, setShowChatBoxClass] = useState(props.isChatBoxVisible ? 'show-chatBox' : 'hide-chatBox')
     const [message, setMessage] = useState('');
     const messagesEndRef = useRef(null)
-    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (isChatBoxVisible)
+        setShowChatBoxClass(props.isChatBoxVisible ? 'show-chatBox' : 'hide-chatBox');
+        if (props.isChatBoxVisible)
             fetchChats()
-    }, [isChatBoxVisible]);
+    }, [props.isChatBoxVisible]);
 
     const fetchChats = async () => {
         try {
@@ -46,16 +47,8 @@ function Chat(props) {
 
     useEffect(scrollToBottom, [messageList]);
 
-    const showChatBox = (event) => {
-        const chatModalEl = $('.modal-dialog')[0];
-        const hoveredEl = event.target;
-        if (!$.contains(chatModalEl, hoveredEl)) {
-            dispatch(showChatBoxAction({ receiverId }))
-        }
-    }
-
-    return (<div className={`modal fade chat-design-trade ${isChatBoxVisible ? 'show-chatBox' : 'hide-chatBox'}`} id="myModal"
-        onClick={showChatBox}
+    return (<div className={`modal fade chat-design-trade ${showChatBoxClass}`} id="myModal"
+        onClick={props.showChatBox}
         tabIndex={-1} role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
         <div className="modal-dialog" role="document" style={{ transform: 'translate(0, 0%)' }}>
             <div className="modal-content">
@@ -70,14 +63,13 @@ function Chat(props) {
                         </div>
                         {
                             messageList !== undefined && messageList
-                                // .filter(item => (item.senderId === senderId && item.receiverId === receiverId) ||
-                                //     item.senderId === receiverId && item.receiverId === senderId)
-                                .map((item, index) => {
+                            // .filter(item => item.senderId === senderId && item.receiverId === receiverId)
+                            .map((item, index) => {
 
-                                    return <div key={index} className={item.senderId === senderId ? "received-messege" : "send-messege"}>
-                                        <p>{item.message}</p>
-                                    </div>
-                                })
+                                return <div key={index} className={item.senderId === senderId ? "received-messege" : "send-messege"}>
+                                    <p>{item.message}</p>
+                                </div>
+                            })
                         }
                         <div style={{ float: "left", clear: "both" }} ref={messagesEndRef} />
                     </div>
