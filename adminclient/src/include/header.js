@@ -8,7 +8,8 @@ import './header.css';
 const URL = process.env.REACT_APP_SERVER_URL;
 
 function Header(props) {
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
+	// onClick={() => dispatch(showChatBoxAction({ receiverId: 'all' }))}
 
 	return (
 		<div className="header-salam" >
@@ -19,7 +20,7 @@ function Header(props) {
 							<img src="./images/logo/logo.png" className="header-brand-img" alt="FundMaster logo" />
 						</a>
 						<div className="d-flex order-lg-2 ml-auto">
-							<div className="Header-Comment" onClick={() => dispatch(showChatBoxAction({ receiverId: 'all' }))}>
+							<div className="Header-Comment">
 								<span className="Header-Comment--Icon">
 									<img src="/images/comment.svg" alt="image" />
 								</span>
