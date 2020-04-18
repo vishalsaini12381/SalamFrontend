@@ -20,11 +20,11 @@ function Header(props) {
 							<img src="./images/logo/logo.png" className="header-brand-img" alt="FundMaster logo" />
 						</a>
 						<div className="d-flex order-lg-2 ml-auto">
-							<div className="Header-Comment">
+							{/* <div className="Header-Comment">
 								<span className="Header-Comment--Icon">
 									<img src="/images/comment.svg" alt="image" />
 								</span>
-							</div>
+							</div> */}
 							<div className="dropdown mt-1">
 								<a href="#" className="nav-link pr-0 leading-none" data-toggle="dropdown">
 									<span className="avatar avatar-md brround"></span>
