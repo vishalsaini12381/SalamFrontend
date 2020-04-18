@@ -8,7 +8,7 @@ import './header.css';
 const URL = process.env.REACT_APP_SERVER_URL;
 
 function Header(props) {
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	// onClick={() => dispatch(showChatBoxAction({ receiverId: 'all' }))}
 
 	return (
