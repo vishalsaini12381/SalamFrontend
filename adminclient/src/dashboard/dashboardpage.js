@@ -73,7 +73,7 @@ class Dashboardpage extends React.Component {
             <td>{customerItem.firstName} {customerItem.lastName}</td>
             <td>{customerItem.email}</td>
             <td>{customerItem.mobile}</td>
-            <td>{`${customerItem.streetAddress},${customerItem.city}`}</td>
+            <td>{`${customerItem.streetAddress !== undefined ? customerItem.streetAddress : ''},${customerItem.streetAddress !== undefined ? customerItem.city : ''}`}</td>
             <td>
               <div className="actiontrans">
                 <a href="/userdetail">View Detail</a>
