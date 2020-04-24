@@ -10,6 +10,7 @@ const URL = process.env.REACT_APP_SERVER_URL;
 
 function Header(props) {
 	const [state, setStatus] = useState([]);
+	const [isDropdownMenuVisible, toggleDropdownMenu] = useState(false);
 	const [adminStatus, setAdminStatus] = useState('Verify');
 	const [isChatBoxVisible, setChatBoxVisiblity] = useState(false);
 	const { authenticateState, userId, name, type, image } = useSelector(state => state.inititateState)
@@ -70,11 +71,11 @@ function Header(props) {
 									<img src="/images/comment.svg" alt="image" />
 								</span>
 							</div>
-							<div className="dropdown mt-1">
+							<div className="dropdown mt-1" onClick={() => toggleDropdownMenu(isDropdownMenuVisible => !isDropdownMenuVisible )}>
 								<a href="#" className="nav-link pr-0 leading-none" data-toggle="dropdown">
 									<span className="userimage"> <img src={image === null ? "images/defaultImg.png" : image} /> </span>
 								</a>
-								<div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+								<div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style={{ display : isDropdownMenuVisible ? 'block' : 'none'}}>
 									<div className="text-center">
 										<a href="#" className="dropdown-item text-center font-weight-sembold user">{name}</a>
 										<span className="text-center user-semi-title text-dark">{type}</span>

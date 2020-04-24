@@ -9,4 +9,7 @@
 	height: 90px;
 }
 
+.active {
+	opacity: 1;
+}
 

@@ -19,7 +19,7 @@ class Vendordetailpage extends React.Component {
       status: { value: this.props.adminStatus, isValidate: true, message: '' },
       visible: false,
       featured: false,
-      adminStatus: 'Verify',
+      adminStatus: 'Unverify',
       vendorDetail: {},
       vendorId: undefined
     }
@@ -50,6 +50,7 @@ class Vendordetailpage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.adminStatus != undefined) {
+      console.log("-------------------", nextProps.adminStatus)
       this.setState({ adminStatus: nextProps.adminStatus })
     }
   }
@@ -59,6 +60,7 @@ class Vendordetailpage extends React.Component {
     let results = regex.exec(window.location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
   };
+  
   fetchFeatured() {
     let obj = {};
     this.setState({ visible: true });
@@ -141,7 +143,8 @@ class Vendordetailpage extends React.Component {
 
   render() {
     const { vendorDetail } = this.state;
-    console.log('this.state', this.state.featured === false ? false : this.state.featured);
+    console.log('-------------', this.state.adminStatus);
+
     return (
       <div className="my-3 my-md-5">
         <Loader visible={this.state.visible} type="Puff" className="signuploader" />
@@ -223,7 +226,7 @@ class Vendordetailpage extends React.Component {
                               <td>
                                 <select className="form-control custom-select" name="status" value={this.state.adminStatus} onChange={this.handleChangeStatus}>
                                   {/* <option value = '' ></option> */}
-                                  {/* <option>Unverify</option> */}
+                                  <option>Unverify</option>
                                   <option>Verify</option>
                                   <option>Block</option>
                                   {/* <option>UnBlock</option> */}
