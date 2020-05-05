@@ -17,7 +17,7 @@ import AuthService from '../Authentication/AuthService';
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from 'react-places-autocomplete';
 import Map from './map';
 import { classnames } from '../helpers';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 
 class Createprofilepage extends React.Component{

@@ -5,7 +5,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import { Link,  withRouter } from 'react-router-dom';
 import './forgotpassword.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 class Forgotpassword extends Component{
 	constructor(props){
 		super(props);

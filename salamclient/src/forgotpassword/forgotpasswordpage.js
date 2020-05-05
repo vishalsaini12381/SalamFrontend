@@ -3,7 +3,7 @@ import validator from 'validator';
 import swal from 'sweetalert';
 import axios from 'axios';
 import './forgotpasswordpage.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 class Forgotpasswordpage extends React.Component{
   constructor(props){
     super(props);
@@ -83,16 +83,13 @@ class Forgotpasswordpage extends React.Component{
     obj.otp       = this.state['otp'].value;
     obj.password  = this.state['password'].value;
     obj.cpassword = this.state['cpassword'].value;
-    console.log('object',obj);
 
     axios.post(URL+'/api/user/resetPassword',obj).then((response)=>{
-      console.log('response',response);
       if(response.data.status === true){
         swal("Successful",
         `${response.data.message}`,
         "success",
         ).then((d)=>{
-          console.log('dddddddd',d);
           if(d) return window.location = "/";
         })
       }else{
@@ -100,7 +97,6 @@ class Forgotpasswordpage extends React.Component{
         `${response.data.message}`,
         "error",
         ).then((d)=>{
-          console.log('fffffffffffff',d);
           if(d) return window.location = "/Forgotpassword";
         })
       }

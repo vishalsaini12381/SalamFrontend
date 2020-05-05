@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './sidebar.css';
 class Sidebar extends React.Component{
 	render()
@@ -10,9 +10,9 @@ class Sidebar extends React.Component{
             <div className="block-title">My Account</div>
             <div className="block-content">
               <ul>
-                <li><a href="#">My Profile </a></li>
-                <li className="current"><a href="#">My Order</a></li>
-                <li><a href="#">Setting</a></li>
+                <li><a href="javascript:;">My Profile </a></li>
+                <li className="current"><a href="javascript:;">My Order</a></li>
+                <li><a href="javascript:;">Setting</a></li>
                 <li><a>Sell With Us</a></li>
                 <li><a>About Us</a></li>
                 <li><a>Help & Support</a></li>

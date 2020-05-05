@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './slider.css';
 class Slider extends React.Component{
 	render()
@@ -19,7 +18,7 @@ class Slider extends React.Component{
                 <div className="carousel-caption">
                   <h3>30% <span>Off</span></h3>
                   <p>Men's Clothing and Accessories </p>
-                  <a href="#">Buy Now</a>
+                  <a href="javascript:;">Buy Now</a>
                 </div>
               </div>
               <div className="item">
@@ -27,7 +26,7 @@ class Slider extends React.Component{
                 <div className="carousel-caption">
                   <h3>30% <span>Off</span></h3>
                   <p>Men's Clothing and Accessories </p>
-                  <a href="#">Buy Now</a>
+                  <a href="javascript:;">Buy Now</a>
                 </div>
               </div>
               <div className="item">
@@ -35,7 +34,7 @@ class Slider extends React.Component{
                 <div className="carousel-caption">
                   <h3>30% <span>Off</span></h3>
                   <p>Men's Clothing and Accessories </p>
-                  <a href="#">Buy Now</a>
+                  <a href="javascript:;">Buy Now</a>
                 </div>
               </div>
               <div className="item">
@@ -43,7 +42,7 @@ class Slider extends React.Component{
                 <div className="carousel-caption">
                   <h3>30% <span>Off</span></h3>
                   <p>Men's Clothing and Accessories </p>
-                  <a href="#">Buy Now</a>
+                  <a href="javascript:;">Buy Now</a>
                 </div>
               </div>
             </div>

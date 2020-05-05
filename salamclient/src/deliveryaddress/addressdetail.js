@@ -1,14 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import './addressdetail.css';
 import validator from 'validator';
-
 import {connect} from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
 import $ from 'jquery';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 var divStyle = {
   cursor:'pointer',
@@ -36,7 +34,6 @@ class Addressdetail extends React.Component{
     }
 
     handleChangeFirstName(event){
-      console.log('eventeventevent',event)
       const {name,value} = event.target;
       let state = this.state;
       state[name].message = '';
@@ -49,12 +46,10 @@ class Addressdetail extends React.Component{
       this.fetchMyAddress();
     }
     fetchMyAddress(){
-      // console.log('this.props.userId',this.props.userId)
       if(this.props.userId){
         axios.post(URL+'/api/user/getAddress',{
           userId:this.props.userId
         }).then((response)=>{
-          console.log('this.responsefdfddfdddddddddd',response.data.getAddress);
           this.setState({
             myAddress : response.data.getAddress,
           })
@@ -67,7 +62,6 @@ class Addressdetail extends React.Component{
           dangerMode: true,
           closeOnClickOutside: false,
         }).then((d)=>{
-           //console.log('ddddddddddddddddddd',d)
             if(d){
             return window.location = "/Login"
           }
@@ -80,8 +74,9 @@ class Addressdetail extends React.Component{
       axios.post(URL+'/api/user/deleteAddress',{
         addressId:addressId
       }).then((response)=>{
-        if(response.data.code==100){
-          return window.location.reload()
+        if(response.data.code === 100){
+          // return window.location.reload()
+          this.fetchMyAddress();
         }else{
           swal({
             title: "OOPS",
@@ -90,7 +85,6 @@ class Addressdetail extends React.Component{
             dangerMode: true,
             closeOnClickOutside: false,
           }).then((d)=>{
-             //console.log('ddddddddddddddddddd',d)
               if(d){
               //return window.location = "/Login"
             }
@@ -99,7 +93,6 @@ class Addressdetail extends React.Component{
       })
     }
     selectAddress(addressId){
-      console.log('addressId',addressId)
       this.setState({
         addressId:addressId
       });
@@ -112,7 +105,6 @@ class Addressdetail extends React.Component{
     validate (){
       let state = this.state;
       if (validator.isEmpty(state.fullName.value)){
-        console.log('eventeventeventevent')
         state.fullName.isValidate = false;
         state.fullName.message = 'Full Name Is Required';
         this.setState(state);
@@ -180,10 +172,7 @@ class Addressdetail extends React.Component{
         obj.landmark = this.state['landmark'].value; 
         obj.alterNumber = this.state['alterNumber'].value; 
         
-        console.log('?????????????????????/',obj);
-
         axios.post(URL+'/api/user/addAddress',obj).then((response)=>{
-          console.log('77777777777777777',response);
           if(response.data.code === 100){
             swal({
               title: "Success!",
@@ -232,7 +221,7 @@ class Addressdetail extends React.Component{
                         <p>Phone: <span>+{e.mobile}</span></p>
                         <div className="deleteaddress" style={divStyle}  onClick={() => this.removeAddress(e._id)}><i className="fa fa-close"></i></div>
                         {
-                          this.state.isChecked==1 ?
+                          this.state.isChecked===1 ?
                             <div className="rightsign"><i className="fa fa-check"></i></div>
                             :
                             <div className="rightsign" ></div>
@@ -356,7 +345,6 @@ class Addressdetail extends React.Component{
 }
 
 function mapStateToProps(state){
-  console.log('555555555555555555',state.inititateState.email);
    return{
       authenticateState : state.inititateState.authenticateState,
       email: state.inititateState.email,
@@ -365,5 +353,3 @@ function mapStateToProps(state){
 }
 
 export default withRouter(connect(mapStateToProps)(Addressdetail));
-
-// export default Addressdetail;

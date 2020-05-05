@@ -7,7 +7,7 @@ import ReactItemSlider from 'react-items-slider'
 import ProductCard from './ProductCard'
 import range from 'lodash/range';
 import $ from 'jquery'
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 
 class Slid extends React.Component{
@@ -23,7 +23,6 @@ class Slid extends React.Component{
 
   allProducts(){
     axios.post(URL+'/api/user/fetchProduct').then((resp)=>{
-      console.log('OOOOOOOOOOOOOOOOOOO',resp);
       this.setState({
         productList : resp.data.doc,
       })
@@ -57,7 +56,6 @@ class Slid extends React.Component{
       children,
     } = this.state
     var e = '';
-   console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',this.state.productList);
 		return(
       <div>
          <ReactItemSlider productsInView="max" arrowSize="small">

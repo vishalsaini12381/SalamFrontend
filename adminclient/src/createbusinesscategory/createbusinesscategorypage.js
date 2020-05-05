@@ -9,7 +9,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import action from '../action/action';
 import BusinessDataTable from './BusinessDataTable';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Createcategorypage extends React.Component{
 
@@ -80,7 +80,6 @@ class Createcategorypage extends React.Component{
 	}
 
 	render(){
-    console.log('????????????????????/',this.state.businesscategory);
     const state = this.state;
 		return(
         <div className="my-3 my-md-5">

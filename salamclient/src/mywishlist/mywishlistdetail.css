@@ -207,6 +207,17 @@ input {
     font-weight: 400;
     border-radius: 25px;
 }
+.cartdetail-fluid .productcart-fluid td .cart-add{
+    margin-top: 35px;
+}
+.cartdetail-fluid .productcart-fluid td .cart-add .fa {
+    padding: 8px 10px;
+    background: #f9e5e5;
+    font-size: 16px;
+    color: #126be8;
+    font-weight: 400;
+    border-radius: 25px;
+}
 
 .continueshopping {
     margin-top: 20px;

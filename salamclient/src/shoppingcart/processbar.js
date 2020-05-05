@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './processbar.css';
 class Processbar extends React.Component{
 	render()
@@ -8,9 +8,9 @@ class Processbar extends React.Component{
 
           <div className="processbar-fluid">
               <ul>
-                <li className="active"><a href="#">My Shopping Cart</a></li>
-                <li><a >Delivery Address</a></li>
-                <li><a >Payment</a></li>
+                <li className="active"><a href="javascript:;">My Shopping Cart</a></li>
+                <li><a href='javascript:;'>Delivery Address</a></li>
+                <li><a href='javascript:;'>Payment</a></li>
               </ul>
           </div>
 

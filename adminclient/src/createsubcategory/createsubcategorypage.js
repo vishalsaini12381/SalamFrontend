@@ -8,7 +8,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import swal from 'sweetalert';
 import SubCategoryDataTable from './createsubcategoryDataTable'
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Createsubcategorypage extends React.Component{
   constructor(props){
@@ -96,7 +96,6 @@ class Createsubcategorypage extends React.Component{
       obj.subcategory = this.state['subcategory'].value;
       obj.businesscategory = this.state['businesscategory'].value;
       obj.categoryId = this.state['categoryId'].value;
-      console.log('RRRRRRRRRRRR',obj);
 
       axios.post(URL+'/api/admin/SubCategory',obj).then((response)=>{
         console.log('LLLLLLLLLLLLLLLLLL',response);

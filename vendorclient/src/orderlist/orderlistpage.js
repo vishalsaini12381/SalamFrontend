@@ -9,132 +9,126 @@ import "mdbreact/dist/css/mdb.css";
 import "./datatable.css";
 
 import action from '../action/action';
-import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import $ from 'jquery';
 import swal from 'sweetalert';
 import AuthService from '../Authentication/AuthService';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 
-  
-  class Orderlistpage extends React.Component{
-  
-    constructor(props){
-      super(props);
-      this.state = {
-        data: {},
-        myOrders:[],
-        rowdata: [],
-        body:[],
-      }
-      this.Auth = new AuthService();
+
+class Orderlistpage extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {},
+      myOrders: [],
+      rowdata: [],
+      body: [],
     }
+    this.Auth = new AuthService();
+  }
 
-    async componentWillMount(){
-      
+  async componentWillMount() {
 
-      var a = await this.Auth.loggedIn()
-      
-      if(a){
-        // return this.props.history.replace('/Profile');
-      }else{
-        return this.props.history.replace('/');
-      };
-      this.fetchMyOrder();
-    }
-    fetchMyOrder(){
 
-      if(this.props.userId){
-        console.log('{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{===>', this.props.userId)
-        axios.post(URL+'/api/vendor/getAllOrder',{
-          vendorId: this.props.userId
-        }).then((response)=>{
-            console.log('this.responsefdfddfdddddddddd',response);
-            this.setState({
-              myOrders : response.data.user,
-            })
-            
+    var a = await this.Auth.loggedIn()
+
+    if (a) {
+      // return this.props.history.replace('/Profile');
+    } else {
+      return this.props.history.replace('/');
+    };
+    this.fetchMyOrder();
+  }
+  fetchMyOrder() {
+
+    if (this.props.userId) {
+      axios.post(URL + '/api/vendor/getAllOrder', {
+        vendorId: this.props.userId
+      }).then((response) => {
+        if(Array.isArray(response.data.myOrders))
+        this.setState({
+          myOrders: response.data.myOrders,
         })
-      }else{
-        swal({
-          title: "OOPS",
-          text: "Session expired.Please Login!",
-          icon: "warning",
-          dangerMode: true,
-          closeOnClickOutside: false,
-        }).then((d)=>{
-           //console.log('ddddddddddddddddddd',d)
-            if(d){
-            return window.location = "/"
-          }
-         })
-      }
 
-     
-    }
-
-    
-  render()
-	{
-
-    const bodyDataArr=[];
-    
-    this.state.myOrders.map((e,i)=>{
-      var amount=0;
-      e.product.forEach(element => {
-        if(element.vendorId==this.props.userId){
-          amount=parseFloat(amount)+parseFloat(element.total)
+      })
+    } else {
+      swal({
+        title: "OOPS",
+        text: "Session expired.Please Login!",
+        icon: "warning",
+        dangerMode: true,
+        closeOnClickOutside: false,
+      }).then((d) => {
+        //console.log('ddddddddddddddddddd',d)
+        if (d) {
+          return window.location = "/"
         }
-      });
-      var obj={
-          "name":e._id,
-          "position":e.userId.firstName+' '+e.userId.lastName,
-          "office":'$'+amount,
-          "age":(e.orderType==1) ? 'COD' : 'Online',
-          "date":(e.status==1) ? 'Pending' : (e.status==2) ? 'Complete' : 'Cancel',
-          "salary":<a href={'/orderdetail?orderId='+e._id}>View</a>
+      })
+    }
+  }
+
+  render() {
+
+    const bodyDataArr = [];
+    this.state.myOrders.map((order, i) => {
+      var amount = 0;
+      
+      let customerName = ""; 
+      if(Array.isArray(order.customer) && order.customer.length > 0);
+        customerName = order.customer[0].firstName + " " + order.customer[0].lastName
+      
+      var obj = {
+        "orderId": order.orderItems._id,
+        "customerName": customerName,
+        "price": '$' + order.orderItems.totalOrderItemAmount,
+        "paymentType": order.paymentType,
+        "orderStatus": order.orderStatus,
+        "viewOrder": <a href={'/orderdetail?orderId=' + order.orderItems._id}>View</a>
       }
       bodyDataArr.push(obj);
     })
 
-   const data = {
+    const data = {
       columns: [
         {
           label: 'Order-Id',
-          field: 'name',
+          field: 'orderId',
           sort: 'asc',
           width: 150
         },
         {
-          label: 'User Name',
-          field: 'position',
+          label: 'Customer Name',
+          field: 'customerName',
           sort: 'asc',
           width: 270
         },
         {
           label: 'Price',
-          field: 'office',
+          field: 'price',
           sort: 'asc',
           width: 200
         },
         {
-          label: 'Order Type',
-          field: 'age',
+          label: 'Payment Type',
+          field: 'paymentType',
           sort: 'asc',
           width: 100
         },
         {
           label: 'Order Status',
-          field: 'date',
+          field: 'orderStatus',
           sort: 'asc',
           width: 150
         },
         {
           label: 'View',
-          field: 'salary',
+          field: 'viewOrder',
           sort: 'asc',
           width: 100
         }
@@ -142,79 +136,65 @@ const URL = process.env.REACT_APP_LOCAL;
       rows: bodyDataArr
     }
 
-		return(
-        <div className="my-3 my-md-5">
-          <div className="container">
-            <div className="page-header">
-              <h4 className="page-title">Order List</h4>
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item"><a href="#">Home</a></li>
-                <li className="breadcrumb-item active" aria-current="page">Order List</li>
-              </ol>
-            </div>
-            <div className="row">
-              <div className="col-md-12 col-lg-12">
+    return (
+      <div className="my-3 my-md-5">
+        <div className="container">
+          <div className="page-header">
+            <h4 className="page-title">Order List</h4>
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item"><a href="#">Home</a></li>
+              <li className="breadcrumb-item active" aria-current="page">Order List</li>
+            </ol>
+          </div>
+          <div className="row">
+            <div className="col-md-12 col-lg-12">
               <div className="card">
                 <div className="card-body">
-                                  <div className="table-responsive">
-
-
-
-
-
-
-
-                                  <MDBDataTable
-				      striped
-				      bordered
-				      hover
-				      data={data}
+                  <div className="table-responsive">
+                    <MDBDataTable
+                      striped
+                      bordered
+                      hover
+                      data={data}
                     />
-
-
-
-
-
-                    </div>
-                                </div>
-              </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-
-      )
-    }
-	}
-
-
-  function mapStateToProps(state){
-    console.log('pppppppppppppppppppppp',state.inititateState);
-    return{
-      authenticateState : state.inititateState.authenticateState,
-      userId : state.inititateState.userId,
-      name : state.inititateState.name,
-      storeName : state.inititateState.storeName,
-      email : state.inititateState.email,
-      type : state.inititateState.type,
-      image: state.inititateState.image,
-      mobile : state.inititateState.mobile,
-      streetName : state.inititateState.streetName,
-      city : state.inititateState.city,
-      address : state.inititateState.address,
-      storeEmail : state.inititateState.storeEmail,
-      zipCode : state.inititateState.zipCode,
-    }
+      </div>
+    )
   }
-  
-  function mapDispatchToProps(dispatch){
-    return {
-      authenticate: bindActionCreators(action.authenticate, dispatch)
-    }
+}
+
+
+function mapStateToProps(state) {
+  console.log('pppppppppppppppppppppp', state.inititateState);
+  return {
+    authenticateState: state.inititateState.authenticateState,
+    userId: state.inititateState.userId,
+    name: state.inititateState.name,
+    storeName: state.inititateState.storeName,
+    email: state.inititateState.email,
+    type: state.inititateState.type,
+    image: state.inititateState.image,
+    mobile: state.inititateState.mobile,
+    streetName: state.inititateState.streetName,
+    city: state.inititateState.city,
+    address: state.inititateState.address,
+    storeEmail: state.inititateState.storeEmail,
+    zipCode: state.inititateState.zipCode,
   }
-  
-  export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Orderlistpage));
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    authenticate: bindActionCreators(action.authenticate, dispatch)
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Orderlistpage));
 
 
 // export default Orderlistpage;

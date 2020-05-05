@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './orderpage.css';
 import Sidebar from './sidebar.js';
 import Orderlist from './orderlist.js';

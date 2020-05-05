@@ -71,6 +71,7 @@
     background-color: #0b93ff!important;
         color: #ffffff;
          border: 1px solid #0b93ff;
+         top: -1px;
 }
  .salam_datatabl  .input-group-addon, .salam_datatabl  .input-group-btn, .salam_datatabl  .input-group .form-control {
     display: table-cell;
@@ -80,4 +81,15 @@
 }
  .salam_datatabl  .btn-group-page-nav{
     border: 1px solid #dadada;
+}
+
+.Brand-Image--container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Brand-Image{
+    width: 125px;
+    height: 125px;
 }

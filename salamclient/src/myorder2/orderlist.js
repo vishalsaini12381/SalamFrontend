@@ -1,12 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './orderlist.css';
 
 import { Link, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 class Orderlist extends React.Component{
   constructor(props){
     super(props);
@@ -23,18 +23,13 @@ class Orderlist extends React.Component{
   }
 
   fetchMyOrder(){
-    // console.log('this.props.userId',this.props.userId)
     if(this.props.userId){
       axios.post(URL+'/api/user/myOrders',{
         userId:this.props.userId
       }).then((response)=>{
-        
-          console.log('this.responsefdfddfdddddddddd',response.data.product);
           this.setState({
             myOrders : response.data.product,
-          })
-        
-        
+          })        
       })
     }else{
       swal({
@@ -44,7 +39,6 @@ class Orderlist extends React.Component{
         dangerMode: true,
         closeOnClickOutside: false,
       }).then((d)=>{
-         //console.log('ddddddddddddddddddd',d)
           if(d){
           return window.location = "/Login"
         }
@@ -62,8 +56,8 @@ class Orderlist extends React.Component{
                  <div className="breadcrumbs">
 			                <div className="row">
             			        <ul>
-            			          <li className="home"> <a href="#" title="Go to Home Page">Home</a><span>/</span></li>
-            			          <li className=""> <a href="#" title="Go to Home Page">My Account</a><span>/</span></li>
+            			          <li className="home"> <a href="javascript:;" title="Go to Home Page">Home</a><span>/</span></li>
+            			          <li className=""> <a href="javascript:;" title="Go to Home Page">My Account</a><span>/</span></li>
             			          <li className="category13"> My Order</li>
             			        </ul>
 			                </div>
@@ -145,7 +139,7 @@ class Orderlist extends React.Component{
                               </td>
                                 <td>
                                     <div className="delete">
-                                        <a href="#"> <i className="fa fa-eye"></i></a>
+                                        <a href="javascript:;"> <i className="fa fa-eye"></i></a>
                                     </div>
                               </td>
                             </tr>
@@ -172,7 +166,6 @@ class Orderlist extends React.Component{
 
 
 function mapStateToProps(state){
-  console.log('555555555555555555',state.inititateState.email);
    return{
       authenticateState : state.inititateState.authenticateState,
       email: state.inititateState.email,

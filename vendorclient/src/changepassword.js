@@ -4,7 +4,7 @@ import validator from 'validator';
 import axios from 'axios';
 import swal from 'sweetalert';
 import './changepassword.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 
 class Changepassword extends Component{
 	constructor(props){

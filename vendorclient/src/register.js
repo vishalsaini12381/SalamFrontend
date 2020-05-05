@@ -7,7 +7,7 @@ import $ from 'jquery';
 import { Link,  withRouter } from 'react-router-dom';
 import Loader from 'react-loader-spinner'
 import './register.css';
-const URL = process.env.REACT_APP_LOCAL
+const URL = process.env.REACT_APP_SERVER_URL
 class Register extends Component{
 	constructor(props){
 		super(props);

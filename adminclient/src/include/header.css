@@ -5,3 +5,13 @@
 
     background: #2480fe;
 }
+
+.Header-Comment{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.Header-Comment--Icon{
+    width: 36px;
+    height: 37px;
+}

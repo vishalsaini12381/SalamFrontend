@@ -76,3 +76,10 @@
     border: 0px solid rgba(221, 221, 221, 0)!important;
 }
 
+.cart-count{
+    position: relative;
+    top: -7px;
+    left: 15px;
+    font-size: 15px;
+    font-weight: 550;
+}

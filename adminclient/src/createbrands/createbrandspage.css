@@ -3,3 +3,7 @@
 	background-position: center; 
 	background-size:cover;
 }
+
+.custom-file {
+	min-width: 210px;
+}

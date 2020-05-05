@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import './checkout.css';
 class Checkout extends React.Component{
 	render()
@@ -10,16 +10,14 @@ class Checkout extends React.Component{
             <div className="block-title">Price Detail</div>
             <div className="block-content">
               <ul>
-                <li><a href="#">Price(3 Item)</a><span>$550</span></li>
-                <li><a href="#">Delivery Charge</a><span>$15</span></li>
-                <li><a href="#">Subtotal</a><span>$565</span></li>
+                <li><a href="javascript:;">Price(3 Item)</a><span>$550</span></li>
+                <li><a href="javascript:;">Delivery Charge</a><span>$15</span></li>
+                <li><a href="javascript:;">Subtotal</a><span>$565</span></li>
               </ul>
-            <div className="checkouts"><a href="/Deliveryaddress">Checkout</a></div>
+            <div className="checkouts"><a onClick={()=>this.props.history.push('Deliveryaddress')}>Checkout</a></div>
             </div>
           </div>
         </aside>
-
-
 			)
 	}
 }

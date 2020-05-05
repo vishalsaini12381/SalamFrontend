@@ -11,7 +11,7 @@ import action from './action/action';
 import {connect} from 'react-redux';
 import AuthService from './Authentication/AuthService';
 import './login.css';
-const URL = process.env.REACT_APP_LOCAL;
+const URL = process.env.REACT_APP_SERVER_URL;
 class Login extends Component{
 	constructor(props){
 		super(props);
