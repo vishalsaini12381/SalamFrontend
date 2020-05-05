@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Modal from './Modal';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const URL = process.env.REACT_APP_SERVER_URL;
@@ -83,7 +83,6 @@ class Orderdetail extends React.Component {
   render() {
     return (
       <div className="row">
-        <ToastContainer />
         {this.state.show ?
           <Modal handleClose={this.hideModal} orderDetail={this.state.singleOrderItem} orderId={this.state.orderDetail._id} orderDate={this.state.orderDetail.orderDate}>
           </Modal> : null}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import './modal.css'
@@ -87,7 +87,6 @@ export default class Modal extends Component {
     const { handleClose } = this.props
     return (
       <div class="modal fade show" style={{ opacity: 1 }}>
-        <ToastContainer />
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>

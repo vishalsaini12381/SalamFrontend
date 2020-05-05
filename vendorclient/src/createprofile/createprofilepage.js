@@ -17,9 +17,7 @@ import AuthService from '../Authentication/AuthService';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import Map from './map';
 import { classnames } from '../helpers';
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 toast.configure()
 
@@ -210,7 +208,6 @@ class Createprofilepage extends React.Component {
           <div className="page-header">
             <div>
               <button onClick={this.notify}>Notify !</button>
-              <ToastContainer />
             </div>
             <h4 className="page-title">Edit Profile</h4>
             <ol className="breadcrumb">

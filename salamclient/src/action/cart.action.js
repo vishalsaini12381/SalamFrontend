@@ -26,8 +26,26 @@ export const addToCartAction = (data) => {
 
         addToCartAPI('user/addToCart', data)
             .then(response => {
-                dispatch(updateCartCount(response.data))
-                dispatch(updateAddCartForProduct(response.data))
+                dispatch(updateCartCount(response.data));
+                dispatch(updateAddCartForProduct(response.data));
+                
+                let subTotalCartAmount = 0;
+                let totalCartItem = 0;
+                const myCart = response.data.myCart;
+
+                if (Array.isArray(myCart)) {
+                    myCart.map(item => {
+                        subTotalCartAmount += parseFloat(item.total)
+                        totalCartItem += parseInt(item.quantity)
+                        return item;
+                    })
+                }
+                dispatch(fetchCartCompleted({
+                    myCart,
+                    subTotalCartAmount,
+                    totalCartAmount: subTotalCartAmount + 15,
+                    totalCartItem
+                }))
             })
             .catch(error => {
             })
@@ -98,7 +116,7 @@ export const fetchMyCartAction = (data) => {
                     subTotalCartAmount,
                     totalCartAmount: subTotalCartAmount + 15,
                     totalCartItem
-                }))
+                }));
             })
             .catch(error => {
                 dispatch(fetchCartFailed(error))

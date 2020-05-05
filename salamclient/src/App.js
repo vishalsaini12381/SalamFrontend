@@ -27,7 +27,12 @@ import Security from './containers/Security';
 import SiteMap from './containers/SiteMap';
 import TermOfUse from './containers/TermOfUse';
 import Dashboard from './containers/Dashboard';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+// Call it once in your app. At the root of your app is the best place
+toast.configure()
+ 
 const persistedState = loadState();
 const store = createStore(
 	reducers,

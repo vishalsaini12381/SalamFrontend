@@ -47,7 +47,6 @@ export function cartReducer(state = initialState, action) {
                 error: action.error
             }
         case CartFilters.USER_REQUIRED:
-            toast.warn("Need to login to continue");
             return {
                 ...state
             }

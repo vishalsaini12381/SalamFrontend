@@ -4,8 +4,9 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Carousel from 'react-multi-carousel';
 import { addToCartAction } from '../action/cart.action';
-import { addToWishlistAction } from '../action/wishlist.action'
-import { fetchProductListAction } from '../action/product.action'
+import { addToWishlistAction } from '../action/wishlist.action';
+import { fetchProductListAction } from '../action/product.action';
+import { toast } from 'react-toastify';
 import "react-multi-carousel/lib/styles.css";
 import './newproduct.css';
 import './categories.css';
@@ -25,6 +26,7 @@ class Categories extends React.Component {
   }
 
   addToCart = (event, productId, userId, price, discount, action) => {
+    
     event.preventDefault();
     const data = {
       userId: userId,
@@ -59,7 +61,7 @@ class Categories extends React.Component {
                     <a href="javascript:;" onClick={() => this.addToWishlist(e._id, this.props.userId)}><i className="fa fa-heart"></i> Add to Wishlist</a>
                   </div>
                 </div> :
-                <div  className="viewproduct" style={{backgroundColor: '#000000d1'}}> Out of Stock </div>
+                <div className="viewproduct" style={{ backgroundColor: '#000000d1' }}> Out of Stock </div>
             }
           </div>
           <div className="Product-Info">

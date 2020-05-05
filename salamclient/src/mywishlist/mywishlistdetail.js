@@ -58,11 +58,12 @@ class Mywishlistdetail extends React.Component {
       userId: userId,
       productId: productId,
     }).then((response) => {
+      this.fetchMyWishlist();
       if (response.data.success) {
         toast.success(response.data.message, {
           position: toast.POSITION.BOTTOM_RIGHT
         }, { autoClose: 500 });
-        this.fetchMyWishlist();
+        
       } else {
         toast.warn(response.data.message, {
           position: toast.POSITION.BOTTOM_RIGHT
@@ -87,7 +88,7 @@ class Mywishlistdetail extends React.Component {
         toast.success(response.data.message, {
           position: toast.POSITION.BOTTOM_RIGHT
         }, { autoClose: 500 });
-        // this.fetchMyWishlist();
+        this.fetchMyWishlist();
       } else {
         toast.warn(response.data.message, {
           position: toast.POSITION.BOTTOM_RIGHT

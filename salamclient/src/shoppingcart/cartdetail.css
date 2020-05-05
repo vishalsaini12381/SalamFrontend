@@ -146,6 +146,8 @@ input {
     text-transform: initial;
     font-family: 'Open Sans', sans-serif;
     color: #717171;
+    position: relative;
+    left: 35px;
 }
 .cartdetail-fluid .productcart-fluid td  .pro-quantity .custom button.items-count {
     padding: 12px 10px 12px 10px;

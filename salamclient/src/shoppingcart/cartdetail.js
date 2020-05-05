@@ -41,7 +41,7 @@ class Cartdetail extends React.Component {
       action: action
     }
 
-    this.props.addToCartAction(data)
+    this.props.addToCartAction(data);
   }
 
   componentWillReceiveProps(nextProps) {

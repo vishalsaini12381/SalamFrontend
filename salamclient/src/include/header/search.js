@@ -5,7 +5,7 @@ import SearchField from 'react-search-field';
 import axios from 'axios';
 import './search.css';
 import Loader from 'react-loader-spinner';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const URL = process.env.REACT_APP_SERVER_URL;
@@ -108,7 +108,6 @@ class Search extends React.Component {
   render() {
     return (
       <header className="header-container">
-        <ToastContainer />
         <div className="header-top">
           <Loader visible={this.state.visible} type="Puff" className="signuploader" />
           <div className="container">
