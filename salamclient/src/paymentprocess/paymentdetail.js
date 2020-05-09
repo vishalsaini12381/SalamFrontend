@@ -31,10 +31,10 @@ class Paymentdetail extends React.Component {
           response.data.product.forEach(element => {
             subTotal += parseFloat(element.total);
           });
-          
+
           this.setState({
             subTotal,
-            total : parseFloat(this.state.shippingAmount) + parseFloat(subTotal)
+            total: parseFloat(this.state.shippingAmount) + parseFloat(subTotal)
           })
         } else {
           swal({
@@ -173,15 +173,33 @@ class Paymentdetail extends React.Component {
       isLoading: true
     })
 
-    console.log("Address",addressId)
+    console.log("Address", addressId)
     axios
       .post(URL + "/api/user/payment", { ...data, addressId })
       .then(response => {
-        this.setState({
-          isLoading: false
-        }, () => {
-          window.location = "/myOrders"
-        })
+
+        if (response.data.success) {
+          swal({
+            title: "Success",
+            text: "Payment processed successfully.",
+            icon: "success",
+            dangerMode: false,
+            closeOnClickOutside: false,
+          }).then((d) => {
+            if (d) {
+              return window.location = "/myOrders"
+            }
+          })
+        } else {
+          swal({
+            title: "OOPS",
+            text: response.data.message,
+            icon: "warning",
+            dangerMode: true,
+            closeOnClickOutside: false,
+          }).then((d) => {
+          })
+        }
       })
       .catch(error => {
         alert("Payment Error");

@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import validator from 'validator';
@@ -49,15 +49,15 @@ class Loginpage extends React.Component {
       let data = {
         type: this.state.type,
         email: this.state['mail'].value,
-        password : this.state['pass'].value
+        password: this.state['pass'].value
       }
       this.props.userLoginAction(data);
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.isLoggedIn){
-      this.props.history.push('/');     
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isLoggedIn) {
+      this.props.history.push('/');
     }
   }
 
@@ -95,13 +95,17 @@ class Loginpage extends React.Component {
                             <button type="submit" className="btn btn-default">Sign In</button>
                           </div>
                         </div>
+                      </div>
+                    </form>
+                    <div className="form-inline">
+                      <div className="row">
                         <div className="col-sm-12">
                           <div className="form-group">
-                            <button type="submit" className="btn btn-default">Forgot Password</button>
+                            <Link to="Forgotpassword" className="btn btn-default">Forgot Password</Link>
                           </div>
                         </div>
                       </div>
-                    </form>
+                    </div>
                     <div className="anotherlink">
                       <p style={{ color: '#1b1111' }}>Don't Have an Account <a href="/Signup" style={{ color: '#2480fe' }}>Signup Here</a></p>
                     </div>
@@ -119,7 +123,7 @@ class Loginpage extends React.Component {
 function mapStateToProps(state) {
   return {
     authenticateState: state.inititateState.authenticateState,
-    isLoggedIn : state.inititateState.isLoggedIn
+    isLoggedIn: state.inititateState.isLoggedIn
   }
 }
 

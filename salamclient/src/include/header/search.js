@@ -39,7 +39,7 @@ class Search extends React.Component {
     obj.search = event;
     // obj.userId = this.props.userId;
     // obj.type = this.props.type;
-    if (event !== undefined) {
+    if (event !== undefined && event.length > 0) {
       this.fetchProductAccordingToSearchInput(event)
     }
   }

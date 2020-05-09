@@ -42,7 +42,7 @@ function Sidebar(props) {
                         <li>
                             <Link to="">Setting</Link>
                         </li>
-                        {/* <li><a href="javascript:;">Sell With Us</a></li> */}
+                        {/* {/*<li><a href="javascript:;">Sell With Us</a></li>*/} */}
                         <li>
                             <Link to="">About Us</Link>
                         </li>

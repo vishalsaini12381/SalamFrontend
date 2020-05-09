@@ -45,7 +45,7 @@ class Orderdetail extends React.Component {
           totalOrderCost: response.data.product.totalOrderCost,
           shippingCharges: response.data.product.shippingCharges,
           orderDetail: response.data.product,
-          addressDetail : response.data.product.addressId
+          addressDetail: response.data.product.addressId
         })
       }
     })
@@ -55,36 +55,63 @@ class Orderdetail extends React.Component {
     this.setState({ show: true, singleOrderItem: item });
   };
 
-  getReturnOrderRequest(item) {
-    const data = {
-      orderId: this.state.orderDetail._id,
-      subOrderId: item._id
-    }
+  checkOrderForReturnRequest(item) {
 
-    axios.post(`${URL}/api/user/get-return-request`, data)
-      .then((response) => {
-        if (!response.data.success) {
-          toast.error("Return request already sent", {
+    if (item.productId.isRefundable) {
+      const data = {
+        orderId: this.state.orderDetail._id,
+        subOrderId: item._id
+      }
+
+      axios.post(`${URL}/api/user/get-return-request`, data)
+        .then((response) => {
+          if (!response.data.success) {
+            toast.error("Return request already sent", {
+              position: toast.POSITION.BOTTOM_RIGHT
+            }, { autoClose: 500 });
+          } else {
+            this.setState({ show: true, singleOrderItem: item });
+          }
+        })
+        .catch(error => {
+          toast.error("Oops some issue on our end!", {
             position: toast.POSITION.BOTTOM_RIGHT
           }, { autoClose: 500 });
-        } else {
-          this.setState({ show: true, singleOrderItem: item });
-        }
-      })
-      .catch(error => {
-
-      })
+        })
+    } else {
+      toast.warn("This product is not refundable", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      }, { autoClose: 500 });
+    }
   }
 
   hideModal = () => {
     this.setState({ show: false });
   };
 
+
+  sendRequestForRefund = (data) => {
+
+    axios
+      .post(URL + '/api/user/return-request', data)
+      .then((response) => {
+        toast.success("Your request for refund is sent !", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+        this.handleClose();
+      })
+      .catch(error => {
+        toast.error("Some error occured !", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+      })
+  }
+
   render() {
     return (
       <div className="row">
         {this.state.show ?
-          <Modal handleClose={this.hideModal} orderDetail={this.state.singleOrderItem} orderId={this.state.orderDetail._id} orderDate={this.state.orderDetail.orderDate}>
+          <Modal handleClose={this.hideModal} sendRequestForRefund={this.sendRequestForRefund} orderDetail={this.state.singleOrderItem} orderId={this.state.orderDetail._id} orderDate={this.state.orderDetail.orderDate}>
           </Modal> : null}
         <section className="col-main col-sm-9  wow bounceInUp animated cartdetail-fluid">
           <div className="category-title">
@@ -142,21 +169,25 @@ class Orderdetail extends React.Component {
                           <td>
                             <div className="price">
                               <label for="price">Status</label>
-                              <h4>{item.OrderItemStatus}</h4>
+                              <h4>{item.isRefundRequested ? "Refund requested" : item.OrderItemStatus}</h4>
                             </div>
                           </td>
 
                           <td>
-                            <div className="price">
-                              <a href="#/" onClick={() => this.getReturnOrderRequest(item)}>
-                                <h4 style={{
-                                  background: "cadetblue",
-                                  borderRadius: "10px",
-                                  textAlign: 'center',
-                                  marginTop: "34px"
-                                }}>{item.productId.isRefundable ? "Return" : "Not Returnable"}</h4>
-                              </a>
-                            </div>
+                            {
+                              !item.isRefundRequested ?
+                                <div className="price">
+                                  <a href="#/" onClick={() => this.checkOrderForReturnRequest(item)}>
+                                    <h4 style={{
+                                      background: "cadetblue",
+                                      borderRadius: "10px",
+                                      textAlign: 'center',
+                                      marginTop: "34px"
+                                    }}>Refund</h4>
+                                  </a>
+                                </div> : null
+                            }
+
                           </td>
                         </tr>
                       )

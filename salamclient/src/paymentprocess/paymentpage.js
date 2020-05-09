@@ -86,7 +86,7 @@ class Paymentpage extends React.Component {
           <div className="row">
             <Processbar />
             <Paymentdetail payableAmount = {this.state.payableAmount} cartAmount={this.state.cartAmount} shippingCharges={this.state.shippingCharges} />
-            <Checkout payableAmount = {this.state.payableAmount} cartAmount = {this.state.cartAmount}  totalProduct = {this.state.totalProduct}/>
+            <Checkout payableAmount = {this.state.payableAmount} cartAmount = {this.state.cartAmount}  totalProduct = {this.state.totalNumberOfProduct}/>
           </div>
         </div>
       </div>
