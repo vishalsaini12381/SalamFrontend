@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { toast } from 'react-toastify';
 import Home from './home.js';
 import Productlist from './productlist.js';
 import Productdetail from './productdetail.js';
@@ -21,13 +22,15 @@ import Login from './login';
 import Sidebar from './productlist/sidebar';
 import Mywishlist from './mywishlist';
 import MyWallet from './MyWallet'
-import PrivacyPolicy from './containers/PrivacyPolicy/index';
-import ReturnPolicy from './containers/returnPolicy';
-import Security from './containers/Security';
-import SiteMap from './containers/SiteMap';
-import TermOfUse from './containers/TermOfUse';
-import Dashboard from './containers/Dashboard';
-import { toast } from 'react-toastify';
+import PrivacyPolicy from './page/PrivacyPolicy/index';
+import ReturnPolicy from './page/returnPolicy';
+import Security from './page/Security';
+import SiteMap from './page/SiteMap';
+import TermOfUse from './page/TermOfUse';
+import Dashboard from './page/Dashboard';
+import AboutUs from './page/about-us/index';
+import ContactUs from './page/contact-us/index';
+import AppRoute from './AppRoute';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Call it once in your app. At the root of your app is the best place
@@ -74,6 +77,9 @@ class Apps extends React.Component {
 					<Route path="/sitemap" component={SiteMap} />
 					<Route path="/term-of-use" component={TermOfUse} />
 					<Route path="/dashboard" component={Dashboard}></Route>
+					<AppRoute path="/about-us" component={AboutUs} />
+					<AppRoute path="/contact-us" component={ContactUs} />
+					
 				</Router>
 			</Provider>
 

@@ -242,3 +242,20 @@ margin-right: 10px;
     margin-top: 22px;
     margin-left: -19px;
 }
+
+.Other__Detail{
+    right: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    align-items: flex-end;
+}
+
+.action {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: end; */
+    align-items: center;
+    margin-top: 10px;
+}

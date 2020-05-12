@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import './sidebar.css';
 import { addToCartAction } from '../action/cart.action';
-import { addToWishlistAction } from '../action/wishlist.action'
+import { addToWishlistAction } from '../action/wishlist.action';
+import { removeDuplicates } from '../Utility/Config';
 
 const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -129,7 +130,7 @@ class List extends React.Component {
         return img;
       });
       this.setState({
-        filterArr: filterArrTemp
+        filterArr: removeDuplicates(filterArrTemp, '_id')
       })
       // }
     } else if (this.state.specification.length === 0) {
@@ -190,22 +191,22 @@ class List extends React.Component {
                         <li className="item col-lg-4 col-md-4 col-sm-6 col-xs-6">
                           <div className="col-item">
                             <div className="product-image-area">
-                              <a className="product-image" title="Sample Product" 
-                              href={'/Productdetail?product=' + e._id}> 
-                              <img alt="image_name" 
-                              src={e.file1}
-                              className="img-responsive" 
-                              style={{ height: '200px', width: '100%' }} 
-                              alt="a" /> </a>
+                              <a className="product-image" title="Sample Product"
+                                href={'/Productdetail?product=' + e._id}>
+                                <img alt="image_name"
+                                  src={e.file1}
+                                  className="img-responsive"
+                                  style={{ height: '200px', width: '100%' }}
+                                  alt="a" /> </a>
                               <div className="hover_fly">
-                                <a  href='javascript:;' className="exclusive ajax_add_to_cart_button" onClick={(event) => this.addItemToCart(event, e)} title="Add Cart">
+                                <a href='javascript:;' className="exclusive ajax_add_to_cart_button" onClick={(event) => this.addItemToCart(event, e)} title="Add Cart">
                                   <div>
                                     <i className="icon-shopping-cart"></i>
                                     <span><i className="fa fa-shopping-bag"></i> Add Cart</span>
                                   </div>
                                   {/* href={'Productdetail?product=' + e._id} */}
                                 </a>
-                                <a  href='javascript:;' className="quick-view"  onClick={(event) => this.addItemToWishList(event, e)}>
+                                <a href='javascript:;' className="quick-view" onClick={(event) => this.addItemToWishList(event, e)}>
                                   <div><i className="icon-eye-open"></i><span><i className="fa fa-heart"></i>Add Wishlist</span></div>
                                 </a> </div>
                             </div>

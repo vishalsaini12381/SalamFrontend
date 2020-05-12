@@ -144,7 +144,9 @@
 }
 .newproduct-fluid .mutlislider .productimage {
     position: relative;
-        overflow: hidden;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 10px;
 }
 
 .newproduct-fluid .mutlislider .productimage .viewproduct{

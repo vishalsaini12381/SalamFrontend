@@ -113,7 +113,7 @@ class Search extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col-xs-6">
-                <div className="welcome-msg hidden-xs"> Welcome To  salam trade! </div>
+                <div className="welcome-msg hidden-xs"> Welcome To Salam Trade! </div>
               </div>
               <div className="col-xs-6">
                 <div className="toplinks">

@@ -42,7 +42,7 @@ export default class Modal extends Component {
           subOrderId: this.state.orderDetail._id,
           customerComment: this.state.comment
         }
-        this.props.sendRequestForRefund(data);
+        this.props.cancelOrder(data);
       } else {
         toast.error("Refund time is expired", {
           position: toast.POSITION.BOTTOM_RIGHT
@@ -88,7 +88,7 @@ export default class Modal extends Component {
                     onChange={this.handleComment}
                     placeholder="Enter comment" value={this.state.customerComment}></textarea>
                 </div>
-                <button type="button" class="btn btn-primary" onClick={() => this.requestRefund()} >Request Refund</button>
+                <button type="button" class="btn btn-primary" onClick={() => this.requestRefund()} >Cancel order and Request Refund</button>
               </div> :
               <h3>Item is not refundable</h3>
             }

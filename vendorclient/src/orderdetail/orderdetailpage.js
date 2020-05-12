@@ -108,7 +108,7 @@ class Orderdetailpage extends React.Component {
                               <td><strong>Order Amount :</strong> ${orderDetail.totalOrderItemAmount}</td>
                             </tr>
                             <tr>
-                              <td><strong>Order Status :</strong> {orderDetail.OrderItemStatus}</td>
+                              <td><strong>Order Status :</strong> {orderDetail.orderStatus}</td>
                             </tr>
                           </tbody>
                           <tbody className="col-lg-4 p-0">
