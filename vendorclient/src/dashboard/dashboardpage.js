@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
 import { Link, withRouter } from 'react-router-dom';
 import validator from 'validator';
 import axios from 'axios';
@@ -75,11 +76,13 @@ class Dashboardpage extends React.Component {
         deliveryAddress = `${order.address[0].address},\n${order.address[0].city},\n${order.address[0].state}`;
       }
 
+
+
       return (
         <tr key={index}>
           <td className="wd-15p">{order.orderItems._id}</td>
           <td className="wd-15p">{customerName}</td>
-          <td className="wd-20p">{order.orderDate.slice(0, 15)}</td>
+          <td className="wd-20p">{moment(order.orderDate).format('DD/MM/YYYY')}</td>
           <td className="wd-20p">{order.orderItems.totalOrderItemAmount}</td>
           <td className="wd-15p">{deliveryAddress}</td>
           <td className="wd-25p">{order.paymentType}</td>

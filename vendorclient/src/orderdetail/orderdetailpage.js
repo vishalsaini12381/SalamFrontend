@@ -23,7 +23,8 @@ class Orderdetailpage extends React.Component {
       userDetail: {},
       addressDetail: {},
       ordrAmount: 0,
-      orderDate: ''
+      orderDate: '',
+      paymentType :''
     }
     this.Auth = new AuthService();
   }
@@ -63,7 +64,8 @@ class Orderdetailpage extends React.Component {
           orderDetail: order.orderItems,
           userDetail: this.isDataExist(order.customer),
           productDetail: this.isDataExist(order.product),
-          addressDetail: this.isDataExist(order.address)
+          addressDetail: this.isDataExist(order.address),
+          paymentType : order.paymentType
         })
       }
     })
@@ -197,6 +199,10 @@ class Orderdetailpage extends React.Component {
                         <tr>
                           <td><span>Order Total</span></td>
                           <td><h2 className="price text-right">${orderDetail.totalOrderItemAmount}</h2></td>
+                        </tr>
+                        <tr>
+                          <td><span>Payment type</span></td>
+                          <td><h2 className="price text-right">{this.state.paymentType}</h2></td>
                         </tr>
                       </tbody>
                     </table>
