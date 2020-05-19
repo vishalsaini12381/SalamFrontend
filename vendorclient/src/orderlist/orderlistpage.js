@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './orderlistpage.css';
-
+import moment from 'moment';
 import { MDBDataTable } from 'mdbreact';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
@@ -85,10 +85,11 @@ class Orderlistpage extends React.Component {
       
       var obj = {
         "orderId": order.orderItems._id,
+        "orderDate" : moment(order.orderDate).format('DD/MM/YYYY'),
         "customerName": customerName,
         "price": '$' + order.orderItems.totalOrderItemAmount,
         "paymentType": order.paymentType,
-        "orderStatus": order.orderStatus,
+        "orderStatus": order.orderItems.orderStatus,
         "viewOrder": <a href={'/orderdetail?orderId=' + order.orderItems._id}>View</a>
       }
       bodyDataArr.push(obj);
@@ -101,6 +102,12 @@ class Orderlistpage extends React.Component {
           field: 'orderId',
           sort: 'asc',
           width: 150
+        },
+        {
+          label: 'Order-date',
+          field: 'orderDate',
+          sort: 'asc',
+          width: 70
         },
         {
           label: 'Customer Name',

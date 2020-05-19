@@ -183,7 +183,7 @@ class Orderdetailpage extends React.Component {
                 </div>
               </div>
               <div className="card ">
-                <div className="card-header "><div className="card-title">Order Summery</div></div>
+                <div className="card-header "><div className="card-title">Order Summary</div></div>
                 <div className="card-body">
                   <div className="table-responsive">
                     <table className="table table-bordered">

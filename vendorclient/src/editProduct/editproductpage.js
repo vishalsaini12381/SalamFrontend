@@ -83,7 +83,7 @@ class Editproductpage extends React.Component {
           category: { value: product.category, isValidate: true, message: '' },
           subCategory: { value: product.subCategory, isValidate: true, message: '' },
           brandName: { value: product.brandName, isValidate: true, message: '' },
-          quantity: { value: product.quantity+"", isValidate: true, message: '' },
+          quantity: { value: product.quantity + "", isValidate: true, message: '' },
           aboutProduct: { value: product.aboutProduct, isValidate: true, message: '' },
           categoryList: [{ category: product.category }],
           subCategoryList: [{ subcategory: product.subCategory }],
@@ -273,7 +273,7 @@ class Editproductpage extends React.Component {
         return false;
       }
       // return false;
-    } 
+    }
     // else {
     //   state.aboutProduct.isValidate = false;
     //   state.aboutProduct.message = 'Job Description cannot be blank'
@@ -304,7 +304,7 @@ class Editproductpage extends React.Component {
       obj.file3 = this.state.file3;
       obj.file4 = this.state.file4;
 
-      
+
       axios.post(URL + '/api/vendor/editProduct', obj).then((response) => {
         if (response.data.status === true) {
           swal("Successful",
@@ -336,9 +336,9 @@ class Editproductpage extends React.Component {
 
   render() {
     const state = this.state;
-    
-    if(state.loading)
-    return <Loader/>
+
+    if (state.loading)
+      return <Loader />
 
     return (
       <div className="my-3 my-md-5">
@@ -468,7 +468,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage1} className="custom-file-input" />
-                          <img src={this.state.file1} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
+                          <img src={this.state.file1 || "images/defaultImg.png"} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -479,7 +479,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage2} className="custom-file-input" />
-                          <img src={this.state.file2} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
+                          <img src={this.state.file2 || "images/defaultImg.png"} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -490,7 +490,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage3} className="custom-file-input" />
-                          <img src={this.state.file3} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
+                          <img src={this.state.file3 || "images/defaultImg.png"} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -501,7 +501,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage4} className="custom-file-input" />
-                          <img src={this.state.file4} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
+                          <img src={this.state.file4 || "images/defaultImg.png"} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -511,9 +511,9 @@ class Editproductpage extends React.Component {
                         <label className="form-label">About Product </label>
                         <textarea className="form-control" name="aboutProduct" value={state.aboutProduct.value}
                           onChange={this.handleChange} rows="6" placeholder="text here.."></textarea>
-                        <div style = {{fontSize:13, color:"red"}}>
-                            {state.aboutProduct.message} 
-                          </div>
+                        <div style={{ fontSize: 13, color: "red" }}>
+                          {state.aboutProduct.message}
+                        </div>
                       </div>
                     </div>
 

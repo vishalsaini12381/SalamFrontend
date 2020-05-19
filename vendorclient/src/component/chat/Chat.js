@@ -53,7 +53,7 @@ function Chat(props) {
         <div className="modal-dialog" role="document" style={{ transform: 'translate(0, 0%)' }}>
             <div className="modal-content">
                 <div className="modal-header">
-                    <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <button type="button" className="close" onClick={props.showChatBox}><span onClick={props.showChatBox} aria-hidden="true">×</span></button>
                     <h4 className="modal-title" id="myModalLabel"><i className="fa fa-comments" /> Admin</h4>
                 </div>
                 <div className="modal-body">
