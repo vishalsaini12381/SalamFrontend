@@ -1,72 +1,66 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './userlistpage.css';
-
 import { MDBDataTable } from 'mdbreact';
+import { withRouter, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import $ from 'jquery';
+import swal from 'sweetalert';
+import './userlistpage.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import "./datatable.css";
-
-
-
-import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
-import axios from 'axios';
-import $ from 'jquery';
-import swal from 'sweetalert';
 const URL = process.env.REACT_APP_SERVER_URL;
 
 
-class Userlistpage extends React.Component{
+class Userlistpage extends React.Component {
 
-  constructor(props){
-		super(props);
-		this.state = {
-        allUsers:[],
-		}
+  constructor(props) {
+    super(props);
+    this.state = {
+      allUsers: [],
+    }
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.fetchAllUsers();
   }
 
 
-  fetchAllUsers(){
+  fetchAllUsers() {
 
-     //console.log('{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{===>', this.props.userId)
-      axios.post(URL+'/api/admin/userList',{
-      }).then((response)=>{
-         // console.log('this.responsefdfddfdddddddddd',response.data);
-          this.setState({
-            allUsers : response.data.data,
-          })
-          
+    //console.log('{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{===>', this.props.userId)
+    axios.post(URL + '/api/admin/userList', {
+    }).then((response) => {
+      // console.log('this.responsefdfddfdddddddddd',response.data);
+      this.setState({
+        allUsers: response.data.data,
       })
-   
 
-   
+    })
   }
 
 
-	render()
-	{
+  render() {
 
-    const bodyDataArr=[];
-    
-    this.state.allUsers.map((e,i)=>{
-      var obj={
-          "name":e._id,
-          "position":e.firstName,
-          "office":e.lastName,
-          "age":e.email,
-          "date":e.mobile,
-          "salary":e.adminStatus 
+    const bodyDataArr = [];
+
+    this.state.allUsers.map((e, i) => {
+      var obj = {
+        "name": e._id,
+        "position": e.firstName,
+        "office": e.lastName,
+        "age": e.email,
+        "date": e.mobile,
+        "salary": <div className="actiontrans">
+          <Link to={`/userdetail/${e._id}`}>View Detail</Link>
+        </div>
       }
       bodyDataArr.push(obj);
     })
 
-   const data = {
+    const data = {
       columns: [
         {
           label: 'User-Id',
@@ -99,7 +93,7 @@ class Userlistpage extends React.Component{
           width: 150
         },
         {
-          label: 'Status',
+          label: 'Action',
           field: 'salary',
           sort: 'asc',
           width: 100
@@ -108,50 +102,45 @@ class Userlistpage extends React.Component{
       rows: bodyDataArr
     }
 
-		return(
-        <div className="my-3 my-md-5">
-          <div className="container">
-            <div className="page-header">
-              <h4 className="page-title">User List</h4>
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item"><a href="/Dashboard">Home</a></li>
-                <li className="breadcrumb-item active" aria-current="page">User List</li>
-              </ol>
-            </div>
-            <div className="row">
-              <div className="col-md-12 col-lg-12">
+    return (
+      <div className="my-3 my-md-5">
+        <div className="container">
+          <div className="page-header">
+            <h4 className="page-title">User List</h4>
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item"><a href="/Dashboard">Home</a></li>
+              <li className="breadcrumb-item active" aria-current="page">User List</li>
+            </ol>
+          </div>
+          <div className="row">
+            <div className="col-md-12 col-lg-12">
               <div className="card">
                 <div className="card-body">
-                    <div className="table-responsive">
-                  
-
-
+                  <div className="table-responsive">
                     <MDBDataTable
-				      striped
-				      bordered
-				      hover
-				      data={data}
+                      striped
+                      bordered
+                      hover
+                      data={data}
                     />
-
-
-                    </div>
+                  </div>
                 </div>
-              </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
 
-			)
-	}
+    )
+  }
 }
 
-function mapstateToProps(state){
-  return{
-    authenticateState : state.inititateState.authenticateState,
-    businesscategory : state.inititateState.businesscategory,
-    businessId : state.inititateState.businessId
+function mapstateToProps(state) {
+  return {
+    authenticateState: state.inititateState.authenticateState,
+    businesscategory: state.inititateState.businesscategory,
+    businessId: state.inititateState.businessId
   }
 }
 

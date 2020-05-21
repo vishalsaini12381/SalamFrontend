@@ -17,7 +17,7 @@ function Header(props) {
 				<div className="container">
 					<div className="d-flex">
 						<a className="header-brand" href="#">
-							<img src="./images/logo/logo.png" className="header-brand-img" alt="FundMaster logo" />
+							<img src={`${window.location.origin}/images/logo/logo.png`} className="header-brand-img" alt="FundMaster logo" />
 						</a>
 						<div className="d-flex order-lg-2 ml-auto">
 							{/* <div className="Header-Comment">

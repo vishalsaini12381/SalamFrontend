@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter , Link} from 'react-router-dom';
 import AuthService from '../Authentication/AuthService';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -76,7 +76,7 @@ class Dashboardpage extends React.Component {
             <td>{`${customerItem.streetAddress !== undefined ? customerItem.streetAddress : ''},${customerItem.streetAddress !== undefined ? customerItem.city : ''}`}</td>
             <td>
               <div className="actiontrans">
-                <a href="/userdetail">View Detail</a>
+                <Link to={`/userdetail/${customerItem._id}`}>View Detail</Link>
               </div>
             </td>
           </tr>

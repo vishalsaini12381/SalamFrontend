@@ -5,24 +5,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { loadState, saveState } from './Authentication/localStorage'
-
 import Login from './login.js';
-// import Forgotpassword from './forgotpassword.js';
 import Dashboardpage from './dashboard/dashboardpage.js';
 import Userlistpage from './userlist/userlistpage.js';
-// import Userdetail from './userdetail.js';
-// import Vendorlist from './vendorlist.js';
-// import Vendordetail from './vendordetail.js';
-// import Addnewvendor from './addnewvendor.js';
-// import Orderlist from './orderlist.js';
-// import Productlist from './productlist.js';
-// import Productdetail from './productdetail.js';
-// import Orderdetail from './orderdetail.js';
-// import Addnewproduct from './addnewproduct.js';
-// import Createbusinesscategory from './createbusinesscategory';
-// import Createcategory from './createcategory.js';
-// import Createsubcategory from './createsubcategory.js';
-// import CreateSpecificationpage from './createSpecification';
 import reducers from './reducer/reducer';
 import DataTable from './DataTable';
 // import CreateBrand from './createbrands.js';
@@ -69,7 +54,7 @@ function App() {
           <DefaultLayout>
             <Route exact  path="/Dashboard" component={Dashboardpage} />
             <Route path="/Userlist" component={Userlistpage} />
-            <Route path="/Userdetail" component={Userdetailpage} />
+            <Route path="/Userdetail/:id" component={Userdetailpage} />
             <Route path="/Vendorlist" component={Vendorlistpage} />
             <Route path="/Vendordetail" component={vendordetailpage} />
             {/* <Route  path = "/Addnewvendor"component = {Addnewvendor} /> */}
@@ -77,7 +62,7 @@ function App() {
             <Route path="/refund-requests" component={RefundRequestPage} />
             <Route path="/Productlist" component={Productlistpage} />
             <Route path="/Productdetail" component={productdetailpage} />
-            <Route path="/Orderdetail" component={orderdetailpage} />
+            <Route path="/Orderdetail/:id" component={orderdetailpage} />
             <Route path="/Addnewproduct" component={Addnewproductpage} />
             <Route path="/businesscategory" component={createbusinesscategorypage} />
             <Route path="/category" component={createcategorypage} />
