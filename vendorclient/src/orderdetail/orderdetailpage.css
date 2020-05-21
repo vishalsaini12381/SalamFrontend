@@ -4,3 +4,7 @@
     border-top: 1px solid #eaeaea;
     text-align: center;
 }
+
+.Order-Status--Active{
+    background-color: #4572f2;
+}

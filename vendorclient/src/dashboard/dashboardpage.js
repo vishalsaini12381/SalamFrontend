@@ -16,7 +16,8 @@ class Dashboardpage extends React.Component {
     this.state = {
       numberOfProduct: 0,
       totalOrders: 0,
-      recentOrderList: []
+      recentOrderList: [],
+      totalRevenue: 0
     }
     // this.productFetch = this.productFetch.bind(this);
     this.Auth = new AuthService();
@@ -42,7 +43,8 @@ class Dashboardpage extends React.Component {
       if (dashboard_data.data) {
         this.setState({
           numberOfProduct: dashboard_data.data.numberOfProduct,
-          totalOrders: dashboard_data.data.totalOrders
+          totalOrders: dashboard_data.data.totalOrders,
+          totalRevenue: dashboard_data.data.totalRevenue
         }, () => {
           this.fetchRecentOrders()
         })
@@ -81,11 +83,12 @@ class Dashboardpage extends React.Component {
       return (
         <tr key={index}>
           <td className="wd-15p">{order.orderItems._id}</td>
+          <td className="wd-15p">{order.orderItems.orderStatus}</td>
           <td className="wd-15p">{customerName}</td>
-          <td className="wd-20p">{moment(order.orderDate).format('DD/MM/YYYY')}</td>
-          <td className="wd-20p">{order.orderItems.totalOrderItemAmount}</td>
+          <td className="wd-15p">{moment(order.orderDate).format('DD/MM/YYYY')}</td>
+          <td className="wd-25p">{order.orderItems.totalOrderItemAmount}</td>
           <td className="wd-15p">{deliveryAddress}</td>
-          <td className="wd-25p">{order.paymentType}</td>
+          <td className="wd-20p">{order.paymentType}</td>
           <td className="wd-25p"><a href={`/orderdetail?orderId=${order.orderItems._id}`}>View</a></td>
         </tr>
       )
@@ -158,7 +161,7 @@ class Dashboardpage extends React.Component {
                     <div className="float-left">
                       <p className="mb-0 text-left">Total Revenue</p>
                       <div className="">
-                        <h3 className="font-weight-semibold text-left mb-0">0</h3>
+                        <h3 className="font-weight-semibold text-left mb-0">{this.state.totalRevenue}</h3>
                       </div>
                     </div>
                   </div>
@@ -181,6 +184,7 @@ class Dashboardpage extends React.Component {
                     <thead>
                       <tr>
                         <th className="wd-15p">Order Id</th>
+                        <th className="wd-15p">Order Status</th>
                         <th className="wd-15p">User Name</th>
                         <th className="wd-20p">Date/Time</th>
                         <th className="wd-20p">Price</th>

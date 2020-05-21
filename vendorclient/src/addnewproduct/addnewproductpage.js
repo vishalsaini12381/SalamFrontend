@@ -374,30 +374,63 @@ class Addnewproductpage extends React.Component {
     console.log('object', obj);
     axios.post(URL + '/api/vendor/fetchSpecification', obj).then((response) => {
       console.log('response', response.data.doc);
+
+      let specList = [];
+      let defaultSpec = {}
+
+      if (Array.isArray(response.data.doc)) {
+        let tempSpecList = response.data.doc;
+        specList = tempSpecList.map(specItem => {
+          const fieldType = specItem.fieldType;
+          if (fieldType == 'Radio' && Array.isArray(specItem.fieldValue) && specItem.fieldValue.length > 0) {
+            let [firstObject, ...restObj] = specItem.fieldValue;
+            firstObject = { ...firstObject, defaultSelected: true };
+            specItem.fieldValue = [firstObject, ...restObj];
+            defaultSpec = { value: firstObject.fieldValue, key: specItem.fieldName };
+          }
+          return specItem;
+        })
+      }
       this.setState({
-        specificationList: response.data.doc
+        specificationList: specList,
+        specification: defaultSpec ? [defaultSpec] : []
       })
     })
   }
 
   hadleChangeSize(e, i) {
-    if (e.target.checked) {
+
+    if (e.target.type == 'radio') {
       this.setState({
-        specification: [...this.state.specification, {
+        specification: [{
           'key': e.target.name,
           'value': e.target.value,
         }]
       });
-      console.log('fruits', this.state.specification);
     } else {
-      let remove = this.state.specification.indexOf(e.target.value);
-      this.setState({
-        specification: this.state.specification.filter((_, i) => i !== remove)
-      },
-        () => {
-          console.log('fruits', this.state.specification);
+      if (e.target.checked) {
+        const obj = this.state.specification.find(item => item.key == e.target.name && item.value == e.target.value);
+        if (!obj) {
+          this.setState({
+            specification: [...this.state.specification, {
+              'key': e.target.name,
+              'value': e.target.value,
+            }]
+          }, () => {
+            console.log('fruits', obj, this.state.specification);
+          });
         }
-      );
+
+      } else {
+        const specArray = this.state.specification.filter(item => !(item.key == e.target.name && item.value == e.target.value));
+        this.setState({
+          specification: specArray
+        },
+          () => {
+            console.log('fruits', this.state.specification);
+          }
+        );
+      }
     }
   }
 
@@ -512,7 +545,7 @@ class Addnewproductpage extends React.Component {
                                 {e.fieldValue.map((r, s) => {
                                   return (
                                     <React.Fragment key={s} >
-                                      <input type={e.fieldType} name={e.fieldName} value={r.fieldValue} onClick={() => this.newSize()}
+                                      <input type={e.fieldType} defaultChecked={r.defaultSelected} name={e.fieldName} value={r.fieldValue} onClick={() => this.newSize()}
                                         onChange={this.hadleChangeSize.bind(this)}
                                       />
                                       &nbsp;

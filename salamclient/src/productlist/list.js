@@ -106,7 +106,7 @@ class List extends React.Component {
     if (Array.isArray(this.state.specification) && this.state.specification.length > 0) {
       let filterArrTemp = [];
       this.state.productList.forEach(product => {
-        product.specification.forEach(async specItem => {
+        (product.specification || []).forEach(async specItem => {
           this.state.specification.forEach(elm => {
             if (elm === specItem.value) {
               if (product._id in filterArrTemp) {
