@@ -71,9 +71,9 @@ class RefundRequestPage extends React.Component {
                 "orderId": e._id,
                 "customerFullName": e.customerId[0] !== null ? `${e.customerId[0].firstName} ${e.customerId[0].lastName}` : '',
                 "orderCost": '$' + e.orderItems.totalOrderItemAmount,
-                "requestDate": e.orderItems.refundRequestDate,
+                "requestDate": e.orderItems.refundRequest.refundRequestDate,
                 // "requestComment": e.orderItems.requestComment,
-                "vendorName": e.vendorDetail[0].name,
+                "reason": e.orderItems.refundRequest.requestComment,
                 "startRefund": <a href='#' onClick={() => this.initiateRefundProcess(e)}><i class="fa fa-money" aria-hidden="true"></i></a>
             }
             bodyDataArr.push(obj);
@@ -106,8 +106,8 @@ class RefundRequestPage extends React.Component {
                     width: 100
                 },
                 {
-                    label: 'Vendor',
-                    field: 'vendorName',
+                    label: 'Reason',
+                    field: 'reason',
                     sort: 'asc',
                     width: 150
                 },
@@ -126,7 +126,7 @@ class RefundRequestPage extends React.Component {
             <div className="my-3 my-md-5">
                 <div className="container">
                     <div className="page-header">
-                        <h4 className="page-title">Order List</h4>
+                        <h4 className="page-title">Refund List</h4>
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item"><a href="/Dashboard">Home</a></li>
                             <li className="breadcrumb-item active" aria-current="page">Order List</li>
