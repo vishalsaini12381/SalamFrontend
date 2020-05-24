@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter , Link} from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import AuthService from '../Authentication/AuthService';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -77,6 +77,11 @@ class Dashboardpage extends React.Component {
             <td>
               <div className="actiontrans">
                 <Link to={`/userdetail/${customerItem._id}`}>View Detail</Link>
+              </div>
+            </td>
+            <td>
+              <div className="actiontrans" onClick={() => this.props.showChatBox({ receiverId: customerItem._id, name: customerItem.firstName })}>
+                <img style={{ width: '30px', height: '30px' }} src="/images/comment_blue.svg" alt="image" />
               </div>
             </td>
           </tr>
@@ -192,12 +197,11 @@ class Dashboardpage extends React.Component {
                       <tr>
                         <th className="wd-15p">User Id</th>
                         <th className="wd-15p">User Name</th>
-                        {/* <th className="wd-15p">Gender</th> */}
                         <th className="wd-20p">Email</th>
                         <th className="wd-20p">Mobile No</th>
                         <th className="wd-15p">Address</th>
-                        {/* <th className="wd-25p">Status</th> */}
                         <th className="wd-25p">Action</th>
+                        <th className="wd-15p">Message</th>
                       </tr>
                     </thead>
                     <tbody>

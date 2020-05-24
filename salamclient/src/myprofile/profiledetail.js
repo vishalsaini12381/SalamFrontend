@@ -228,7 +228,6 @@ class Profiledetail extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("-------------", state.inititateState)
   return {
     authenticateState: state.inititateState.authenticateState,
     email: state.inititateState.email,

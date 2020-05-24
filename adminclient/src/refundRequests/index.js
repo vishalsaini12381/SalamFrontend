@@ -107,7 +107,7 @@ class RefundRequestPage extends React.Component {
                 },
                 {
                     label: 'Reason',
-                    field: 'reason',
+                    field: 'reason' ,
                     sort: 'asc',
                     width: 150
                 },
@@ -129,7 +129,7 @@ class RefundRequestPage extends React.Component {
                         <h4 className="page-title">Refund List</h4>
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item"><a href="/Dashboard">Home</a></li>
-                            <li className="breadcrumb-item active" aria-current="page">Order List</li>
+                            <li className="breadcrumb-item active" aria-current="page">Refund List</li>
                         </ol>
                     </div>
                     <div className="row">

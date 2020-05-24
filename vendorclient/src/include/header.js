@@ -9,13 +9,12 @@ import './header.css';
 const URL = process.env.REACT_APP_SERVER_URL;
 
 function Header(props) {
+	const dispatch = useDispatch();
 	const [state, setStatus] = useState([]);
-	const [isDropdownMenuVisible, toggleDropdownMenu] = useState(false);
 	const [adminStatus, setAdminStatus] = useState('Verify');
 	const [isChatBoxVisible, setChatBoxVisiblity] = useState(false);
+	const [isDropdownMenuVisible, toggleDropdownMenu] = useState(false);
 	const { authenticateState, userId, name, type, image } = useSelector(state => state.inititateState)
-
-	const dispatch = useDispatch();
 
 	const showChatBox = (event) => {
 		event.stopPropagation();

@@ -28,7 +28,7 @@ import createsubcategorypage from './createsubcategory/createsubcategorypage';
 import createSpecificationpage from './specification/createSpecificationpage';
 import createbrandspage from './createbrands/createbrandspage';
 import RefundRequestPage from './refundRequests';
-import SocketController from './component/chat/SocketController'
+import SocketController from './component/chat/SocketController';
 
 const persistedStste = loadState();
 const store = createStore(

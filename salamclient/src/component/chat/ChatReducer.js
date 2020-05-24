@@ -3,8 +3,7 @@ import { TYPES } from './ChatActionTypes';
 const defaultState = {
     messageList: [],
     message: '',
-    receiverId: null,
-    isChatBoxVisible: false
+    receiverId: null
 };
 
 const chatReducer = (state = defaultState, action) => {
@@ -22,23 +21,15 @@ const chatReducer = (state = defaultState, action) => {
                 messageList: index === -1 ? [...state.messageList, action.messageObj] : state.messageList
             }
         case TYPES.SET_MESSSAGE_LIST:
-
             return {
                 ...state,
                 messageList: action.payload.messageList,
                 receiverId: action.payload.receiverId,
-            }
-        case TYPES.SHOW_CHAT_BOX:
-            return {
-                ...state,
-                receiverId: action.payload.receiverId,
-                isChatBoxVisible: !state.isChatBoxVisible,
-                name : action.payload.name
+                chatId: action.payload.chatId
             }
         default:
             return {
                 ...state,
-                isChatBoxVisible: false,
                 messageList: state.messageList !== undefined ? state.messageList : []
             };
     }

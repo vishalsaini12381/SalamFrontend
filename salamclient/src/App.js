@@ -31,6 +31,7 @@ import Dashboard from './page/Dashboard';
 import AboutUs from './page/about-us/index';
 import ContactUs from './page/contact-us/index';
 import AppRoute from './AppRoute';
+import SocketController from './component/chat/SocketController';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Call it once in your app. At the root of your app is the best place
@@ -54,6 +55,7 @@ class Apps extends React.Component {
 	render() {
 		return (
 			<Provider store={store}>
+				<SocketController />
 				<Router>
 					<Route exact path="/" component={Home} />
 					<Route path="/Productlist" component={Productlist} />
