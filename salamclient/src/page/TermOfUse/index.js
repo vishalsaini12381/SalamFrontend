@@ -1,7 +1,4 @@
-import React, { useEffect } from 'react';
-import Footer from '../../include/footer'
-import Header from '../../include/header.js';
-import './termofuse.css';
+import React, { useEffect } from 'react'; import './termofuse.css';
 
 export default function SiteMap() {
     useEffect(() => {
@@ -10,7 +7,6 @@ export default function SiteMap() {
 
     return (
         <>
-            <Header />
             <div className="container">
                 <div className="termsofuse">
                     <h1 className="heading-1">Terms of Use</h1>
@@ -45,7 +41,6 @@ export default function SiteMap() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
     )
 }

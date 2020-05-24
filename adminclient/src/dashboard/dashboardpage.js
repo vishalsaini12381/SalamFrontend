@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import AuthService from '../Authentication/AuthService';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { showChatBoxAction } from '../component/chat/ChatAction'
+import { showChatBoxAction } from '../component/chat/ChatAction';
 import './dashboardpage.css';
 const URL = process.env.REACT_APP_SERVER_URL;
 

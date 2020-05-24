@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import Sidebar from '../../component/Sidebar'
-import Header from '../../include/header';
-import Footer from '../../include/footer';
 import './dashboard.css';
 
 export default function Dashboard() {
@@ -11,7 +9,6 @@ export default function Dashboard() {
 
   return (
     <>
-      <Header />
       <div className="main-container col2-right-layout myorder-fluid">
         <div className="container">
           <div className="row">
@@ -19,7 +16,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   )
 }

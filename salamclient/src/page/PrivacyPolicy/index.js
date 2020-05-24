@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react'
-import Footer from '../../include/footer'
-import Header from '../../include/header.js';
 import './privacypolicy.css';
 
 export default function PrivacyPolicy() {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, []);
-    
+
     return (
-        <div>
-            <Header />
+        <>
             <div className="container">
                 <div className="privacy-policy">
                     <h1 className="heading-1">Privacy policy</h1>
@@ -45,6 +42,6 @@ export default function PrivacyPolicy() {
                     </div>
                 </div>
             </div>
-            <Footer /></div>
+        </>
     )
 }

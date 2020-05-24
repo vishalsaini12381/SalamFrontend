@@ -4,8 +4,7 @@ import { MDBDataTable } from 'mdbreact';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import $ from 'jquery';
-import swal from 'sweetalert';
+import { showChatBoxAction } from '../component/chat/ChatAction';
 import './userlistpage.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
@@ -53,9 +52,13 @@ class Userlistpage extends React.Component {
         "office": e.lastName,
         "age": e.email,
         "date": e.mobile,
+        "message": <div className="actiontrans" onClick={() => this.props.showChatBox({ receiverId: e._id, name: e.firstName })}>
+          <img style={{ width: '30px', height: '30px' }} src="/images/comment_blue.svg" alt="image" />
+        </div>,
         "salary": <div className="actiontrans">
           <Link to={`/userdetail/${e._id}`}>View Detail</Link>
         </div>
+
       }
       bodyDataArr.push(obj);
     })
@@ -91,6 +94,12 @@ class Userlistpage extends React.Component {
           field: 'date',
           sort: 'asc',
           width: 150
+        },
+        {
+          label: 'Message',
+          field: 'message',
+          sort: 'asc',
+          width: 100
         },
         {
           label: 'Action',
@@ -144,6 +153,13 @@ function mapstateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapstateToProps)(Userlistpage));
+function mapDispatchToProps(dispatch) {
+  return ({
+    showChatBox: (data) => { dispatch(showChatBoxAction(data)) }
+  })
+}
+
+
+export default withRouter(connect(mapstateToProps, mapDispatchToProps)(Userlistpage));
 
 // export default Userlistpage;

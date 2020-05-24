@@ -32,11 +32,12 @@ import AboutUs from './page/about-us/index';
 import ContactUs from './page/contact-us/index';
 import AppRoute from './AppRoute';
 import SocketController from './component/chat/SocketController';
+import AppLayout from './component/AppLayout';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Call it once in your app. At the root of your app is the best place
 toast.configure()
- 
+
 const persistedState = loadState();
 const store = createStore(
 	reducers,
@@ -51,12 +52,12 @@ store.subscribe(() => {
 	saveState(store.getState());
 });
 
-class Apps extends React.Component {
-	render() {
-		return (
-			<Provider store={store}>
-				<SocketController />
-				<Router>
+const Apps = () => {
+	return (
+		<Provider store={store}>
+			<SocketController />
+			<Router>
+				<AppLayout>
 					<Route exact path="/" component={Home} />
 					<Route path="/Productlist" component={Productlist} />
 					<Route path="/Productdetail" component={Productdetail} />
@@ -81,11 +82,9 @@ class Apps extends React.Component {
 					<Route path="/dashboard" component={Dashboard}></Route>
 					<AppRoute path="/about-us" component={AboutUs} />
 					<AppRoute path="/contact-us" component={ContactUs} />
-					
-				</Router>
-			</Provider>
-
-		);
-	}
+				</AppLayout>
+			</Router>
+		</Provider>
+	);
 }
 export default Apps;

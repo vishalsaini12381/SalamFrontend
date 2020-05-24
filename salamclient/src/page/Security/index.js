@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import Footer from '../../include/footer'
-import Header from '../../include/header.js';
 import './security.css';
 
 export default function Security() {
@@ -10,7 +8,6 @@ export default function Security() {
 
     return (
         <>
-            <Header />
             <div className="container">
                 <div className="security">
                     <h1 className="heading-1">Security</h1>
@@ -45,6 +42,5 @@ export default function Security() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>)
 }

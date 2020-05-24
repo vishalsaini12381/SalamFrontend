@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import Footer from '../../include/footer'
-import Header from '../../include/header.js';
 import './sitemap.css';
 
 export default function SiteMap() {
@@ -10,7 +8,6 @@ export default function SiteMap() {
 
     return (
         <>
-            <Header />
             <div className="container">
                 <div className="site-map">
                     <h1 className="heading-1">Site Map</h1>
@@ -45,7 +42,6 @@ export default function SiteMap() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>)
 
 }

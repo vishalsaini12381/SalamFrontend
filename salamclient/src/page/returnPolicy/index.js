@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import Footer from '../../include/footer'
-import Header from '../../include/header.js';
 import './returnPolicy.css';
 
 export default function ReturnPolicy() {
@@ -10,7 +8,6 @@ export default function ReturnPolicy() {
 
     return (
         <>
-            <Header />
             <div className="container">
                 <div className="return-policy">
                     <h1 className="heading-1">Return policy</h1>
@@ -45,7 +42,6 @@ export default function ReturnPolicy() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
     )
 }
