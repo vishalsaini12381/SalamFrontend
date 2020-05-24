@@ -14,7 +14,10 @@ class Dashboardpage extends React.Component {
       vendorList: [],
       type: 'Vendor',
       customerList: [],
-      totalCustomer: 0
+      customerCount: 0,
+      vendorCount: 0,
+      ordersCount: 0,
+      totalRevenue: 0
     }
     this.vendorFetch = this.vendorFetch.bind(this);
     this.Auth = new AuthService();
@@ -36,31 +39,21 @@ class Dashboardpage extends React.Component {
   }
 
   vendorFetch() {
-    let obj = {};
-    obj.type = this.state.type;
-    axios.post(URL + '/api/admin/vendorList', obj)
-      .then((response) => {
-        this.setState({
-          vendorList: response.data.data.reverse()
-        }, () => {
-          this.fetchRecentCustomer();
-        })
-      })
-      .catch(error => {
-        this.fetchRecentCustomer();
-      })
-  }
 
-  fetchRecentCustomer = () => {
-    axios.get(URL + '/api/admin/recent-customer')
+    axios.get(URL + '/api/admin/dashboard')
       .then((response) => {
-        this.setState({
-          customerList: response.data.customerList,
-          totalCustomer: response.data.totalCustomer
-        })
+        if (response.data.success) {
+          this.setState({
+            vendorList: response.data.vendorList,
+            vendorCount: response.data.vendorCount,
+            customerList: response.data.customerList,
+            customerCount: response.data.customerCount,
+            ordersCount: response.data.ordersCount,
+            totalRevenue: response.data.totalRevenue
+          })
+        }
       })
       .catch(error => {
-        console.log("---------->>", error)
       })
   }
 
@@ -75,13 +68,13 @@ class Dashboardpage extends React.Component {
             <td>{customerItem.mobile}</td>
             <td>{`${customerItem.streetAddress !== undefined ? customerItem.streetAddress : ''},${customerItem.streetAddress !== undefined ? customerItem.city : ''}`}</td>
             <td>
-              <div className="actiontrans">
-                <Link to={`/userdetail/${customerItem._id}`}>View Detail</Link>
+              <div className="actiontrans" onClick={() => this.props.showChatBox({ receiverId: customerItem._id, name: customerItem.firstName })}>
+                <img style={{ width: '30px', height: '30px' }} src="/images/comment_blue.svg" alt="image" />
               </div>
             </td>
             <td>
-              <div className="actiontrans" onClick={() => this.props.showChatBox({ receiverId: customerItem._id, name: customerItem.firstName })}>
-                <img style={{ width: '30px', height: '30px' }} src="/images/comment_blue.svg" alt="image" />
+              <div className="actiontrans">
+                <Link to={`/userdetail/${customerItem._id}`}>View Detail</Link>
               </div>
             </td>
           </tr>
@@ -113,7 +106,7 @@ class Dashboardpage extends React.Component {
                     <div className="float-left">
                       <p className="mb-0 text-left">Total User</p>
                       <div className="">
-                        <h3 className="font-weight-semibold text-left mb-0"></h3>
+                        <h3 className="font-weight-semibold text-left mb-0">{this.state.customerCount} </h3>
                       </div>
                     </div>
                   </div>
@@ -133,7 +126,7 @@ class Dashboardpage extends React.Component {
                     <div className="float-left">
                       <p className="mb-0 text-left">Total Vendor</p>
                       <div className="">
-                        <h3 className="font-weight-semibold text-left mb-0">{this.state.vendorList.length}</h3>
+                        <h3 className="font-weight-semibold text-left mb-0">{this.state.vendorCount}</h3>
                       </div>
                     </div>
                   </div>
@@ -153,7 +146,7 @@ class Dashboardpage extends React.Component {
                     <div className="float-left">
                       <p className="mb-0 text-left">Total Order</p>
                       <div className="">
-                        <h3 className="font-weight-semibold text-left mb-0"></h3>
+                        <h3 className="font-weight-semibold text-left mb-0">{this.state.ordersCount}</h3>
                       </div>
                     </div>
                   </div>
@@ -173,7 +166,7 @@ class Dashboardpage extends React.Component {
                     <div className="float-left">
                       <p className="mb-0 text-left">Total Revenue</p>
                       <div className="">
-                        <h3 className="font-weight-semibold text-left mb-0">$</h3>
+                        <h3 className="font-weight-semibold text-left mb-0">${this.state.totalRevenue}</h3>
                       </div>
                     </div>
                   </div>
@@ -200,8 +193,8 @@ class Dashboardpage extends React.Component {
                         <th className="wd-20p">Email</th>
                         <th className="wd-20p">Mobile No</th>
                         <th className="wd-15p">Address</th>
-                        <th className="wd-25p">Action</th>
                         <th className="wd-15p">Message</th>
+                        <th className="wd-25p">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -229,8 +222,8 @@ class Dashboardpage extends React.Component {
                         <th className="wd-20p">Email</th>
                         <th className="wd-20p">Mobile No</th>
                         <th className="wd-15p">Address</th>
-                        <th className="wd-25p">Action</th>
                         <th className="wd-15p">Message</th>
+                        <th className="wd-25p">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -246,13 +239,13 @@ class Dashboardpage extends React.Component {
                                 <td>{e.mobile}</td>
                                 <td> {e.address} </td>
                                 <td>
-                                  <div className="actiontrans">
-                                    <a onClick={() => this.props.history.push(`vendordetail?vendorId=${e._id}`)}>View Detail</a>
+                                  <div className="actiontrans" onClick={() => this.props.showChatBox({ receiverId: e._id, name: e.name })}>
+                                    <img style={{ width: '30px', height: '30px' }} src="/images/comment_blue.svg" alt="image" />
                                   </div>
                                 </td>
                                 <td>
-                                  <div className="actiontrans" onClick={() => this.props.showChatBox({ receiverId: e._id, name: e.name })}>
-                                    <img style={{ width: '30px', height: '30px' }} src="/images/comment_blue.svg" alt="image" />
+                                  <div className="actiontrans">
+                                    <a onClick={() => this.props.history.push(`vendordetail?vendorId=${e._id}`)}>View Detail</a>
                                   </div>
                                 </td>
                               </tr>
