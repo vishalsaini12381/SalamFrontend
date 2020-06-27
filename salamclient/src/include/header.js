@@ -18,7 +18,8 @@ const Header = () => {
 				dispatch(updateCartCount({ cartTotal: response.data.cartTotal }));
 			}
 		})
-	}, [])
+  }, []);
+  console.log('---------------------')
 	return (
 		<div>
 			<Search businesscategoryList={businesscategoryList} />
