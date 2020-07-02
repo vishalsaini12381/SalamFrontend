@@ -48,7 +48,7 @@ class Orderlistpage extends React.Component {
     this.state.myOrders.map((e, i) => {
       var obj = {
         "orderId": e.orderItems._id,
-        "customerFullName": e.customerId[0] !== null ? `${e.customerId[0].firstName} ${e.customerId[0].lastName}` : '',
+        "customerFullName": e.customerId[0] ? `${e.customerId[0].firstName} ${e.customerId[0].lastName}` : '',
         "orderCost": '$' + e.orderItems.totalOrderItemAmount,
         "paymentType": e.paymentType,
         "orderStatus": `${e.paymentType} - ${e.paymentStatus !== undefined ? e.paymentStatus : ''}`,

@@ -25,7 +25,7 @@ class DataTable extends Component {
   vendorFetch() {
     let obj = {};
     obj.type = this.state.type;
-    axios.post(URL + '/api/admin/vendorList', obj).then((response) => {
+    axios.post(URL + '/api/admin/fetchVendorList', obj).then((response) => {
       console.log('BBBBBBBBBBBBBBBBBB', response.data.data);
       this.setState({
         vendorList: response.data.data

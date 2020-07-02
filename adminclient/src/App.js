@@ -29,6 +29,7 @@ import createSpecificationpage from './specification/createSpecificationpage';
 import createbrandspage from './createbrands/createbrandspage';
 import RefundRequestPage from './refundRequests';
 import SocketController from './component/chat/SocketController';
+import Banner from './banner/index'
 
 const persistedStste = loadState();
 const store = createStore(
@@ -70,6 +71,7 @@ function App() {
             <Route path="/CreateSpecificationpage" component={createSpecificationpage} />
 
             <Route path="/createBrand" component={createbrandspage} />
+            <Route path="/banner" component={Banner}/>
 
           </DefaultLayout>
 

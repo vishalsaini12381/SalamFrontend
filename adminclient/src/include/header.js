@@ -136,6 +136,9 @@ function Header(props) {
 									<li>
 										<Link to="/CreateSpecificationpage">Specification</Link>
 									</li>
+                  <li>
+										<Link to="/banner">Banner</Link>
+									</li>
 								</ul>
 							</div>
 						</li>
