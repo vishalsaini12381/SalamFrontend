@@ -1,19 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './orderlistpage.css';
-import { MDBDataTable } from 'mdbreact';
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "bootstrap-css-only/css/bootstrap.min.css";
-import "mdbreact/dist/css/mdb.css";
-import "./datatable.css";
-
-
-
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import $ from 'jquery';
 import swal from 'sweetalert';
+import { MDBDataTable } from 'mdbreact';
+import './orderlistpage.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+import "./datatable.css";
 const URL = process.env.REACT_APP_SERVER_URL;
 
 
@@ -50,12 +47,12 @@ class Orderlistpage extends React.Component {
 
     this.state.myOrders.map((e, i) => {
       var obj = {
-        "orderId": e._id,
-        "customerFullName": e.customerId !== null ? `${e.customerId.firstName} ${e.customerId.lastName}` : '',
-        "orderCost": '$' + e.totalOrderCost,
+        "orderId": e.orderItems._id,
+        "customerFullName": e.customerId[0] ? `${e.customerId[0].firstName} ${e.customerId[0].lastName}` : '',
+        "orderCost": '$' + e.orderItems.totalOrderItemAmount,
         "paymentType": e.paymentType,
         "orderStatus": `${e.paymentType} - ${e.paymentStatus !== undefined ? e.paymentStatus : ''}`,
-        "viewOrder": <a href={'/orderdetail?orderId=' + e._id}><i class="fa fa-eye" aria-hidden="true"></i></a>
+        "viewOrder": <a href={`/orderdetail/${e.orderItems._id}`}><i class="fa fa-eye" aria-hidden="true"></i></a>
       }
       bodyDataArr.push(obj);
     })

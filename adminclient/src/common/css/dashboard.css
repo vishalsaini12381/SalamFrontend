@@ -5144,7 +5144,9 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg>select.form-
 .userdetail .table td {
     padding: 12px 0px;
     vertical-align: top;
+	border-top : unset;
 }
+
 .form-check-input:disabled~.form-check-label {
 	color: #505662;
 }
@@ -12925,6 +12927,8 @@ a.icon:hover {
 .thumbnail a>img, .thumbnail>img {
 	margin-right: auto;
 	margin-left: auto;
+	height: 300px;
+    width: 250px;
 }
 .thumbnail p:last-child {
 	margin-bottom: 0;

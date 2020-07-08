@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function EditBrand(props) {
     const [brandId, setBrandId] = useState(props.brand_data._id);

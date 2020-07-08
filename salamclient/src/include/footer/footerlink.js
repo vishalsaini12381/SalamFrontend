@@ -17,8 +17,8 @@ const Footerlink = () => {
           <div className="col-md-2 col-sm-4">
             <h4>About</h4>
             <ul className="links">
-              <li className="first"><a href="javascript:;" title="Contact Us">Contact Us</a></li>
-              <li><a href="javascript:;" title="About Us"> About Us</a></li>
+              <li className="first"><Link to="contact-us">Contact Us</Link></li>
+              <li><Link to="about-us"> About Us</Link></li>
             </ul>
           </div>
           <div className="col-md-2 col-sm-4">

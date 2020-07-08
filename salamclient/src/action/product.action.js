@@ -1,5 +1,4 @@
 import { fetchProductListAPI, fetchProductDetailAPI } from '../api/product.api'
-import { updateCartCount } from './cart.action';
 
 export const ProductFilters = {
     FETCH_PRODUCT_LIST_PENDING: 'FETCH_PRODUCT_LIST_PENDING',
@@ -31,7 +30,6 @@ export const fetchProductListAction = (userId) => {
         dispatch(fetchProductListPending());
         fetchProductListAPI('user/fetchHomeProduct', { userId })
             .then(response => {
-                dispatch(updateCartCount({ cartTotal: response.data.cartTotal }))
                 dispatch(fetchProductListCompleted(response.data));
             })
             .catch(error => {

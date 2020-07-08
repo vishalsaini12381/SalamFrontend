@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import swal from 'sweetalert';
 import action from '../action/action';
+import { userProfileUpdateAction } from '../action/user.action';
 import './profiledetail.css';
 const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -43,7 +44,7 @@ class Profiledetail extends React.Component {
     state[name].value = value;
     this.setState(state);
   }
-  
+
   submit(event) {
     event.preventDefault();
     // let isValid = this.validate();
@@ -65,16 +66,13 @@ class Profiledetail extends React.Component {
       if (response.data.status === true) {
         // axios.post('http://3.92.136.66:4000/api/fetchUser').then((doc)=>{
         if (response) {
-          this.props.authenticate({
-            type: 'authenticate',
-            payload: response.data
-          })
+          this.props.userProfileUpdateAction(response.data)
         }
         // })
         swal("Successful",
           `${response.data.message}`)
           .then((d) => {
-            return window.location = '/Myprofile'
+            // return window.location = '/Myprofile'
           })
       } else {
         swal("Error",
@@ -247,10 +245,8 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    authenticate: bindActionCreators(action.authenticate, dispatch)
-  }
-}
+const mapDispatchToProps = dispatch => bindActionCreators({
+  userProfileUpdateAction
+}, dispatch)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profiledetail));

@@ -7,12 +7,10 @@ import action from '../src/action/action';
 import { connect } from 'react-redux';
 import { render } from 'react-dom'; // Import render method
 import Datatable from 'react-bs-datatable'; // Import this package
-// import { connect } from 'react-redux';
+import { showChatBoxAction } from './component/chat/ChatAction';
 import swal from 'sweetalert';
 import './datatable.css';
 const URL = process.env.REACT_APP_SERVER_URL;
-
-
 
 class DataTable extends Component {
   constructor(props) {
@@ -27,7 +25,7 @@ class DataTable extends Component {
   vendorFetch() {
     let obj = {};
     obj.type = this.state.type;
-    axios.post(URL + '/api/admin/vendorList', obj).then((response) => {
+    axios.post(URL + '/api/admin/fetchVendorList', obj).then((response) => {
       console.log('BBBBBBBBBBBBBBBBBB', response.data.data);
       this.setState({
         vendorList: response.data.data
@@ -92,6 +90,7 @@ class DataTable extends Component {
       { title: 'Email Id', prop: 'email', sortable: true, filterable: true },
       { title: 'Mobile No', prop: 'mobile', sortable: true, filterable: true },
       { title: 'Status', prop: 'status', sortable: true, filterable: true },
+      { title: 'Message', prop: 'message', sortable: false, filterable: false },
       { title: 'Action', prop: 'action', sortable: true, filterable: true },
     ];
 
@@ -104,6 +103,9 @@ class DataTable extends Component {
         'email': e.email,
         'mobile': e.mobile,
         'status': e.adminStatus,
+        "message": <div className="actiontrans" onClick={() => this.props.showChatBox({ receiverId: e._id, name: e.firstName })}>
+          <img style={{ width: '30px', height: '30px' }} src="/images/comment_blue.svg" alt="image" />
+        </div>,
         'action': <div className="actiontrans" >
           <a href="#" onClick={(event) => this.vendor(event,e._id)} value={e._id} > <i className="fa fa-eye "></i></a> &nbsp;
        {/* <Link to = "#"  > <i className="fa fa-edit"></i></Link> &nbsp; */}
@@ -161,6 +163,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     authenticate: bindActionCreators(action.authenticate, dispatch),
+    showChatBox: (data) => { dispatch(showChatBoxAction(data)) }
   }
 }
 

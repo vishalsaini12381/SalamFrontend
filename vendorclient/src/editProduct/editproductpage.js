@@ -36,7 +36,11 @@ class Editproductpage extends React.Component {
       businessList: [],
       categoryList: [],
       subCategoryList: [],
-      loading: false
+      loading: false,
+      businesscategoryId: null,
+      subCategoryId: null,
+      specificationList: [],
+      specification: []
     }
     // this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
@@ -76,6 +80,8 @@ class Editproductpage extends React.Component {
           file2: product.file2,
           file3: product.file3,
           file4: product.file4,
+          businesscategoryId: product.businesscategoryId,
+          subCategoryId: product.subCategoryId,
           productName: { value: product.productName, isValidate: true, message: '' },
           productPrice: { value: product.productPrice, isValidate: true, message: '' },
           discount: { value: product.discount, isValidate: true, message: '' },
@@ -83,11 +89,12 @@ class Editproductpage extends React.Component {
           category: { value: product.category, isValidate: true, message: '' },
           subCategory: { value: product.subCategory, isValidate: true, message: '' },
           brandName: { value: product.brandName, isValidate: true, message: '' },
-          quantity: { value: product.quantity+"", isValidate: true, message: '' },
+          quantity: { value: product.quantity + "", isValidate: true, message: '' },
           aboutProduct: { value: product.aboutProduct, isValidate: true, message: '' },
           categoryList: [{ category: product.category }],
           subCategoryList: [{ subcategory: product.subCategory }],
-          loading: false
+          loading: false,
+          specification: product.specification
         }, () => {
           this.fetchBusinessCategory()
         })
@@ -100,12 +107,44 @@ class Editproductpage extends React.Component {
 
   }
 
-  fetchBusinessCategory = () => {
-    axios.post(URL + '/api/vendor/fetchBusiness').then((response) => {
-      this.setState({
-        businessList: response.data.doc
-      })
-    })
+  fetchBusinessCategory = async () => {
+    try {
+
+      const businessListResponse = await axios.post(URL + '/api/vendor/fetchBusiness');
+
+      const specificationListResponse = await axios.post(URL + '/api/vendor/fetchSpecification', { subCategoryId: this.state.subCategoryId });
+
+      let specList = [];
+
+      if (Array.isArray(specificationListResponse.data.doc) && Array.isArray(this.state.specification)) {
+        let tempSpecList = specificationListResponse.data.doc;
+
+        specList = tempSpecList.map(specItem => {
+          let fieldValue = specItem.fieldValue.map(fieldItem => {
+            let obj = this.state.specification.find(item => specItem.fieldName == item.key && fieldItem.fieldValue == item.value);
+            return {
+              ...fieldItem,
+              isSelected: obj ? true : false
+            }
+          })
+
+          return {
+            ...specItem,
+            fieldValue
+          }
+        })
+      }
+
+      if (specificationListResponse.data.status) {
+        this.setState({
+          specificationList: specList,
+          businessList: businessListResponse.data.doc
+        })
+      }
+
+    } catch (error) {
+
+    }
   }
 
   handleBussinessChange = (e, i) => {
@@ -273,7 +312,7 @@ class Editproductpage extends React.Component {
         return false;
       }
       // return false;
-    } 
+    }
     // else {
     //   state.aboutProduct.isValidate = false;
     //   state.aboutProduct.message = 'Job Description cannot be blank'
@@ -303,8 +342,9 @@ class Editproductpage extends React.Component {
       obj.file2 = this.state.file2;
       obj.file3 = this.state.file3;
       obj.file4 = this.state.file4;
+      obj.specification = this.state.specification;
 
-      
+
       axios.post(URL + '/api/vendor/editProduct', obj).then((response) => {
         if (response.data.status === true) {
           swal("Successful",
@@ -333,12 +373,54 @@ class Editproductpage extends React.Component {
     }
   }
 
+  hadleChangeSize = (e, i) => {
+    if (e.target.type == 'radio') {
+      this.setState({
+        specification: [{
+          'key': e.target.name,
+          'value': e.target.value,
+        }]
+      });
+    } else {
+      if (e.target.checked) {
+        const obj = this.state.specification.find(item => item.key == e.target.name && item.value == e.target.value);
+        if (!obj) {
+          this.setState({
+            specification: [...this.state.specification, {
+              'key': e.target.name,
+              'value': e.target.value,
+            }]
+          }, () => {
+            console.log('fruits', obj, this.state.specification);
+          });
+        }
+
+      } else {
+        const specArray = this.state.specification.filter(item => !(item.key == e.target.name && item.value == e.target.value));
+        this.setState({
+          specification: specArray
+        },
+          () => {
+            console.log('fruits', this.state.specification);
+          }
+        );
+      }
+    }
+  }
+
+  newSize = () => {
+    if (this.state.fValue !== "" && this.state.fValue !== null && this.state.fValue !== undefined) {
+      this.setState({ specification: [...this.state.specification, this.state.fValue] })
+    }
+    this.setState({ fValue: '' })
+  }
+
 
   render() {
     const state = this.state;
-    
-    if(state.loading)
-    return <Loader/>
+
+    if (state.loading)
+      return <Loader />
 
     return (
       <div className="my-3 my-md-5">
@@ -391,6 +473,8 @@ class Editproductpage extends React.Component {
                         </select>
                       </div>
                     </div>
+                  </div>
+                  <div className="row">
                     <div className="col-md-6 col-lg-6">
                       <div className="form-group">
                         <label className="form-label">Select Sub Category</label>
@@ -416,7 +500,36 @@ class Editproductpage extends React.Component {
 
                       </div>
                     </div>
+                  </div>
 
+                  {
+                    this.state.specificationList.map((e, i) => {
+                      return (
+                        <React.Fragment key={i}>
+                          <div className="row">
+                            <div className="col-md-6 col-lg-6">
+                              <div className="form-group">
+                                <label className="form-label"  > {e.fieldName} </label>
+                                {e.fieldValue.map((r, s) => {
+                                  return (
+                                    <React.Fragment key={s} >
+                                      <input type={e.fieldType} defaultChecked={r.isSelected} name={e.fieldName} value={r.fieldValue}
+                                        onClick={this.newSize}
+                                        onChange={this.hadleChangeSize}
+                                      />
+                                      &nbsp;
+                                      <label >  {r.fieldValue} </label> &nbsp;
+                                    </React.Fragment>
+                                  )
+                                })}
+                              </div>
+                            </div>
+                          </div>
+                        </React.Fragment>
+                      )
+                    })
+                  }
+                  <div className="row">
                     <div className="col-md-6 col-lg-6">
                       <div className="form-group">
                         <label className="form-label">Brand Name </label>
@@ -468,7 +581,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage1} className="custom-file-input" />
-                          <img src={this.state.file1} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
+                          <img src={this.state.file1 || "images/defaultImg.png"} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -479,7 +592,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage2} className="custom-file-input" />
-                          <img src={this.state.file2} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
+                          <img src={this.state.file2 || "images/defaultImg.png"} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -490,7 +603,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage3} className="custom-file-input" />
-                          <img src={this.state.file3} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
+                          <img src={this.state.file3 || "images/defaultImg.png"} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -501,7 +614,7 @@ class Editproductpage extends React.Component {
                         <label className="form-label">Upload Product Image </label>
                         <div className="custom-file">
                           <input type="file" name="myImage" id="file" accept="image/*" onChange={this.handleChageImage4} className="custom-file-input" />
-                          <img src={this.state.file4} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
+                          <img src={this.state.file4 || "images/defaultImg.png"} style={{ height: '270px', width: '220px', marginTop: '50px' }} />
                           <label className="custom-file-label">Choose file</label>
                         </div>
                       </div>
@@ -511,9 +624,9 @@ class Editproductpage extends React.Component {
                         <label className="form-label">About Product </label>
                         <textarea className="form-control" name="aboutProduct" value={state.aboutProduct.value}
                           onChange={this.handleChange} rows="6" placeholder="text here.."></textarea>
-                        <div style = {{fontSize:13, color:"red"}}>
-                            {state.aboutProduct.message} 
-                          </div>
+                        <div style={{ fontSize: 13, color: "red" }}>
+                          {state.aboutProduct.message}
+                        </div>
                       </div>
                     </div>
 

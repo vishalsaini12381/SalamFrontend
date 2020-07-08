@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './orderdetailpage.css';
-
 import action from '../action/action';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -10,6 +9,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import swal from 'sweetalert';
 import AuthService from '../Authentication/AuthService';
+
 const URL = process.env.REACT_APP_SERVER_URL;
 
 class Orderdetailpage extends React.Component {
@@ -23,7 +23,9 @@ class Orderdetailpage extends React.Component {
       userDetail: {},
       addressDetail: {},
       ordrAmount: 0,
-      orderDate: ''
+      orderDate: '',
+      paymentType: '',
+      isMenuOpen: false
     }
     this.Auth = new AuthService();
   }
@@ -63,7 +65,8 @@ class Orderdetailpage extends React.Component {
           orderDetail: order.orderItems,
           userDetail: this.isDataExist(order.customer),
           productDetail: this.isDataExist(order.product),
-          addressDetail: this.isDataExist(order.address)
+          addressDetail: this.isDataExist(order.address),
+          paymentType: order.paymentType
         })
       }
     })
@@ -73,6 +76,32 @@ class Orderdetailpage extends React.Component {
     if (Array.isArray(arrayData) && arrayData.length)
       return arrayData[0];
     return {}
+  }
+
+  toggleOrderStatusMenu = () => {
+    this.setState({
+      isMenuOpen: !this.state.isMenuOpen
+    })
+  }
+
+  changeOrderStatus = (orderStatus) => {
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    const orderId = params.get('orderId');
+
+    axios.post(`${URL}/api/order/${orderId}/change-order-status`, { orderId, orderStatus })
+      .then(response => {
+
+        if (response.data.isStatusUpdated) {
+          this.setState({
+            orderDetail: { ...this.state.sorderDetail, orderStatus },
+            isMenuOpen: false
+          })
+        }
+      })
+      .catch(error => {
+
+      })
   }
 
   render() {
@@ -108,7 +137,22 @@ class Orderdetailpage extends React.Component {
                               <td><strong>Order Amount :</strong> ${orderDetail.totalOrderItemAmount}</td>
                             </tr>
                             <tr>
-                              <td><strong>Order Status :</strong> {orderDetail.OrderItemStatus}</td>
+                              <td>
+                                <strong>Order Status :</strong>
+                                <div className="btn-group">
+                                  <button className="btn btn-secondary btn-sm" type="button">{orderDetail.orderStatus}</button>
+                                  <button type="button" className="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" onClick={this.toggleOrderStatusMenu}>
+                                    <span className="sr-only">Change Order Status</span>
+                                  </button>
+                                  <div className="dropdown-menu" style={{ display: `${this.state.isMenuOpen ? 'block' : 'none'}` }}>
+                                    <a className="dropdown-item" href="#" onClick={() => this.changeOrderStatus('Order Placed')}>Order Placed</a>
+                                    <a className="dropdown-item" href="#" onClick={() => this.changeOrderStatus('Order Accepted')}>Order Accepted</a>
+                                    <a className="dropdown-item" href="#" onClick={() => this.changeOrderStatus('Dispatched')}>Dispatched</a>
+                                    <a className="dropdown-item" href="#" onClick={() => this.changeOrderStatus('Canceled')}>Canceled</a>
+                                    <a className="dropdown-item" href="#" onClick={() => this.changeOrderStatus('Out of Stock')}>Out of Stock</a>
+                                  </div>
+                                </div>
+                              </td>
                             </tr>
                           </tbody>
                           <tbody className="col-lg-4 p-0">
@@ -181,7 +225,7 @@ class Orderdetailpage extends React.Component {
                 </div>
               </div>
               <div className="card ">
-                <div className="card-header "><div className="card-title">Order Summery</div></div>
+                <div className="card-header "><div className="card-title">Order Summary</div></div>
                 <div className="card-body">
                   <div className="table-responsive">
                     <table className="table table-bordered">
@@ -197,6 +241,10 @@ class Orderdetailpage extends React.Component {
                         <tr>
                           <td><span>Order Total</span></td>
                           <td><h2 className="price text-right">${orderDetail.totalOrderItemAmount}</h2></td>
+                        </tr>
+                        <tr>
+                          <td><span>Payment type</span></td>
+                          <td><h2 className="price text-right">{this.state.paymentType}</h2></td>
                         </tr>
                       </tbody>
                     </table>

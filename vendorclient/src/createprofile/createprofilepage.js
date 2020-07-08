@@ -18,6 +18,7 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 import Map from './map';
 import { classnames } from '../helpers';
 import { toast } from 'react-toastify';
+import '../common/plugins/forn-wizard/css/material-bootstrap-wizard.css'
 
 toast.configure()
 
@@ -44,6 +45,7 @@ class Createprofilepage extends React.Component {
       latitude: null,
       longitude: null,
       isGeocoding: false,
+      currentActiveTab: 0
     }
     this.handleChage = this.handleChage.bind(this);
     this.finish = this.finish.bind(this);
@@ -188,11 +190,17 @@ class Createprofilepage extends React.Component {
   // }
   notify = () => toast("Wow so easy !");
 
+  changeTab = (tab) => {
+    console.log('--------------', tab)
+    this.setState({ currentActiveTab: tab });
+  }
+
   render() {
     const state = this.state;
     console.log('this.address', this.state.address);
 
     const {
+      currentActiveTab,
       address,
       errorMessage,
       latitude,
@@ -225,18 +233,21 @@ class Createprofilepage extends React.Component {
                   <div className="wizard-container">
                     <div className="wizard-card m-0" id="wizardProfile">
                       <div className="wizard-navigation">
-                        <ul>
-                          <li><a href="#about" data-toggle="tab">About Vendor</a></li>
-                          <li><a href="#business" data-toggle="tab">About Business</a></li>
-                          <li><a href="#address" data-toggle="tab">Your Address</a></li>
+                        <ul className="nav nav-pills">
+                          <li className={`${currentActiveTab == 0 ? 'active' : ''}`}>
+                            <a href="#about" onClick={() => this.changeTab(0)}>About Vendor</a></li>
+                          <li className={`${currentActiveTab == 1 ? 'active' : ''}`}>
+                            <a href="#business" onClick={() => this.changeTab(1)} data-toggle="tab">About Business</a></li>
+                          <li className={`${currentActiveTab == 2 ? 'active' : ''}`}>
+                            <a href="#address" onClick={() => this.changeTab(2)}>Your Address</a></li>
                         </ul>
                       </div>
                       {/* <div className="headline">
                             <h3><button style={{ float: 'right' }}><span> <i className="fa fa-edit"  onClick={() => this.editBasicInfo()}></i></span></button></h3>
                           </div> */}
-                      <form onSubmit={this.finish} >
+                      <form >
                         <div className="tab-content">
-                          <div className="tab-pane" id="about">
+                          <div className={`${currentActiveTab == 0 ? 'active' : 'tab-pane'}`} id="about">
                             <div className="row">
                               <div className="col-sm-6">
                                 <div className="input-group">
@@ -276,7 +287,7 @@ class Createprofilepage extends React.Component {
 
                             </div>
                           </div>
-                          <div className="tab-pane" id="business">
+                          <div className={`${currentActiveTab == 1 ? 'active' : 'tab-pane'}`} id="business">
                             <div className="row">
                               <div className="col-sm-6">
                                 <div className="input-group">
@@ -304,7 +315,7 @@ class Createprofilepage extends React.Component {
                               </div>
                             </div>
                           </div>
-                          <div className="tab-pane" id="address">
+                          <div className={`${currentActiveTab == 2 ? 'active' : 'tab-pane'}`} id="address">
                             <div className="row">
                               <div className="col-sm-4">
                                 <div className="form-group label-floating">
@@ -336,11 +347,13 @@ class Createprofilepage extends React.Component {
                         </div>
                         <div className="wizard-footer">
                           <div className="pull-right">
-                            <input type='button' className='btn btn-next btn-fill btn-primary btn-wd m-0' name='next' value='Next' />
-                            <input type='submit' className='btn btn-finish btn-fill btn-success btn-wd m-0' name='finish' value='Finish' />
+                            {currentActiveTab === 0 || currentActiveTab === 1 ?
+                              <input type='button' className='btn btn-next btn-fill btn-primary btn-wd m-0' name='next' value='Next' onClick={() => this.changeTab(currentActiveTab + 1)} />
+                              :
+                              <input type='button' className='btn btn-finish btn-fill btn-success btn-wd m-0' style={{display : 'block'}} value='Submit' onClick={this.finish} />}
                           </div>
                           <div className="pull-left">
-                            <input type='button' className='btn btn-previous btn-fill btn-default btn-wd m-0' name='previous' value='Previous' />
+                            {currentActiveTab != 0 && <input type='button' className='btn btn-previous btn-fill btn-default btn-wd m-0' name='previous' value='Previous' onClick={() => this.changeTab(currentActiveTab - 1)} />}
                           </div>
                           <div className="clearfix"></div>
                         </div>

@@ -32,7 +32,8 @@ const chatReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 receiverId: action.payload.receiverId,
-                isChatBoxVisible: !state.isChatBoxVisible
+                isChatBoxVisible: !state.isChatBoxVisible,
+                name : action.payload.name
             }
         default:
             return {

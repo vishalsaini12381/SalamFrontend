@@ -7,6 +7,7 @@ import Loader from 'react-loader-spinner';
 
 function Detail() {
   const subCategory = useSelector(store => store.product.subCategory);
+  const productDetail = useSelector(store => store.product.productDetail);
   return (
     <section className="main-container col1-layout">
       <div className=" container">
@@ -15,7 +16,8 @@ function Detail() {
             <div className="row">
               <ul>
                 <li className="home"> <a href="/" title="Go to Home Page">Home</a><span>/</span></li>
-                <li className="category13">{subCategory}</li>
+                {/* <li className="category13">{subCategory} <span>/</span></li> */}
+                <li className="category13">{productDetail.productName}</li>
               </ul>
             </div>
           </div>

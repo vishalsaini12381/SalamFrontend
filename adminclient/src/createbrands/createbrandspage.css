@@ -7,3 +7,7 @@
 .custom-file {
 	min-width: 210px;
 }
+
+.modal-open .modal{
+	opacity: 1;
+}

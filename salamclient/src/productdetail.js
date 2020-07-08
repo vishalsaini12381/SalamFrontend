@@ -2,8 +2,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Header from './include/header.js';
-import Footer from './include/footer.js';
 import Detail from './productdetail/detail.js';
 import Similarproduct from './productdetail/similarproduct.js';
 import { fetchProductDetailAction } from './action/product.action'
@@ -35,10 +33,8 @@ class Productdetail extends React.Component {
 	render() {
 		return (
 			<div>
-				<Header />
 				<Detail/>
 				<Similarproduct />
-				<Footer />
 			</div>
 
 		);

@@ -18,6 +18,7 @@ export function cartReducer(state = initialState, action) {
         case CartFilters.CART_UPDATE_SUCCESS:
             if (action.payload.message !== undefined)
                 toast.success(action.payload.message)
+
             return {
                 ...state,
                 pending: false,

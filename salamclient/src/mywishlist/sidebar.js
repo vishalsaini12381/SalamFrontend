@@ -3,7 +3,7 @@ import React from 'react';
 import './sidebar.css';
 import axios from 'axios';
 import swal from 'sweetalert';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 const URL = process.env.REACT_APP_SERVER_URL;
 
 class Sidebar extends React.Component {
@@ -33,12 +33,12 @@ class Sidebar extends React.Component {
               <li><a href="javascript:;" onClick={() => this.props.history.push("myOrders")}>My Order</a></li>
               <li><a href="javascript:;" onClick={() => this.props.history.push("mywallet")}>My Wallet</a></li>
               <li className="current"><a href="javascript:;">My Wishlist</a></li>
-              <li><a href="javascript:;">Setting</a></li>
-              <li><a href="javascript:;">Sell With Us</a></li>
-              <li><a href="javascript:;">About Us</a></li>
-              <li><a href="javascript:;">Help & Support</a></li>
-              <li><a href="javascript:;">Privacy Policy</a></li>
-              <li><a href="javascript:;">Term & Condition</a></li>
+              {/* <li><a href="javascript:;">Setting</a></li> */}
+              {/*<li><a href="javascript:;">Sell With Us</a></li>*/}
+              {/* <li><a href="javascript:;">About Us</a></li> */}
+              <li><Link to="term-of-use">Help & Support</Link></li>
+              <li><Link to="privacy-policy">Privacy Policy</Link></li>
+              <li><Link to="term-of-use">Term & Condition</Link></li>
               <li><a href="javascript:;" onClick={this.logout.bind(this)}>Log Out</a></li>
             </ul>
           </div>

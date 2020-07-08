@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './orderdetailpage.css';
-
-
 import action from '../action/action';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -18,11 +16,11 @@ class Orderdetailpage extends React.Component {
     this.state = {
       orderId: '',
       orderDetail: [],
-      productDetail: [],
+      productDetail: {},
       userDetail: [],
       addressDetail: [],
       ordrAmount: 0,
-      orderItems : []
+      orderItems: []
     }
 
   }
@@ -34,24 +32,21 @@ class Orderdetailpage extends React.Component {
 
   fetchMyOrder() {
 
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let foo = params.get('orderId');
-
     axios.post(URL + '/api/admin/getOrderDetailAdmin', {
-      orderId: foo
+      orderId: this.props.match.params.id
     }).then((response) => {
       console.log('this.responsefdfddfdddddddddd', response.data);
 
-      if (Object.keys(response.data.data).length > 0) {
-        const orderDetail = response.data.data;
+      if (Object.keys(response.data.order).length > 0) {
+        const orderDetail = response.data.order;
 
         this.setState({
           orderDetail,
-          userDetail: orderDetail.customerId !== null ? orderDetail.customerId : {},
-          orderItems :  orderDetail.orderItems,
-          // productDetail : orderDetail.productId,
-          addressDetail: orderDetail.addressId !== null ? orderDetail.addressId : {}
+          userDetail: orderDetail.customer !== null ? orderDetail.customer[0] : {},
+          orderItems: [orderDetail.orderItems],
+          productDetail: orderDetail.product[0] || {},
+          addressDetail: orderDetail.address !== null ? orderDetail.address[0] : {},
+          totalOrderCost: orderDetail.orderItems.totalOrderItemAmount
         })
       }
 
@@ -158,7 +153,6 @@ class Orderdetailpage extends React.Component {
                   <table className="table card-table table-vcenter">
                     <tr>
                       <th className="wd-15p">Images</th>
-                      <th className="wd-15p">Category</th>
                       <th className="wd-15p">Product Name</th>
                       <th className="wd-15p">Price</th>
                       <th className="wd-15p">Quantity</th>
@@ -170,9 +164,9 @@ class Orderdetailpage extends React.Component {
 
                         return (
                           <tr>
-                            <td><img src={ item.productId ? item.productId.file1 : ''} alt="" className="h-8 w-8 bg-white" /></td>
-                            <td>{item.productId ? item.productId.productName : ''}</td>
-                            <td>{item.productId ? item.productId.productName : ''}</td>
+                            <td><img src={this.state.productDetail ? this.state.productDetail.file1 : ''} alt="" className="h-8 w-8 bg-white" /></td>
+
+                            <td>{this.state.productDetail.productName}</td>
                             <td >
                               <strong>${item.pricePerUnit}</strong>
                             </td>
@@ -197,7 +191,7 @@ class Orderdetailpage extends React.Component {
                       <tbody>
                         <tr>
                           <td>Cart Total</td>
-                          <td className="text-right">${this.state.orderDetail.totalOrderCost}</td>
+                          <td className="text-right">${this.state.totalOrderCost}</td>
                         </tr>
                         <tr>
                           <td><span>Shipping Charges</span></td>
@@ -205,7 +199,7 @@ class Orderdetailpage extends React.Component {
                         </tr>
                         <tr>
                           <td><span>Order Total</span></td>
-                          <td><h2 className="price text-right">${this.state.orderDetail.totalOrderCost + this.state.orderDetail.shippingCharges}</h2></td>
+                          <td><h2 className="price text-right">${this.state.totalOrderCost + this.state.orderDetail.shippingCharges}</h2></td>
                         </tr>
                       </tbody>
                     </table>

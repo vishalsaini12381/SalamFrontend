@@ -28,19 +28,12 @@
     font-size: 14px;
 }
 
-.sidebar .block-account .block-content li span{
-    font-size: 14px;
-    padding: 0 12px;
-    cursor: pointer;
-}
-
  .sidebar .block-content li.current {
     font-weight: 600;
     color: #126be8;
     background: #e3efff;
     border-radius: 10px;
 }
-
-.sidebar .block-content li.current a{
+ .sidebar .block-content li.current a{
     color: #126be8;
 }

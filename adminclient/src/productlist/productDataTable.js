@@ -85,7 +85,7 @@ class ProductDataTable extends Component {
     const body = [];
     state.productList.map((e, i) => {
       body.push({
-        'businesscategory': e.businesscategoryId.businesscategory,
+        'businesscategory': e.businesscategoryId && e.businesscategoryId.businesscategory ? e.businesscategoryId.businesscategory : '',
         'category': e.categoryId.category,
         'productname': e.productName,
         'price': '$' + e.productPrice,

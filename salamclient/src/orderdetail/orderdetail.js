@@ -45,7 +45,7 @@ class Orderdetail extends React.Component {
           totalOrderCost: response.data.product.totalOrderCost,
           shippingCharges: response.data.product.shippingCharges,
           orderDetail: response.data.product,
-          addressDetail : response.data.product.addressId
+          addressDetail: response.data.product.addressId
         })
       }
     })
@@ -55,36 +55,67 @@ class Orderdetail extends React.Component {
     this.setState({ show: true, singleOrderItem: item });
   };
 
-  getReturnOrderRequest(item) {
-    const data = {
-      orderId: this.state.orderDetail._id,
-      subOrderId: item._id
-    }
+  cancelOrderRequest(item) {
 
-    axios.post(`${URL}/api/user/get-return-request`, data)
-      .then((response) => {
-        if (!response.data.success) {
-          toast.error("Return request already sent", {
+    if (item.productId.isRefundable) {
+      const data = {
+        orderId: this.state.orderDetail._id,
+        subOrderId: item._id,
+        userId: this.props.userId
+      }
+
+      axios.post(`${URL}/api/user/myOrders/${this.state.orderDetail._id}/cancel-request/${item._id}`, data)
+        .then((response) => {
+
+          if (response.data.success) {
+            this.showModal(item);
+          } else {
+            toast.error(response.data.message, {
+              position: toast.POSITION.BOTTOM_RIGHT
+            }, { autoClose: 500 });
+          }
+
+        })
+        .catch(error => {
+          toast.error("Oops some issue on our end!", {
             position: toast.POSITION.BOTTOM_RIGHT
           }, { autoClose: 500 });
-        } else {
-          this.setState({ show: true, singleOrderItem: item });
-        }
-      })
-      .catch(error => {
-
-      })
+        })
+    } else {
+      toast.warn("This product is not refundable", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      }, { autoClose: 500 });
+    }
   }
 
   hideModal = () => {
     this.setState({ show: false });
   };
 
+  cancelOrder = (data) => {
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let orderId = params.get('orderId');
+
+    axios.post(`${URL}/api/user/myOrders/${orderId}/cancel/${data.subOrderId}`, { ...data, userId: this.props.userId, orderId })
+      .then((response) => {
+        toast.success(response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+        window.location.reload();
+      })
+      .catch(error => {
+        toast.error("Some error occured !", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        }, { autoClose: 500 });
+      })
+  }
+
   render() {
     return (
       <div className="row">
         {this.state.show ?
-          <Modal handleClose={this.hideModal} orderDetail={this.state.singleOrderItem} orderId={this.state.orderDetail._id} orderDate={this.state.orderDetail.orderDate}>
+          <Modal handleClose={this.hideModal} cancelOrder={this.cancelOrder} orderDetail={this.state.singleOrderItem} orderId={this.state.orderDetail._id} orderDate={this.state.orderDetail.orderDate}>
           </Modal> : null}
         <section className="col-main col-sm-9  wow bounceInUp animated cartdetail-fluid">
           <div className="category-title">
@@ -142,21 +173,20 @@ class Orderdetail extends React.Component {
                           <td>
                             <div className="price">
                               <label for="price">Status</label>
-                              <h4>{item.OrderItemStatus}</h4>
+                              <h4>{item.cancelItem ? 'Cancel Request Sent' :item.orderStatus}</h4>
                             </div>
                           </td>
 
                           <td>
-                            <div className="price">
-                              <a href="#/" onClick={() => this.getReturnOrderRequest(item)}>
-                                <h4 style={{
-                                  background: "cadetblue",
-                                  borderRadius: "10px",
-                                  textAlign: 'center',
-                                  marginTop: "34px"
-                                }}>{item.productId.isRefundable ? "Return" : "Not Returnable"}</h4>
-                              </a>
-                            </div>
+                            {
+                              !item.cancelItem ?
+
+                                <div className="action">
+                                  <label for="action">Action</label>
+                                  <button type="button" className="btn btn-warning" onClick={() => this.cancelOrderRequest(item)}>Cancel Item</button>
+                                </div> : null
+                            }
+
                           </td>
                         </tr>
                       )
@@ -166,11 +196,12 @@ class Orderdetail extends React.Component {
                 </tbody>
               </table>
 
-              <div className="Other-order-detail">
-                <div className="Other-order-detail--payment">
-                  <h4 style={{ float: 'right' }}><span>Payment Method :</span>{this.state.orderDetail.paymentType}</h4>
+              <div className="Other__Detail">
+                <div className="Other__Detail--Payment">
+                  <h4><span>Payment Method :</span>{this.state.orderDetail.paymentType}</h4>
                 </div>
               </div>
+
               {/* <h4 style={{float : 'right'}}><span>Payment Method :</span>{this.state.orderDetail.paymentType}</h4> */}
             </div>
             <div className="continueshopping">
@@ -180,11 +211,7 @@ class Orderdetail extends React.Component {
                     <a href="/"><i class="fa fa-arrow-left"></i> Continue Shopping</a>
                   </div>
                 </div>
-                <div className="col-sm-6">
-                  <div className="rightpart">
-                    <h4><span>Order Status: </span>{this.state.orderDetail.orderStatus}</h4>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>

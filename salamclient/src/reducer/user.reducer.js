@@ -8,7 +8,7 @@ const initialState = {
     message: '',
     showMessage: false,
     isLoggedIn: false,
-    authenticateState:null
+    authenticateState: null
 }
 
 export function userReducer(state = initialState, action) {
@@ -36,6 +36,11 @@ export function userReducer(state = initialState, action) {
                 error: true,
                 pending: false,
                 isLoggedIn: false
+            }
+        case UserFilters.USER_PROFILE_UPDATE:
+            return {
+                ...state,
+                ...action.payload
             }
         default:
             return state;

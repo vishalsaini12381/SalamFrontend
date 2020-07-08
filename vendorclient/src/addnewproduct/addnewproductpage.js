@@ -76,8 +76,12 @@ class Addnewproductpage extends React.Component {
     if (name === 'isRefundable')
       state[name].value = !value;
     else
-      state[name].value = value
-    this.setState(state);
+      state[name].value = value;
+
+    if (event.target.validity.valid) {
+      this.setState(state);
+    }
+
   }
 
   handleRefundChange = (event) => {
@@ -237,9 +241,9 @@ class Addnewproductpage extends React.Component {
       return false;
     }
     if (!validator.isEmpty(state.aboutProduct.value)) {
-      if (!validator.isLength(state.aboutProduct.value, 10, 1000)) {
+      if (!validator.isLength(state.aboutProduct.value, 100, 1000)) {
         state.aboutProduct.isValidate = false;
-        state.aboutProduct.message = 'Description must be of 10- 100 characters'
+        state.aboutProduct.message = 'Description must be of 100- 100 characters'
         this.setState(state);
         return false;
       }
@@ -249,7 +253,7 @@ class Addnewproductpage extends React.Component {
       this.setState(state);
       return false;
     }
-    
+
     return true;
   }
 
@@ -320,6 +324,8 @@ class Addnewproductpage extends React.Component {
             })
         }
       })
+    } else {
+      console.log('-------------->>> Validation issue');
     }
   }
 
@@ -368,30 +374,63 @@ class Addnewproductpage extends React.Component {
     console.log('object', obj);
     axios.post(URL + '/api/vendor/fetchSpecification', obj).then((response) => {
       console.log('response', response.data.doc);
+
+      let specList = [];
+      let defaultSpec = {}
+
+      if (Array.isArray(response.data.doc)) {
+        let tempSpecList = response.data.doc;
+        specList = tempSpecList.map(specItem => {
+          const fieldType = specItem.fieldType;
+          if (fieldType == 'Radio' && Array.isArray(specItem.fieldValue) && specItem.fieldValue.length > 0) {
+            let [firstObject, ...restObj] = specItem.fieldValue;
+            firstObject = { ...firstObject, defaultSelected: true };
+            specItem.fieldValue = [firstObject, ...restObj];
+            defaultSpec = { value: firstObject.fieldValue, key: specItem.fieldName };
+          }
+          return specItem;
+        })
+      }
       this.setState({
-        specificationList: response.data.doc
+        specificationList: specList,
+        specification: defaultSpec ? [defaultSpec] : []
       })
     })
   }
 
   hadleChangeSize(e, i) {
-    if (e.target.checked) {
+
+    if (e.target.type == 'radio') {
       this.setState({
-        specification: [...this.state.specification, {
+        specification: [{
           'key': e.target.name,
           'value': e.target.value,
         }]
       });
-      console.log('fruits', this.state.specification);
     } else {
-      let remove = this.state.specification.indexOf(e.target.value);
-      this.setState({
-        specification: this.state.specification.filter((_, i) => i !== remove)
-      },
-        () => {
-          console.log('fruits', this.state.specification);
+      if (e.target.checked) {
+        const obj = this.state.specification.find(item => item.key == e.target.name && item.value == e.target.value);
+        if (!obj) {
+          this.setState({
+            specification: [...this.state.specification, {
+              'key': e.target.name,
+              'value': e.target.value,
+            }]
+          }, () => {
+            console.log('fruits', obj, this.state.specification);
+          });
         }
-      );
+
+      } else {
+        const specArray = this.state.specification.filter(item => !(item.key == e.target.name && item.value == e.target.value));
+        this.setState({
+          specification: specArray
+        },
+          () => {
+            console.log('fruits', this.state.specification);
+          }
+        );
+      }
     }
   }
 
@@ -506,12 +545,12 @@ class Addnewproductpage extends React.Component {
                                 {e.fieldValue.map((r, s) => {
                                   return (
                                     <React.Fragment key={s} >
-                                      <input type={e.fieldType} name={e.fieldName} value={r.fieldValue} onClick={() => this.newSize()}
+                                      <input type={e.fieldType} defaultChecked={r.defaultSelected} name={e.fieldName} value={r.fieldValue} onClick={() => this.newSize()}
                                         onChange={this.hadleChangeSize.bind(this)}
                                       />
                                       &nbsp;
-                              <label >  {r.fieldValue} </label> &nbsp;
-                              </React.Fragment>
+                                      <label >  {r.fieldValue} </label> &nbsp;
+                                    </React.Fragment>
                                   )
                                 })}
                               </div>
@@ -545,7 +584,7 @@ class Addnewproductpage extends React.Component {
                     <div className="col-md-6 col-lg-6">
                       <div className="form-group">
                         <label className="form-label">Product Price ($) </label>
-                        <input type="number" className="form-control" name="productPrice" min="1"
+                        <input type="number" className="form-control" name="productPrice" min="0"
                           // min="1" max="100"
                           value={state.productPrice.value} onChange={this.handleChange} />
                         <div style={{ fontSize: 13, color: "red" }}>
@@ -556,7 +595,7 @@ class Addnewproductpage extends React.Component {
                     <div className="col-md-6 col-lg-6">
                       <div className="form-group">
                         <label className="form-label">Total Quantity </label>
-                        <input type="number" className="form-control" name="quantity" min="1" value={state.quantity.value} onChange={this.handleChange} />
+                        <input type="number" className="form-control" name="quantity" min="0" value={state.quantity.value} onChange={this.handleChange} />
                         <div style={{ fontSize: 13, color: "red" }}>
                           {state.quantity.message}
                         </div>
@@ -565,7 +604,7 @@ class Addnewproductpage extends React.Component {
                     <div className="col-md-6 col-lg-6">
                       <div className="form-group">
                         <label className="form-label">Total Discount (%)</label>
-                        <input type="number" className="form-control" name="discount" min="1" max="100" value={state.discount.value} onChange={this.handleChange} />
+                        <input type="number" className="form-control" name="discount" min="0" max="100" value={state.discount.value} onChange={this.handleChange} />
                         <div style={{ fontSize: 13, color: "red" }}>
                           {state.discount.message}
                         </div>

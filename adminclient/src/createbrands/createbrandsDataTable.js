@@ -141,6 +141,7 @@ class BrandDataTable extends Component {
   render() {
     const header = [
       { title: 'Brand', prop: 'brand', sortable: true, filterable: true },
+      { title: 'Image', prop: 'image', sortable: false, filterable: false },
       { title: 'Action', prop: 'action', sortable: true, filterable: true },
     ];
 
@@ -149,16 +150,16 @@ class BrandDataTable extends Component {
     state.brandList.map((e, i) => {
       body.push({
         'brand': e.brandName,
-        'action': <div className="actiontrans" >
+        'image': <img src={e.file} alt="Brand--Thumbnail" style={{ width: '60px', height: '60px' }} />
+        ,
+        'action': <div className="actiontrans" style={{ display: 'flex', justifyContent: 'space-evenly' }}>
           <Link to="#" onClick={() => this.toggle(e)}>
             <i className="fa fa-edit"></i>
           </Link>
           <Link to="#" onClick={this.deleteBrand.bind(this, e._id)}>
             <i className="fa fa-trash"></i>
           </Link>
-          <div style={{'display': 'inline-block','marginLeft': '18px'}}>
-            <img src={e.file} alt="Brand--Thumbnail" style={{ width: '20px', height: '20px' }} />
-          </div>
+
         </div>
       });
     })

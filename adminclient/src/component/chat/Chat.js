@@ -10,7 +10,7 @@ function Chat(props) {
     const messageList = useSelector(state => state.chatUi.messageList);
     const senderId = useSelector(state => state.inititateState.userId);
     const receiverId = useSelector(state => state.chatUi.receiverId);
-    const senderName = useSelector(state => state.inititateState.name);
+    const senderName = useSelector(state => state.chatUi.name);
     const isChatBoxVisible = useSelector(state => state.chatUi.isChatBoxVisible);
     const [message, setMessage] = useState('');
     const messagesEndRef = useRef(null)
@@ -61,7 +61,7 @@ function Chat(props) {
             <div className="modal-content">
                 <div className="modal-header">
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 className="modal-title" id="myModalLabel"><i className="fa fa-comments" /> Admin</h4>
+                    <h4 className="modal-title" id="myModalLabel"><i className="fa fa-comments" /> {senderName}</h4>
                 </div>
                 <div className="modal-body">
                     <div className="messegebox">

@@ -154,7 +154,7 @@ class Createsubcategorypage extends React.Component {
                 </div>
               </form>
             </div>
-            <div className="col-md-7 col-lg-7">
+            <div className="col-md-12 col-lg-12">
               <div className="card">
                 <div className="card-body">
                   <div className="table-responsive">

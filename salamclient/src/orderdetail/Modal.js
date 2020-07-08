@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import './modal.css'
-const URL = process.env.REACT_APP_SERVER_URL;
 
 export default class Modal extends Component {
 
@@ -39,7 +37,12 @@ export default class Modal extends Component {
       const aStart = moment();
       const bEnd = moment(this.state.orderDate);
       if (aStart.diff(bEnd, 'days') < this.state.daysToReturn) {
-        this.sendRequestForRefund();
+        let data = {
+          orderId: this.state.orderId,
+          subOrderId: this.state.orderDetail._id,
+          customerComment: this.state.comment
+        }
+        this.props.cancelOrder(data);
       } else {
         toast.error("Refund time is expired", {
           position: toast.POSITION.BOTTOM_RIGHT
@@ -61,26 +64,6 @@ export default class Modal extends Component {
     })
   }
 
-  sendRequestForRefund = () => {
-    let data = {
-      orderId: this.state.orderId,
-      subOrderId: this.state.orderDetail._id,
-      customerComment: this.state.comment
-    }
-    axios
-      .post(URL + '/api/user/return-request', data)
-      .then((response) => {
-        toast.success("Your request for refund is sent !", {
-          position: toast.POSITION.BOTTOM_RIGHT
-        }, { autoClose: 500 });
-        this.props.handleClose();
-      })
-      .catch(error => {
-        toast.error("Some error occured !", {
-          position: toast.POSITION.BOTTOM_RIGHT
-        }, { autoClose: 500 });
-      })
-  }
 
 
   render() {
@@ -105,7 +88,7 @@ export default class Modal extends Component {
                     onChange={this.handleComment}
                     placeholder="Enter comment" value={this.state.customerComment}></textarea>
                 </div>
-                <button type="button" class="btn btn-primary" onClick={() => this.requestRefund()} >Request Refund</button>
+                <button type="button" class="btn btn-primary" onClick={() => this.requestRefund()} >Cancel order and Request Refund</button>
               </div> :
               <h3>Item is not refundable</h3>
             }

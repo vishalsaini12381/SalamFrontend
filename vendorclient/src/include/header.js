@@ -9,18 +9,18 @@ import './header.css';
 const URL = process.env.REACT_APP_SERVER_URL;
 
 function Header(props) {
+	const dispatch = useDispatch();
 	const [state, setStatus] = useState([]);
-	const [isDropdownMenuVisible, toggleDropdownMenu] = useState(false);
 	const [adminStatus, setAdminStatus] = useState('Verify');
 	const [isChatBoxVisible, setChatBoxVisiblity] = useState(false);
+	const [isDropdownMenuVisible, toggleDropdownMenu] = useState(false);
 	const { authenticateState, userId, name, type, image } = useSelector(state => state.inititateState)
 
-	const dispatch = useDispatch();
-
 	const showChatBox = (event) => {
+		event.stopPropagation();
 		const chatModalEl = $('.modal-dialog')[0];
 		const hoveredEl = event.target;
-		if (!$.contains(chatModalEl, hoveredEl)) {
+		if (!$.contains(chatModalEl, hoveredEl) || $(event.target).hasClass('close')) {
 			setChatBoxVisiblity(isChatBoxVisible ? false : true);
 		}
 	}
@@ -48,7 +48,7 @@ function Header(props) {
 		axios.post(URL + '/api/vendor/userStatus', obj).then((response) => {
 			console.log('response', response);
 			if (response.data.status == "Verify") {
-				window.location.href = '/Addnewproduct';
+				props.history.push("/Addnewproduct");
 			} else {
 				alert(response.data.message)
 				// window.location = '/Dashboard'
@@ -75,7 +75,7 @@ function Header(props) {
 								<a href="#" className="nav-link pr-0 leading-none" data-toggle="dropdown">
 									<span className="userimage"> <img src={image === null ? "images/defaultImg.png" : image} /> </span>
 								</a>
-								<div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style={{ display : isDropdownMenuVisible ? 'block' : 'none'}}>
+								<div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style={{ display : isDropdownMenuVisible ? 'block' : 'none' , margin: '0px -200px'}}>
 									<div className="text-center">
 										<a href="#" className="dropdown-item text-center font-weight-sembold user">{name}</a>
 										<span className="text-center user-semi-title text-dark">{type}</span>
@@ -115,7 +115,7 @@ function Header(props) {
 							<div className="sub-item">
 								<ul>
 									<li>
-										<a href="/Orderlist">Order List </a>
+										<Link to="/Orderlist">Order List </Link>
 									</li>
 								</ul>
 							</div>
@@ -127,7 +127,7 @@ function Header(props) {
 							<div className="sub-item">
 								<ul>
 									<li>
-										<a href="/Productlist">Product List</a>
+										<Link to="/Productlist">Product List</Link>
 									</li>
 									<li>
 										<a onClick={handleClick}>  Add New Product </a>
