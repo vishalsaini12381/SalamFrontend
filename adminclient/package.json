@@ -13,7 +13,7 @@
     "jwt-decode": "^2.2.0",
     "mdbreact": "^4.21.0",
     "moment": "^2.24.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "react": "^16.10.2",
     "react-bs-datatable": "^1.2.8",
     "react-data-table-component": "^3.5.1",
